@@ -2,7 +2,7 @@
 const electron = require('electron');
 const app = electron.app;  // Module to control application life.
 const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
-const ipc = require('electron').ipcMain;
+//const ipc = require('electron').ipcMain;
 //const updater = require('electron-updater');
 
 require('electron-debug')({
@@ -12,7 +12,7 @@ require('electron-debug')({
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
-let preferencesWindow;
+//let preferencesWindow;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -26,14 +26,14 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
 
   //updater.on('ready', function() {
-    mainWindow = new BrowserWindow({width: 800, height: 600});
-    mainWindow.loadURL('file://' + __dirname + '/index.html');
-    mainWindow.on('closed', function() {
-      // Dereference the window object, usually you would store windows
-      // in an array if your app supports multi windows, this is the time
-      // when you should delete the corresponding element.
-      mainWindow = null;
-    });
+  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.on('closed', function() {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    mainWindow = null;
+  });
   //});
 
   //updater.on('updateRequired', function() {
@@ -46,20 +46,20 @@ app.on('ready', function() {
   //  }
   //});
 
-  preferencesWindow = new BrowserWindow({
-    width: 400,
-    height: 400,
-    show: false
-  });
-  preferencesWindow.loadURL('file://' + __dirname + '/preferences.html');
-
-  ipc.on('toggle-preferences', function() {
-    if(preferencesWindow.isVisible()) {
-      preferencesWindow.hide();
-    }
-    else {
-      preferencesWindow.show();
-    }
-  });
+  //preferencesWindow = new BrowserWindow({
+  //  width: 400,
+  //  height: 400,
+  //  show: false
+  //});
+  //preferencesWindow.loadURL('file://' + __dirname + '/preferences.html');
+  //
+  //ipc.on('toggle-preferences', function() {
+  //  if(preferencesWindow.isVisible()) {
+  //    preferencesWindow.hide();
+  //  }
+  //  else {
+  //    preferencesWindow.show();
+  //  }
+  //});
   //updater.start();
 });
