@@ -1,0 +1,41 @@
+{
+  "name": "opensprints-electron",
+  "version": "1.0.0",
+  "description": "OpenSprints event application.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ./app/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/opensprints/opensprints-electron.git"
+  },
+  "keywords": [
+    "Electron",
+    "OpenSprints"
+  ],
+  "author": {
+    "name": "Nick Stewart",
+    "email": "nick.stewart.programmer@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/opensprints/opensprints-electron/issues"
+  },
+  "homepage": "https://github.com/opensprints/opensprints-electron#readme",
+  "devDependencies": {
+    "electron-debug": "^0.5.1",
+    "electron-prebuilt": "^0.36.0"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "commander": "^2.9.0",
+    "electron-updater": "^0.2.3",
+    "electron-updater-tools": "^0.3.2",
+    "gulp": "^3.9.0",
+    "gulp-run-electron": "^1.2.2",
+    "jquery": "^2.2.0",
+    "material-design-icons": "^2.1.3",
+    "mithril": "^0.2.0"
+  }
+}

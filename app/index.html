@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles/index.css">
+  </head>
+  <body>
+    <script>jQuery = require("./node_modules/jquery/dist/jquery.js")</script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js" type="application/javascript"></script>
+    <script>require('./index.js')</script>
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button"
+                data-toggle="collapse" data-target="#bs-navbar"
+                aria-controls="bs-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <i class="material-icons">menu</i>
+        </button>
+      </div>
+      <nav id="bs-navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="default-settings.html">default settings</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container">
+      <h1>Hello World!</h1>
+      <i class="material-icons">tag_faces</i>
+      We are using node <script>document.write(process.versions.node)</script>,
+      Chrome <script>document.write(process.versions.chrome)</script>,
+      and Electron <script>document.write(process.versions.electron)</script>.
+    </div>
+  </body>
+</html>
