@@ -3,7 +3,9 @@ var m = require('mithril');
 //var ipc = require('electron').ipcRenderer;
 //var Menu = remote.require('menu');
 var serial = require('./lib/serial');
-var header = require('./header');
+var Header = require('./header');
+var DefaultSettings = require('./default-settings');
+var Roster = require('./roster');
 
 serial.findArduino(function(serialPort) {
   // TODO: notify that a new Arduino device has been detected.
@@ -31,14 +33,23 @@ serial.findArduino(function(serialPort) {
 
 //Menu.setApplicationMenu(menu);
 
-m.mount(document.body, {
+m.route.mode = 'pathname';
+
+var index = {
   view: function() {
     return m('', [
-      m.component(header),
+      m.component(Header),
       m('.container', [
         m('h1', 'Hello World!'),
         m('i.material-icons', 'tag_faces')
       ])
     ]);
   }
-})
+}
+
+m.route(document.body, '/', {
+  '/': index,
+  '/default-settings': DefaultSettings,
+  '/roster': Roster
+});
+

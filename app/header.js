@@ -4,18 +4,22 @@ module.exports = {
   controller: function(){
     this.appNav = [
       {
-        href: 'index.html',
+        href: '/',
         label: 'home'
       },
       {
-        href: 'default-settings.html',
+        href: '/roster',
+        label: 'roster'
+      },
+      {
+        href: '/default-settings',
         label: 'default settings'
       }
     ];
   },
   view: function(ctrl) {
     return m('.container', [
-      m('img.logo', {src: './styles/logo_with_text.png'}),
+      m('img.logo', {src: __dirname + '/styles/logo_with_text.png'}),
       m('.navbar-header', [
         m('button', {
           className: 'navbar-toggle',
@@ -36,7 +40,7 @@ module.exports = {
         m('ul.nav.navbar-nav', [
           ctrl.appNav.map(function(navElem){
             return m('li', [
-              m('a[href=' + navElem.href + ']', navElem.label)
+              m('a[href=' + navElem.href + ']', {config: m.route}, navElem.label)
             ]);
           })
         ])

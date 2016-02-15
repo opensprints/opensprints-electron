@@ -94,4 +94,4 @@ var defaultSettings = {
   }
 };
 
-m.mount(document.body, defaultSettings);
+module.exports = defaultSettings;
