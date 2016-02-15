@@ -1,4 +1,5 @@
-var m = require('mithril')
+var m = require('mithril');
+var header = require('./header');
 
 // TODO wrap this view in main layout
 // TODO test local storage
@@ -6,88 +7,91 @@ var m = require('mithril')
 var defaultSettings = {
   controller: function() {
     this.circumference = function() {
-      return '42,000,000 KM'
-    }
+      return '42,000,000 KM';
+    };
   },
   view: function(ctrl) {
-    return m('.container', [
-      m('h4', 'Default Settings'),
-      m('.row', [
-        m('.col-xs-12 col-sm-6', [
-          m('.input-group inline',
-            m('label', [
-              'Number of Bikes ',
-              m('select', [
-                m('option', 2),
-                m('option', 4)
+    return m('.container-fluid', [
+      m.component(header),
+      m('.container', [
+        m('h4', 'Default Settings'),
+        m('.row', [
+          m('.col-xs-12 col-sm-6', [
+            m('.input-group inline',
+              m('label', [
+                'Number of Bikes ',
+                m('select', [
+                  m('option', 2),
+                  m('option', 4)
+                ])
               ])
-            ])
-          )
+            )
+          ]),
+          m('.col-xs-12 col-sm-6', [
+            m('.input-group inline',
+              m('label', [
+                'Distance/Speed Units ',
+                m('select', [
+                  m('option', 'US'),
+                  m('option', 'Metric')
+                ])
+              ])
+            )
+          ])
         ]),
-        m('.col-xs-12 col-sm-6', [
-          m('.input-group inline',
-            m('label', [
-              'Distance/Speed Units ',
+        m('.row', [
+          m('.col-xs-12 col-sm-6', [
+            m('.input-group inline', [
+              m('label', [
+                'Roller Diameter ',
+                m('input', {type: 'text'})
+              ]),
               m('select', [
-                m('option', 'US'),
-                m('option', 'Metric')
+                m('option', 'in'),
+                m('option', 'cm')
               ])
             ])
-          )
-        ])
-      ]),
-      m('.row', [
-        m('.col-xs-12 col-sm-6', [
-          m('.input-group inline', [
-            m('label', [
-              'Roller Diameter ',
-              m('input', {type: 'text'})
-            ]),
-            m('select.input-group-addon', [
-              m('option', 'in'),
-              m('option', 'cm')
+          ]),
+          m('.col-xs-12 col-sm-6', [
+            m('.input-group inline', [
+              m('label', [
+                'Race Distance ',
+                m('input', {type: 'number'})
+              ])
             ])
           ])
         ]),
-        m('.col-xs-12 col-sm-6', [
-          m('.input-group inline', [
-            m('label', [
-              'Race Distance ',
-              m('input', {type: 'number'})
-            ])
+        m('.row', [
+          m('.col-xs-12 col-sm-6', [
+            m('.input-group inline',
+              m('label.control-label', [
+                'Circumference ',
+                m('span', ctrl.circumference())
+              ])
+            )
+          ]),
+          m('.col-xs-12 col-sm-6', [
+            m('.input-group inline',
+              m('label.control-label', [
+                'Time Display ',
+                m('span', '????')
+              ])
+            )
           ])
-        ])
-      ]),
-      m('.row', [
-        m('.col-xs-12 col-sm-6', [
-          m('.input-group inline',
-            m('label.control-label', [
-              'Circumference ',
-              m('span', ctrl.circumference())
-            ])
-          )
         ]),
-        m('.col-xs-12 col-sm-6', [
-          m('.input-group inline',
-            m('label.control-label', [
-              'Time Display ',
-              m('span', '????')
-            ])
-          )
-        ])
-      ]),
-      m('.row', [
-        m('.col-xs-12', [
-          m('.input-group',
-            m('label.control-label', [
-              'Winner\'s Message (max 25 characters) ',
-              m('input', {type: 'text'})
-            ])
-          )
+        m('.row', [
+          m('.col-xs-12', [
+            m('.input-group',
+              m('label.control-label', [
+                'Winner\'s Message (max 25 characters) ',
+                m('input', {type: 'text'})
+              ])
+            )
+          ])
         ])
       ])
-    ])
+    ]);
   }
-}
+};
 
-m.mount(document.body, defaultSettings)
+m.mount(document.body, defaultSettings);

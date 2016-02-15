@@ -36,3 +36,9 @@
     /* Support for IE. */
     font-feature-settings: 'liga';
 }
+
+.logo {
+    width: 160px;
+    height: 67px;
+    float: left;
+}
