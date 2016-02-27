@@ -41,5 +41,6 @@ gulp.task('start-electron', function() {
 });
 
 gulp.watch('app/*', [runElectron.rerun]);
+gulp.watch('styles/*', [runElectron.rerun]);
 gulp.task('build', ['copy-app', 'copy-styles', 'copy-bootstrap', 'copy-jquery', 'copy-material-icons']);
 gulp.task('default', ['build', 'start-electron']);
