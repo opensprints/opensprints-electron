@@ -6,6 +6,7 @@ var m = require('mithril');
 var Header = require('./header');
 var DefaultSettings = require('./default-settings');
 var Roster = require('./roster');
+var QuickRace = require('./quick-race');
 
 //serial.findArduino(function(serialPort) {
 //  serialPort.on('data', function(data) {
@@ -52,7 +53,8 @@ var index = {
       m.component(Header),
       m('.container', [
         m('h1', 'Hello World!'),
-        m('i.material-icons', 'tag_faces')
+        m('i.material-icons', 'tag_faces'),
+        m.component(QuickRace)
       ])
     ]);
   }
