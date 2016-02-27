@@ -24,10 +24,27 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function() {
+  var path = require('path');
+  var fs = require('fs');
+  var initPath = path.join(app.getPath('appData'), 'init.json');
+  var data;
+  try {
+    data = JSON.parse(fs.readFileSync(initPath, 'utf8'));
+  }
+  catch (e){
+    //something
+  }
 
-  //updater.on('ready', function() {
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  // TODO: figure out how updater is going to work
+  mainWindow = new BrowserWindow((data && data.bounds) ? data.bounds : {width: 800, height: 600, x: 0, y: 0});
   mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.on('close', function() {
+    var data = {
+      bounds: mainWindow.getBounds()
+    };
+    fs.writeFileSync(initPath, JSON.stringify(data));
+  });
+
   mainWindow.on('closed', function() {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
