@@ -2,18 +2,29 @@ var m = require('mithril');
 //var remote = require('remote');
 //var ipc = require('electron').ipcRenderer;
 //var Menu = remote.require('menu');
-var serial = require('./lib/serial');
+//var serial = require('./lib/serial');
 var Header = require('./header');
 var DefaultSettings = require('./default-settings');
 var Roster = require('./roster');
 
-serial.findArduino(function(serialPort) {
+//serial.findArduino(function(serialPort) {
+//  serialPort.on('data', function(data) {
+//    console.log(data);
+//  });
+//  serialPort.open(function(){
+//    serialPort.write('g\n', function(err, result) {
+//      console.log(result);
+//      serialPort.drain(function() {
+//        console.log('hello!');
+//      });
+//    });
+//  });
+
   // TODO: notify that a new Arduino device has been detected.
   // We have the arduino port!
-  console.log('MEGA-GIGA-BYTE SON!');
+  //console.log('MEGA-GIGA-BYTE SON!');
   // TODO: What do we do with it?
-  console.log(serialPort);
-});
+//});
 
 //var menu = Menu.buildFromTemplate([
 //  {
