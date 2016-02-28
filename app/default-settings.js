@@ -2,9 +2,6 @@ var m = require('mithril');
 var header = require('./header');
 var DefaultSettings = require('./models/default-settings');
 
-// TODO wrap this view in main layout
-// TODO test local storage
-// TODO abstract storage away from any specific page or component
 var defaultSettings = {
   controller: function() {
     this.settings = DefaultSettings.get();
