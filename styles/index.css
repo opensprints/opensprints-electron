@@ -43,6 +43,9 @@
     float: left;
 }
 
-.solid-box {
+.bg-grey-300 {
     background-color: #E0E0E0;
+    margin-bottom: 32px;
 }
+
+/* TODO: Need to make sure sizing for all elements follows material design spec (making touch targets easy to hit) */
