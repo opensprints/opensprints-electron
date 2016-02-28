@@ -26,7 +26,7 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
   var path = require('path');
   var fs = require('fs');
-  var initPath = path.join(app.getPath('appData'), 'init.json');
+  var initPath = path.join(app.getPath('userData'), 'init.json');
   var data;
   try {
     data = JSON.parse(fs.readFileSync(initPath, 'utf8'));
