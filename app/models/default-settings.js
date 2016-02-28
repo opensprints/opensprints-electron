@@ -27,6 +27,11 @@ var DefaultSettings = (function() {
     );
     return DefaultSettings.cache;
   };
+
+  DefaultSettings.prototype.save = function() {
+    Cache.set('settings', this);
+  };
+
   return DefaultSettings;
 })();
 module.exports = DefaultSettings;
