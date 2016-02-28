@@ -52,8 +52,6 @@ var index = {
     return m('', [
       m.component(Header),
       m('.container', [
-        m('h1', 'Hello World!'),
-        m('i.material-icons', 'tag_faces'),
         m.component(QuickRace)
       ])
     ]);
