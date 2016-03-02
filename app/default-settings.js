@@ -46,6 +46,14 @@ var defaultSettings = {
         value: 'email'
       }
     ];
+    this.toggleRacerOption = function(event) {
+      var index = this.settings.racerInfo.indexOf(event.target.value);
+      if(index !== -1) {
+        this.settings.racerInfo.splice(index, 1);
+      } else {
+        this.settings.racerInfo.push(event.target.value);
+      }
+    };
   },
   view: function(ctrl) {
     return m('.container-fluid', [
@@ -121,8 +129,9 @@ var defaultSettings = {
                   return m('.checkbox', [
                     m('label', [
                       m('input[type=checkbox]', {
-                        value: option.value
-                        // TODO: onclick should toggle the value in an array in the settings being saved
+                        value: option.value,
+                        checked: ctrl.settings.racerInfo.indexOf(option.value) !== -1 ? 'checked' : '',
+                        onchange: ctrl.onChange(ctrl.toggleRacerOption.bind(ctrl))
                       }),
                       option.label
                     ])
@@ -136,8 +145,9 @@ var defaultSettings = {
                   return m('.checkbox', [
                     m('label', [
                       m('input[type=checkbox]', {
-                        value: option.value
-                        // TODO: onclick should toggle the value in an array in the settings being saved
+                        value: option.value,
+                        checked: ctrl.settings.racerInfo.indexOf(option.value) !== -1 ? 'checked' : '',
+                        onchange: ctrl.onChange(ctrl.toggleRacerOption.bind(ctrl))
                       }),
                       option.label
                     ])
