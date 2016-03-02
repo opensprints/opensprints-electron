@@ -120,6 +120,15 @@ var defaultSettings = {
               ])
             ]),
 
+            m('.row', [
+              m('.input-group.inline', [
+                m('label', [
+                  'Race Distance ',
+                  m('input', {type: 'number'})
+                ])
+              ])
+            ]),
+
             m('.row', m('label', 'Racer Roster Options')),
             m('.row', [
               m('.col-sm-6', [
@@ -153,15 +162,6 @@ var defaultSettings = {
                     ])
                   ]);
                 })
-              ])
-            ]),
-
-            m('.row', [
-              m('.input-group.inline', [
-                m('label', [
-                  'Race Distance ',
-                  m('input', {type: 'number'})
-                ])
               ])
             ])
           ])
