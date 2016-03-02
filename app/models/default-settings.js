@@ -8,7 +8,8 @@ var defaults = {
   raceDistance: 200,
   timeDisplay: '',
   winnerMessage: '',
-  falseStartMessage: ''
+  falseStartMessage: '',
+  racerInfo: []
 };
 
 var DefaultSettings = (function() {
@@ -18,6 +19,7 @@ var DefaultSettings = (function() {
     this.rollerDiameter = data.rollerDiameter || defaults.rollerDiameter;
     this.rollerUnits = data.rollerUnits || defaults.rollerUnits;
     this.raceDistance = data.raceDistance || defaults.raceDistance;
+    this.racerInfo = data.racerInfo || defaults.racerInfo;
 
   }
 

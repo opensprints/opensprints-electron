@@ -19,8 +19,32 @@ var defaultSettings = {
 
     this.bikeOptions = [2, 4];
     this.unitsOfMeasureOptions = [
-      {label: 'US', value: 'us'},
-      {label: 'Metric', value: 'metric'}
+      {
+        label: 'US',
+        value: 'us'
+      },
+      {
+        label: 'Metric',
+        value: 'metric'
+      }
+    ];
+    this.racerInfo = [
+      {
+        label: 'Sex',
+        value: 'gender'
+      },
+      {
+        label: 'Racer Level',
+        value: 'tier'
+      },
+      {
+        label: 'Phone Number',
+        value: 'phoneNumber'
+      },
+      {
+        label: 'Email',
+        value: 'email'
+      }
     ];
   },
   view: function(ctrl) {
@@ -85,6 +109,40 @@ var defaultSettings = {
                     }, option.label);
                   }))
                 ])
+              ])
+            ]),
+
+            m('.row', m('label', 'Racer Roster Options')),
+            m('.row', [
+              m('.col-sm-6', [
+                ctrl.racerInfo.filter(function(_, index, arr) {
+                  return index < arr.length/2;
+                }).map(function(option) {
+                  return m('.checkbox', [
+                    m('label', [
+                      m('input[type=checkbox]', {
+                        value: option.value
+                        // TODO: onclick should toggle the value in an array in the settings being saved
+                      }),
+                      option.label
+                    ])
+                  ]);
+                })
+              ]),
+              m('.col-sm-6', [
+                ctrl.racerInfo.filter(function(_, index, arr) {
+                  return index >= arr.length/2;
+                }).map(function(option) {
+                  return m('.checkbox', [
+                    m('label', [
+                      m('input[type=checkbox]', {
+                        value: option.value
+                        // TODO: onclick should toggle the value in an array in the settings being saved
+                      }),
+                      option.label
+                    ])
+                  ]);
+                })
               ])
             ]),
 
