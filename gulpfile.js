@@ -1,13 +1,19 @@
 var gulp = require('gulp'),
+  sass = require('gulp-sass'),
   path = require('path'),
   runElectron = require('gulp-run-electron');
 
 var releaseDir = 'release';
 var releaseAppDir = path.join(releaseDir, 'app');
 
-gulp.task('copy-styles', function() {
+gulp.task('copy-assets', function() {
+  return gulp.src('images/**/*')
+    .pipe(gulp.dest(path.join(releaseAppDir, 'styles')));
+});
+gulp.task('sass', function() {
   return gulp
     .src('styles/**/*')
+    .pipe(sass())
     .pipe(gulp.dest(path.join(releaseAppDir, 'styles')));
 });
 
@@ -42,5 +48,5 @@ gulp.task('start-electron', function() {
 
 gulp.watch('app/*', [runElectron.rerun]);
 gulp.watch('styles/*', [runElectron.rerun]);
-gulp.task('build', ['copy-app', 'copy-styles', 'copy-bootstrap', 'copy-jquery', 'copy-material-icons']);
+gulp.task('build', ['copy-app', 'copy-assets', 'sass', 'copy-bootstrap', 'copy-jquery', 'copy-material-icons']);
 gulp.task('default', ['build', 'start-electron']);
