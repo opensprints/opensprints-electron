@@ -1,5 +1,16 @@
-$teal: #017DA5;
-$light-teal: #6DD2F5;
+$med-blue: #0079A1;
+$light-blue: #6FDCFF;
+
+$yellow: #FCCC06;
+
+$red: #881212;
+$violet: #2521C2;
+$purple: #7C2B9A;
+$green: #1F7C46;
+
+body {
+  font-family: 'Lato', sans-serif;
+}
 
 
 @font-face {
@@ -39,6 +50,12 @@ $light-teal: #6DD2F5;
 
   /* Support for IE. */
   font-feature-settings: 'liga';
+}
+
+.round-btn {
+  border-radius: 25px;
+  border: 2px solid $yellow;
+  padding: 12px 20px;
 }
 
 .logo {

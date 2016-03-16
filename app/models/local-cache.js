@@ -1,4 +1,4 @@
-var moment =    require('moment');
+var moment = require('moment');
 
 var Cache = {
   reset: function() {
