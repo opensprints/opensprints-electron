@@ -56,6 +56,13 @@ body {
   border-radius: 25px;
   border: 2px solid $yellow;
   padding: 12px 20px;
+  color: $yellow;
+}
+
+.solid-round-btn {
+  @extend .round-btn;
+  color: #000000;
+  background-color: $yellow;
 }
 
 .logo {

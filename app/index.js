@@ -52,11 +52,13 @@ var index = {
     return m('', [
       m.component(Header),
       m('.container', [
-        m.component(QuickRace)
+        m.component(QuickRace),
+        m('.btn.round-btn', 'Race Again'),
+        m('.btn.solid-round-btn', 'Next Race')
       ])
     ]);
   }
-}
+};
 
 m.route(document.body, '/', {
   '/': index,
