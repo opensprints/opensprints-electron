@@ -1,4 +1,5 @@
-var m = require('mithril');
+var m        = require('mithril');
+var DropDown = require('./drop-down');
 
 module.exports = {
   controller: function(){
@@ -20,28 +21,14 @@ module.exports = {
   view: function(ctrl) {
     return m('.container', [
       m('img.logo', {src: __dirname + '/styles/logo_with_text.png'}),
-      m('.navbar-header', [
-        m('button', {
-          className: 'navbar-toggle',
-          type: 'button',
-          'data-toggle': 'collapse',
-          'data-target': '#bs-navbar',
-          'aria-controls': 'bs-navbar',
-          'aria-expanded': 'false'
-        }, [
-          m('span.sr-only', 'Toggle navigation'),
-          m('i.material-icons', 'menu')
-        ])
-      ]),
-      m('nav', {
-        id: 'bs-navbar',
-        className: 'collapse navbar-collapse'
-      }, [
-        m('ul.nav.navbar-nav', [
-          ctrl.appNav.map(function(navElem){
-            return m('li', [
-              m('a[href=' + navElem.href + ']', {config: m.route}, navElem.label)
-            ]);
+      m('.pull-right', [
+        m.component(DropDown, [
+          m('.nav-icon', [
+            m('i.material-icons', 'menu')
+          ])
+        ], [
+          ctrl.appNav.map(function(navLink) {
+            return m('a[href=' + navLink.href + ']', {config: m.route}, navLink.label);
           })
         ])
       ])

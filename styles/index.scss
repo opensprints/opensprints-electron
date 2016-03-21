@@ -69,4 +69,45 @@ body {
   margin-bottom: 32px;
 }
 
+.nav-icon {
+  cursor: pointer;
+  padding: 12px;
+}
+
+.drop-down-container {
+  position: relative;
+  display: inline-block;
+  .drop-down {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    background: black;
+    z-index: 1000;
+    min-width: 150px;
+    .list {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      display: block;
+      a {
+        display: block;
+        text-align: right;
+        margin: 0;
+        width: 100%;
+        padding: 16px 20px 16px;
+        float: none;
+        line-height: 0;
+        cursor: pointer;
+        text-transform: capitalize;
+      }
+    }
+    ul {
+      padding: 10px;
+      li {
+        position: relative;
+        list-style: none;
+        padding: 4px;
+      }
+    }
+  }
+}
 /* TODO: Need to make sure sizing for all elements follows material design spec (making touch targets easy to hit) */
