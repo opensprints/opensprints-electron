@@ -90,11 +90,6 @@ body {
   float: left;
 }
 
-.bg-grey-300 {
-  background-color: #E0E0E0;
-  margin-bottom: 32px;
-}
-
 .nav-icon {
   color: #ffffff;
   cursor: pointer;
@@ -155,7 +150,7 @@ h4 {
 .group-heading {
   color: #ffffff;
 }
-.input-group {
+.input-group, .form-group {
   label {
     color: #ffffff;
   }

@@ -65,24 +65,21 @@ var QuickRace = {
               'Time Trial'
             ])
           ]),
-          m('.bg-grey-300.row', [
+          m('.row', [
             m('.col-xs-6', [
               distanceTimeView(ctrl.raceSettings)
             ]),
             m('.col-xs-6', [
-              m('label', [
+              m('label.group-heading', [
                 'Visual'
               ]),
               ctrl.visualizerOptions.map(function(option) {
-                return m('.radio', [
+                return m('.radio.changeable', {
+                  onclick: function() { ctrl.raceSettings.visualizer(option.value); }
+                }, [
                   m('label', [
-                    m('input[type=radio]',
-                      {
-                        name: 'visualizer',
-                        value: option.value,
-                        checked: ctrl.raceSettings.visualizer() === option.value ? 'checked' : '',
-                        onclick: m.withAttr('value', ctrl.raceSettings.visualizer)
-                      }
+                    m('i.material-icons',
+                      ctrl.raceSettings.visualizer() === option.value ? 'radio_button_checked' : 'radio_button_unchecked'
                     ),
                     option.label
                   ])
@@ -93,7 +90,7 @@ var QuickRace = {
         ])
       ]),
       m('.row', [
-        m('.col-sm-offset-2.col-sm-8.bg-grey-300', [
+        m('.col-sm-offset-2.col-sm-8', [
           // Quick racer select goes here.
         ])
       ])
