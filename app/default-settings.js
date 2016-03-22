@@ -4,7 +4,7 @@ var DefaultSettings = require('./models/default-settings');
 
 var defaultSettings = {
   controller: function() {
-    this.settings = DefaultSettings.get();
+    var settings = this.settings = DefaultSettings.get();
 
     this.onChange = function(cb) {
       return function(event) {
@@ -46,13 +46,15 @@ var defaultSettings = {
         value: 'email'
       }
     ];
-    this.toggleRacerOption = function(event) {
-      var index = this.settings.racerInfo.indexOf(event.target.value);
-      if(index !== -1) {
-        this.settings.racerInfo.splice(index, 1);
-      } else {
-        this.settings.racerInfo.push(event.target.value);
-      }
+    this.toggleRacerOption = function(value) {
+      return function () {
+        var index = settings.racerInfo.indexOf(value);
+        if (index !== -1) {
+          settings.racerInfo.splice(index, 1);
+        } else {
+          settings.racerInfo.push(value);
+        }
+      };
     };
   },
   view: function(ctrl) {
@@ -95,6 +97,13 @@ var defaultSettings = {
                   m('option', 'cm')
                 ])
               ])
+            ]),
+
+            m('.row', [
+              m('label.group-heading', 'Racer Colors')
+            ]),
+            m('.row', [
+              'ye old colors'
             ])
 
           ]),
@@ -103,7 +112,7 @@ var defaultSettings = {
 
             m('.row', [
               m('.input-group.inline', [
-                m('label', [
+                m('label.group-heading', [
                   'Distance/Speed Units ',
                   m('select', {
                     onchange: ctrl.onChange(function(event) {
@@ -122,47 +131,25 @@ var defaultSettings = {
 
             m('.row', [
               m('.input-group.inline', [
-                m('label', [
+                m('label.group-heading', [
                   'Race Distance ',
                   m('input', {type: 'number'})
                 ])
               ])
             ]),
 
-            m('.row', m('label', 'Racer Roster Options')),
             m('.row', [
-              m('.col-sm-6', [
-                ctrl.racerInfo.filter(function(_, index, arr) {
-                  return index < arr.length/2;
-                }).map(function(option) {
-                  return m('.checkbox', [
-                    m('label', [
-                      m('input[type=checkbox]', {
-                        value: option.value,
-                        checked: ctrl.settings.racerInfo.indexOf(option.value) !== -1 ? 'checked' : '',
-                        onchange: ctrl.onChange(ctrl.toggleRacerOption.bind(ctrl))
-                      }),
-                      option.label
-                    ])
-                  ]);
-                })
-              ]),
-              m('.col-sm-6', [
-                ctrl.racerInfo.filter(function(_, index, arr) {
-                  return index >= arr.length/2;
-                }).map(function(option) {
-                  return m('.checkbox', [
-                    m('label', [
-                      m('input[type=checkbox]', {
-                        value: option.value,
-                        checked: ctrl.settings.racerInfo.indexOf(option.value) !== -1 ? 'checked' : '',
-                        onchange: ctrl.onChange(ctrl.toggleRacerOption.bind(ctrl))
-                      }),
-                      option.label
-                    ])
-                  ]);
-                })
-              ])
+              m('label.group-heading', 'Racer Roster Options'),
+              ctrl.racerInfo.map(function(option) {
+                return m('.checkbox.changeable', {
+                  onclick: ctrl.onChange(ctrl.toggleRacerOption(option.value))
+                }, [
+                  m('i.material-icons.md-24',
+                    ctrl.settings.racerInfo.indexOf(option.value) !== -1 ? 'check_box' : 'check_box_outline_blank'
+                  ),
+                  m('label', option.label)
+                ]);
+              })
             ])
           ])
         ])
