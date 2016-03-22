@@ -24,7 +24,7 @@ module.exports = {
       m('.pull-right', [
         m.component(DropDown, [
           m('.nav-icon', [
-            m('i.material-icons', 'menu')
+            m('i.material-icons.md-36', 'menu')
           ])
         ], [
           ctrl.appNav.map(function(navLink) {

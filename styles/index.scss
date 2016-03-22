@@ -10,8 +10,13 @@ $green: #1F7C46;
 
 body {
   font-family: 'Lato', sans-serif;
+  background: url("./open-sprints-bg.jpg") no-repeat center center fixed;
+  background-size: cover;
 }
 
+/* TODO: Need to make sure sizing for all elements follows material design spec (making touch targets easy to hit) */
+
+/* Material Design Icon Spec */
 
 @font-face {
   font-family: 'Material Icons';
@@ -52,6 +57,20 @@ body {
   font-feature-settings: 'liga';
 }
 
+/* Rules for sizing Material Design Icons */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
 .round-btn {
   border-radius: 25px;
   border: 2px solid $yellow;
@@ -66,8 +85,8 @@ body {
 }
 
 .logo {
-  width: 160px;
-  height: 67px;
+  //width: 160px;
+  height: 48px;
   float: left;
 }
 
@@ -77,8 +96,19 @@ body {
 }
 
 .nav-icon {
+  color: #ffffff;
   cursor: pointer;
-  padding: 12px;
+  padding: 6px;
+  max-height: 48px;
+  max-width: 48px;
+}
+
+a {
+  color: #ffffff;
+  &:hover {
+    color: #c2c2c2;
+    text-decoration: none;
+  }
 }
 
 .drop-down-container {
@@ -86,7 +116,7 @@ body {
   display: inline-block;
   .drop-down {
     position: absolute;
-    right: 12px;
+    right: 6px;
     top: 12px;
     background: black;
     z-index: 1000;
