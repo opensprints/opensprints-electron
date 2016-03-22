@@ -40,7 +40,6 @@ var QuickRace = {
       {label: 'Vertical Bars', value: 'vertical-bars'},
       {label: 'Horizontal Bars', value: 'horizontal-bars'}
     ];
-    this.raceTypes = ['']
   },
   view: function(ctrl) {
     return m('.row', [
