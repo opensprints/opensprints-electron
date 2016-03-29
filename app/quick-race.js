@@ -14,18 +14,14 @@ var raceSettings = {
 // TODO: Add data validation
 var distanceTimeView = function(raceSettings) {
   if(raceSettings.raceType() === 'distance'){
-    return m('.form-group', [
-      m('label', [
-        'Distance',
-        m('input[type=text]')
-      ])
+    return m('label.group-heading', [
+      'Distance',
+      m('input[type=text]')
     ]);
   } else {
-    return m('.form-group', [
-      m('label', [
-        'Duration',
-        m('input[type=text]')
-      ])
+    return m('label.group-heading', [
+      'Duration',
+      m('input[type=text]')
     ]);
   }
 };
@@ -40,36 +36,35 @@ var QuickRace = {
       {label: 'Vertical Bars', value: 'vertical-bars'},
       {label: 'Horizontal Bars', value: 'horizontal-bars'}
     ];
+    this.raceTypes = [
+      {label: 'Distance Race', value: 'distance'},
+      {label: 'Time Trial', value: 'time'}
+    ];
   },
   view: function(ctrl) {
     return m('.row', [
       m('.row', [
         m('.col-sm-offset-3.col-sm-6', [
           m('h4', 'Race Settings'),
-          m('.row', [
-            m('label.radio-inline.changeable', {
-              onclick: function() { ctrl.raceSettings.raceType('distance'); },
-              style: 'width: 50%; text-align: right;'
-            }, [
-              m('i.material-icons.md-36',
-                ctrl.raceSettings.raceType() === 'distance' ? 'check_circle' : 'radio_button_unchecked'
-              ),
-              'Distance Race'
-            ]),
-            m('label.radio-inline.changeable', {
-              onclick: function() { ctrl.raceSettings.raceType('time'); }
-            }, [
-              m('i.material-icons.md-36',
-                ctrl.raceSettings.raceType() === 'time' ? 'check_circle' : 'radio_button_unchecked'
-              ),
-              'Time Trial'
-            ])
-          ]),
+          m('hr'),
           m('.row', [
             m('.col-xs-6', [
-              distanceTimeView(ctrl.raceSettings)
+              m('label.group-heading', [
+                'Race Type'
+              ]),
+              ctrl.raceTypes.map(function(raceType) {
+                return m('label.radio.changeable', {
+                  onclick: function() { ctrl.raceSettings.raceType(raceType.value); }
+                }, [
+                  m('i.material-icons.md-36',
+                    ctrl.raceSettings.raceType() === raceType.value ? 'check_circle' : 'radio_button_unchecked'
+                  ),
+                  raceType.label
+                ]);
+              })
             ]),
             m('.col-xs-6', [
+              distanceTimeView(ctrl.raceSettings),
               m('label.group-heading', [
                 'Visual'
               ]),

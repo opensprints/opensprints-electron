@@ -144,11 +144,14 @@ a {
 }
 
 h4 {
-  color: #c2c2c2;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .group-heading {
   color: #ffffff;
+  text-transform: uppercase;
 }
 .input-group, .form-group {
   label {
@@ -160,8 +163,13 @@ h4 {
   @extend .unselectable;
   cursor: pointer;
   color: $light-blue;
+  font-size: 20px;
+  i {
+    margin-right: 5px;
+    vertical-align: middle;
+  }
   label {
-    font-size: 18px;
+    font-size: 20px;
     padding-left: 10px;
     vertical-align: top;
   }
