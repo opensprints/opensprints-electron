@@ -3,9 +3,9 @@ var DefaultSettings = require('./models/default-settings');
 
 var raceSettings = {
   raceType: m.prop('distance'),
-  distance: 200,
+  distance: m.prop(200),
   distanceUnits: 'm',
-  time: '',
+  time: m.prop(),
   visualizer: m.prop('clock')
 };
 
@@ -13,17 +13,20 @@ var raceSettings = {
 // TODO: Add data bindings
 // TODO: Add data validation
 var distanceTimeView = function(raceSettings) {
-  if(raceSettings.raceType() === 'distance'){
-    return m('label.group-heading', [
-      'Distance',
-      m('input[type=text]')
-    ]);
-  } else {
-    return m('label.group-heading', [
-      'Duration',
-      m('input[type=text]')
-    ]);
+  var label;
+  if(raceSettings.raceType() === 'distance') {
+    label = 'Distance';
+  } else if (raceSettings.raceType() === 'time') {
+    label = 'Duration';
   }
+  return m('.row', [
+    m('.col-xs-12', [
+      m('label.group-heading', label)
+    ]),
+    m('.col-xs-12', [
+      m('input[type=text]')
+    ])
+  ]);
 };
 
 // TODO: Get the roster of people for the quick selects
@@ -40,15 +43,24 @@ var QuickRace = {
       {label: 'Distance Race', value: 'distance'},
       {label: 'Time Trial', value: 'time'}
     ];
+    // for(var bikeIndex = 0; bikeIndex < this.defaultSettings.bikes; bikeIndex++) {
+    //
+    // }
+    this.bikes = [
+      {color: '#881212', racer: {name: 'John Guy'}},
+      {color: '#2521C2', racer: {name: 'Raptor IV'}},
+      {color: '#7C2B9A', racer: {name: 'Mel Blanc'}},
+      {color: '#1F7C46', racer: {name: 'Bruce Wayne'}}
+    ];
   },
   view: function(ctrl) {
     return m('.row', [
       m('.row', [
-        m('.col-sm-offset-3.col-sm-6', [
+        m('.col-xs-offset-2.col-xs-8', [
           m('h4', 'Race Settings'),
           m('hr'),
           m('.row', [
-            m('.col-xs-6', [
+            m('.col-xs-offset-1.col-xs-5', [
               m('label.group-heading', [
                 'Race Type'
               ]),
@@ -63,30 +75,49 @@ var QuickRace = {
                 ]);
               })
             ]),
-            m('.col-xs-6', [
+            m('.col-xs-5', [
               distanceTimeView(ctrl.raceSettings),
-              m('label.group-heading', [
-                'Visual'
-              ]),
-              ctrl.visualizerOptions.map(function(option) {
-                return m('.radio.changeable', {
-                  onclick: function() { ctrl.raceSettings.visualizer(option.value); }
-                }, [
-                  m('label', [
-                    m('i.material-icons',
-                      ctrl.raceSettings.visualizer() === option.value ? 'radio_button_checked' : 'radio_button_unchecked'
-                    ),
-                    option.label
+              m('.row', [
+                m('.col-xs-12', [
+                  m('label.group-heading', [
+                    'Visual'
                   ])
-                ]);
-              })
+                ]),
+                m('.col-xs-12', [
+                  ctrl.visualizerOptions.map(function(option) {
+                    return m('.radio.changeable', {
+                      onclick: function() { ctrl.raceSettings.visualizer(option.value); }
+                    }, [
+                      m('label', [
+                        m('i.material-icons',
+                          ctrl.raceSettings.visualizer() === option.value ? 'radio_button_checked' : 'radio_button_unchecked'
+                        ),
+                        option.label
+                      ])
+                    ]);
+                  })
+                ])
+              ])
             ])
           ])
         ])
       ]),
       m('.row', [
-        m('.col-sm-offset-2.col-sm-8', [
-          // Quick racer select goes here.
+        m('.col-xs-offset-2.col-xs-8', [
+          ctrl.bikes.map(function(bike, index) {
+            return m('.racer-select.col-xs-3', [
+              m('.bike-indicator', {
+                style: {
+                  'background-color': bike.color
+                }
+              }, [
+                index+1
+              ]),
+              m('.racer-select-container', [
+                m('label', bike.racer.name)
+              ])
+            ]);
+          })
         ])
       ])
     ]);
