@@ -16,6 +16,7 @@ body {
   background-size: cover;
   -webkit-font-smoothing: antialiased;
   text-shadow: rgba(0,0,0,.01) 0 0 1px;
+  color: white;
 }
 
 /* TODO: Need to make sure sizing for all elements follows material design spec (making touch targets easy to hit) */
@@ -224,5 +225,30 @@ h4 {
       font-size: 20px;
       font-weight: normal;
     }
+  }
+}
+.racer-input {
+  background: transparent;
+  color: $light-blue;
+}
+.roster-table {
+  background-color: $med-blue;
+  width: calc(100% - 10px);
+  tr {
+    :first-child {
+      margin-left: 10px;
+    }
+    :last-child {
+      margin-right: 10px;
+    }
+    td {
+      border-bottom: solid 1px $light-blue;
+      padding: 5px 0 5px;
+    }
+    th {
+      border-bottom: solid 1px $light-blue;
+      padding: 5px 0 5px;
+    }
+
   }
 }

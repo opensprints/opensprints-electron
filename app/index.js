@@ -7,6 +7,7 @@ var Header = require('./header');
 var DefaultSettings = require('./default-settings');
 var Roster = require('./roster');
 var QuickRace = require('./quick-race');
+var RaceResults = require('./race-results');
 
 //serial.findArduino(function(serialPort) {
 //  serialPort.on('data', function(data) {
@@ -48,6 +49,9 @@ var QuickRace = require('./quick-race');
 m.route.mode = 'pathname';
 
 var index = {
+  controller: function() {
+    window.m = m;
+  },
   view: function() {
     return m('', [
       m.component(Header),
@@ -63,6 +67,7 @@ var index = {
 m.route(document.body, '/', {
   '/': index,
   '/default-settings': DefaultSettings,
-  '/roster': Roster
+  '/roster': Roster,
+  '/race-results': RaceResults
 });
 

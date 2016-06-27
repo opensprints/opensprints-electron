@@ -115,7 +115,8 @@ var QuickRace = {
               ]),
               m('.racer-select-container', [
                 m('label', bike.racer.name)
-              ])
+              ]),
+              m('.change-racer-btn', 'change')
             ]);
           })
         ])
