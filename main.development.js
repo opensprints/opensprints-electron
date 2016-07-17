@@ -1,4 +1,6 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
+import path from 'path';
+import fs from 'fs';
 
 let menu;
 let template;
@@ -11,7 +13,9 @@ if (process.env.NODE_ENV === 'development') {
 
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
 });
 
 
@@ -34,11 +38,20 @@ const installExtensions = async () => {
 app.on('ready', async () => {
   await installExtensions();
 
-  mainWindow = new BrowserWindow({
-    show: false,
-    width: 1024,
-    height: 728
-  });
+  // TODO: test with multiple monitors
+  const initPath = path.join(app.getPath('userData'), 'init.json');
+  let data;
+  try {
+    data = JSON.parse(fs.readFileSync(initPath, 'utf8'));
+  } catch (e) {
+    // something
+  }
+  const windowConfig = (data && data.bounds) ? data.bounds :
+  { width: 800, height: 600, x: 0, y: 0 };
+
+  windowConfig.show = false;
+
+  mainWindow = new BrowserWindow(windowConfig);
 
   mainWindow.loadURL(`file://${__dirname}/app/app.html`);
 
@@ -47,6 +60,9 @@ app.on('ready', async () => {
     mainWindow.focus();
   });
 
+  mainWindow.on('close', () => {
+    fs.writeFileSync(initPath, JSON.stringify({ bounds: mainWindow.getBounds() }));
+  });
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
