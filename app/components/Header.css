@@ -1,0 +1,45 @@
+.logo {
+  /*width: 160px;*/
+  height: 48px;
+  float: left;
+}
+
+.nav-icon {
+  color: #ffffff;
+  cursor: pointer;
+  padding: 6px;
+  max-height: 48px;
+  max-width: 48px;
+}
+
+.drop-down-container {
+  position: relative;
+  display: inline-block;
+}
+
+.drop-down {
+  position: absolute;
+  right: 6px;
+  top: 12px;
+  background: black;
+  z-index: 1000;
+  min-width: 150px;
+}
+
+.list {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: block;
+}
+
+.link {
+  display: block;
+  text-align: right;
+  margin: 0;
+  width: 100%;
+  padding: 16px 20px 16px;
+  float: none;
+  line-height: 0;
+  cursor: pointer;
+  text-transform: capitalize;
+}
