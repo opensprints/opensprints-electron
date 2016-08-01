@@ -37,7 +37,6 @@ export default merge(baseConfig, {
   },
 
   externals: [
-    'font-awesome',
     'source-map-support'
   ]
 });

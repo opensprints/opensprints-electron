@@ -105,7 +105,6 @@
     "material-design-icons": "^2.2.3",
     "moment": "^2.13.0",
     "electron-debug": "^1.0.1",
-    "font-awesome": "^4.6.3",
     "postcss": "^5.1.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
