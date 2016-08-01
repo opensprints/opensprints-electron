@@ -1,9 +1,7 @@
-import { UPDATE_DEFAULT_SETTINGS } from '../actions/defaultSettings';
+const initialSettings = {};
 
-export default function navigation(state = {}, action) {
+export default function defaultSettings(state = initialSettings, action) {
   switch (action.type) {
-    case UPDATE_DEFAULT_SETTINGS:
-      // TODO
     default:
       return state;
   }

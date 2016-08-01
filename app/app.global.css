@@ -23,6 +23,10 @@ body {
   url(../node_modules/material-design-icons/iconfont/MaterialIcons-Regular.ttf) format('truetype')
 }
 
+input[type='text'] {
+  color: initial;
+}
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
