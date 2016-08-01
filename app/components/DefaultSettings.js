@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-class DefaultSettings extends Component {
+export default class DefaultSettings extends Component {
   static propTypes = {
     bikes: PropTypes.array,
     updateBikesAvailable: PropTypes.func,
@@ -117,5 +117,3 @@ class DefaultSettings extends Component {
     );
   }
 }
-
-export default DefaultSettings;
