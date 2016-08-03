@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 
 export default class DefaultSettings extends Component {
   static propTypes = {
-    bikes: PropTypes.array,
-    updateBikesAvailable: PropTypes.func,
-    updateBikeConfiguration: PropTypes.func,
+    bikes: PropTypes.array.isRequired,
+    updateBikesAvailable: PropTypes.func.isRequired,
+    updateBikeConfiguration: PropTypes.func.isRequired,
   }
   render() {
     const { bikes, updateBikesAvailable, updateBikeConfiguration } = this.props;

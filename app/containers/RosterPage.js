@@ -1,18 +1,16 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Roster from '../components/Roster';
-import * as DefaultSettingsActions from '../actions/defaultSettings';
-import * as BikeActions from '../actions/bikes';
+import * as RacerActions from '../actions/racers';
 
 function mapStateToProps(state) {
   return {
-    defaultSettings: state.defaultSettings,
-    bikes: state.bikes
+    racers: state.racers
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ ...DefaultSettingsActions, ...BikeActions }, dispatch);
+  return bindActionCreators(RacerActions, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Roster);
