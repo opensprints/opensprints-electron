@@ -3,13 +3,24 @@ import React, { Component, PropTypes } from 'react';
 export default class Roster extends Component {
   static propTypes = {
     racers: PropTypes.array.isRequired,
-    addRacer: PropTypes.func,
+    addRacer: PropTypes.func.isRequired,
     editRacer: PropTypes.func
   }
 
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      search: ''
+    };
+  }
+
+  handleChange(e) {
+    this.setState({ search: e.target.value });
+  }
+
   render() {
-    let search;
     let input;
+    const { search } = this.state;
     const { racers, addRacer } = this.props;
 
     return (
@@ -18,27 +29,27 @@ export default class Roster extends Component {
         <div className="row">
           <label>
             Racers
-            <input // TODO get search working
-              ref={node => {
-                search = node;
-              }}
+            <input
               type="text"
+              placeholder="Search"
+              autoFocus="true"
+              value={this.state.text}
+              onChange={this.handleChange.bind(this)}
             />
           </label>
         </div>
         <div className="row">
           <ul>
             {racers.filter((racer) => {
-              if (search && search.value && search.value.trim()) {
-                return ~racer.name.indexOf(search.value.trim());
+              if (search && search && search.trim()) {
+                return ~racer.name.indexOf(search.trim());
               }
               return true;
-            }).map((racer) => (
-              <li>{racer.name}</li>
+            }).map((racer, index) => (
+              <li key={`racer-${index}`}>{racer.name}</li>
             ))}
           </ul>
         </div>
-        {/* TODO List of Racers/Search */}
         <div className="row">
           <label>
             Name
