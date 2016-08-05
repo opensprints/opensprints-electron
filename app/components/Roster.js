@@ -42,7 +42,7 @@ export default class Roster extends Component {
           <ul>
             {racers.filter((racer) => {
               if (search && search && search.trim()) {
-                return ~racer.name.indexOf(search.trim());
+                return ~racer.name.toLowerCase().indexOf(search.trim().toLowerCase());
               }
               return true;
             }).map((racer, index) => (
