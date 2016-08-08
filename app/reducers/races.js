@@ -1,4 +1,4 @@
-import { ADD_RACE } from '../actions/races';
+import { ADD_RACE } from '../actions/race';
 
 export default function races(state = [], action) {
   switch (action.type) {

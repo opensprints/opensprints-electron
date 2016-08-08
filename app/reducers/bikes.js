@@ -1,4 +1,4 @@
-import { UPDATE_BIKES_AVAILABLE, UPDATE_BIKE_CONFIGURATION } from '../actions/bikes';
+import { UPDATE_BIKES_AVAILABLE, UPDATE_BIKE_CONFIGURATION } from '../actions/bike';
 
 const initialState = [
   {

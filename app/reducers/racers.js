@@ -1,4 +1,4 @@
-import { ADD_RACER } from '../actions/racers';
+import { ADD_RACER } from '../actions/racer';
 
 export default function racers(state = [], action) {
   switch (action.type) {

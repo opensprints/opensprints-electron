@@ -1,6 +1,6 @@
 /* eslint no-unused-expressions: 0 */
 import { expect } from 'chai';
-import * as actions from '../../app/actions/bikes';
+import * as actions from '../../app/actions/bike';
 
 
 describe('actions', () => {

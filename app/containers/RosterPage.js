@@ -1,8 +1,8 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Roster from '../components/roster';
-import * as RaceActions from '../actions/races';
-import * as RacerActions from '../actions/racers';
+import * as RaceActions from '../actions/race';
+import * as RacerActions from '../actions/racer';
 
 function mapStateToProps(state) {
   return {
