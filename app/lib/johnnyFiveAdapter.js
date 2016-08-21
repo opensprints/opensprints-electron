@@ -2,7 +2,7 @@
 // Each 'up' on a sensor is a 'tick'.
 
 import * as five from 'johnny-five';
-const DEFAULT_NUM_BIKES = 4;
+// const DEFAULT_NUM_BIKES = 4;
 const LED_PINS = [9, 10, 11, 12, 13];
 const SENSOR_PINS = [2, 3, 4, 5, 6];
 
