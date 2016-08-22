@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 export default class RosterRace extends Component {
   static propTypes = {
@@ -8,13 +9,14 @@ export default class RosterRace extends Component {
 
   render() {
     const { race, racers } = this.props;
-
     return (
       <li>
         Race {race.id + 1}
-        <button className="btn btn-default">
-          Start Race
-        </button>
+        <Link to={`pre-race-review/${race.id}`}>
+          <button className="btn btn-default">
+            Start Race
+          </button>
+        </Link>
         <ul>
           {racers.map((racer) => (
             <li key={`race-${race.id}-racer-${racer.id}`}>

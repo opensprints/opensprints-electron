@@ -1,0 +1,34 @@
+.racer-select {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.bike-indicator {
+  border-radius: 50%;
+  border: #000000 solid 5px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  color: #ffffff;
+
+  /* TODO Position correctly */
+  display: inline-block;
+  position: absolute;
+  right: 20px;
+  top: -27px;
+}
+.racer-select-container {
+  display: inline-block;
+  border-radius: 25px 0;
+  color: #FFFFFF;
+  background-color: #4F4F4F;
+  width: 100%;
+  height: 90px;
+  padding-top: 25px;
+  padding-left: 8px;
+}
+.name {
+  font-size: 20px;
+  font-weight: normal;
+}

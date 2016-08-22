@@ -103,7 +103,14 @@ export default class Roster extends Component {
             <div className="row">
               <button
                 className={`btn btn-default${(selectedRacers.length > 0 ? '' : ' disabled')}`}
-                onClick={() => addRace(selectedRacers)}
+                onClick={() => {
+                  if (selectedRacers.length > 0) {
+                    addRace(selectedRacers);
+                    this.setState({
+                      selectedRacers: []
+                    });
+                  }
+                }}
               >
                 Add Race with selected Racers
               </button>
