@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import HeaderContainer from './HeaderContainer';
+import Header from './Header';
 
 export default class App extends Component {
   static propTypes = {
@@ -9,7 +9,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <HeaderContainer />
+        <Header />
         {this.props.children}
       </div>
     );

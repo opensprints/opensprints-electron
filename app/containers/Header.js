@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
-import styles from './Header.css';
+import styles from '../components/Header.css';
 
 const logoSrc = '../images/logo_with_text.png';
 
@@ -15,24 +15,34 @@ NavLink.propTypes = {
 };
 
 class Header extends Component {
-  static propTypes = {
-    navigationVisible: PropTypes.bool,
-    toggle: PropTypes.func.isRequired,
-    close: PropTypes.func.isRequired
-  };
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      navigationVisible: false
+    };
+  }
+
+  toggleNav() {
+    const { navigationVisible } = this.state;
+    this.setState({ navigationVisible: !navigationVisible });
+  }
+
+  closeNav() {
+    this.setState({ navigationVisible: false });
+  }
 
   render() {
-    const { navigationVisible, toggle, close } = this.props;
+    const { navigationVisible } = this.state;
     return (
       <div className="container">
         <img className={styles.logo} alt="Open Sprints Logo" src={logoSrc} />
         <div className="pull-right">
-          <div className={styles['drop-down-container']} onClick={toggle}>
+          <div className={styles['drop-down-container']} onClick={() => this.toggleNav()}>
             <div className={styles['nav-icon']}>
               <i className="material-icons md-36">menu</i>
             </div>
             {navigationVisible ? (
-              <div className={styles['drop-down']} onMouseLeave={close}>
+              <div className={styles['drop-down']} onMouseLeave={() => this.closeNav()}>
                 <div className={styles.list}>
                   <NavLink isIndex to="/">Home</NavLink>
                   <NavLink to="/roster">roster</NavLink>
