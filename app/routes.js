@@ -11,6 +11,6 @@ export default (
     <IndexRoute component={HomePage} />
     <Route path="/roster" component={RosterPage} />
     <Route path="/default-settings" component={DefaultSettingsPage} />
-    <Route path="/pre-race-review/:race" component={PreRaceReviewPage}/>
+    <Route path="/pre-race-review/:race" component={PreRaceReviewPage} />
   </Route>
 );
