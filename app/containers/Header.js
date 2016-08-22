@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
-import styles from '../components/Header.css';
+import styles from './Header.css';
 
 const logoSrc = '../images/logo_with_text.png';
 
