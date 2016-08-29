@@ -77,4 +77,46 @@ a:hover {
   text-decoration: none;
 }
 
+.btn-default,
+.btn-default:active:hover,
+.btn-default:active:focus,
+.btn-default:active,
+.btn-default:hover,
+.btn-default:focus {
+  color: #FFFFFF;
+  background: transparent;
+  border-color: #FFFFFF;
+}
 
+.btn-xs {
+  padding: 2px 18px;
+  font-size: 12px;
+  line-height: 1;
+  margin: 0;
+}
+
+.btn {
+  border-radius: 25px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.btn-primary,
+.btn-primary:active:hover,
+.btn-primary:active:focus,
+.btn-primary:active,
+.btn-primary:hover,
+.btn-primary:focus {
+  color: #000000;
+  background: #FCCC06;
+  border-color: #FCCC06;
+}
+
+hr {
+  border-top: 4px solid #0079A1;
+}
+
+hr.heading {
+  margin-top: 0;
+}

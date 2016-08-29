@@ -43,3 +43,10 @@
   cursor: pointer;
   text-transform: capitalize;
 }
+
+.intermission {
+  display: inline-block;
+  position: relative;
+  float: left;
+  margin: 12px 0;
+}

@@ -1,13 +1,13 @@
 export const ADD_RACE = 'ADD_RACE';
 
-let id = 0;
+let staticId = 0;
 
-export function addRace(racers) {
+export function addRace(bikeRacerMap) {
   return {
     type: ADD_RACE,
     race: {
-      id: id++,
-      racers
+      id: staticId++,
+      bikeRacerMap
     }
   };
 }

@@ -33,10 +33,18 @@ class Header extends Component {
 
   render() {
     const { navigationVisible } = this.state;
+    const intermission = undefined;
     return (
       <div className="container">
         <img className={styles.logo} alt="Open Sprints Logo" src={logoSrc} />
         <div className="pull-right">
+          <div className={styles.intermission}>
+            {intermission ? (
+              <button className="btn btn-primary btn-xs">End Intermission</button>
+            ) : (
+              <button className="btn btn-default btn-xs">Intermission</button>
+            )}
+          </div>
           <div className={styles['drop-down-container']} onClick={() => this.toggleNav()}>
             <div className={styles['nav-icon']}>
               <i className="material-icons md-36">menu</i>
@@ -47,6 +55,7 @@ class Header extends Component {
                   <NavLink isIndex to="/">Home</NavLink>
                   <NavLink to="/roster">roster</NavLink>
                   <NavLink to="/default-settings">default settings</NavLink>
+                  <NavLink to="/pre-race-review/0">Pre-Race Review</NavLink>
                 </div>
               </div>
             ) : ''}
