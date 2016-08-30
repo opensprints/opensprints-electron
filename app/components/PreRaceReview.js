@@ -1,32 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './RacerSelect.css';
-
-const QuickRacerSwap = ({ bikeIndex, bike, racer }) => (
-  <div className={`${styles['racer-select']} col-xs-3`}>
-    <div
-      className={styles['bike-indicator']}
-      style={{ backgroundColor: bike.color }}
-    >
-      {bikeIndex + 1}
-    </div>
-    <div className={styles['racer-select-container']}>
-      <label className={styles.name}>{racer.name}</label>
-    </div>
-    <div className="row">
-      <div className="col-xs-6">
-        <button className="btn btn-default btn-xs">
-          change
-        </button>
-      </div>
-      <i className="col-xs-offset-2 col-xs-2 material-icons md-24">delete</i>
-    </div>
-  </div>
-);
-QuickRacerSwap.propTypes = {
-  bikeIndex: PropTypes.number.isRequired,
-  bike: PropTypes.object.isRequired,
-  racer: PropTypes.object.isRequired
-};
+import RacerEdit from './RacerEdit';
 
 export default class PreRaceReview extends Component {
   static propTypes = {
@@ -37,7 +10,6 @@ export default class PreRaceReview extends Component {
   }
   constructor(props, context) {
     super(props, context);
-    console.log(props.races);
     this.state = {
       activeRace: props.races.find((race) => race.id === parseInt(props.params.race, 10))
     };
@@ -81,7 +53,7 @@ export default class PreRaceReview extends Component {
         </div>
         <div className="row">
           {racers.map((racer, i) => (
-            <QuickRacerSwap
+            <RacerEdit
               key={`QuickRacerDisplay-${i}`}
               bikeIndex={i}
               bike={bikes[i]}
