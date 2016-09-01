@@ -42,6 +42,7 @@
   line-height: 0;
   cursor: pointer;
   text-transform: capitalize;
+  white-space: nowrap;
 }
 
 .intermission {
