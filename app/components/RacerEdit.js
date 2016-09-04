@@ -34,52 +34,99 @@ export default class RacerEdit extends Component {
                 <div className="form-group">
                   <div className="input-group">
                     <input
-                      className="form-control input"
+                      className={`form-control input ${styles['name-edit']}`}
                       type="text"
                       defaultValue={racer.name}
                     />
                     <span className="form-control-feedback">
-                      <i className="material-icons md-24" style={{ color: '#4F4F4F' }}>add_box</i>
+                      <i
+                        className={`material-icons md-24
+                          ${(true ? '' : styles['add-new-user-disabled'])}`}
+                      >
+                        add_box
+                      </i>
                     </span>
                   </div>
                 </div>
-                <select className="form-control">
-                  <option>Male</option>
-                  <option>Female</option>
-                </select>
+                <div className="select-container">
+                  <select className="form-control">
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                  <span className="form-control-feedback">
+                    <i className="material-icons md-36">arrow_drop_down</i>
+                  </span>
+                </div>
                 <br />
-                <select className="form-control">
-                  <option>Filthy Casual</option>
-                  <option>I ride bikes, m'kay</option>
-                  <option>Which way is the gym, Bro?</option>
-                </select>
+                <div className="select-container">
+                  <select className="form-control">
+                    <option>Filthy Casual</option>
+                    <option>I ride bikes, m'kay</option>
+                    <option>It's not about the bike, Bro.</option>
+                  </select>
+                  <span className="form-control-feedback">
+                    <i className="material-icons md-36">arrow_drop_down</i>
+                  </span>
+                </div>
               </form>
-              <button
-                type="button"
-                className="btn btn-default btn-xs"
-                onClick={() => {
-                  this.setState({ editing: false });
+              <div
+                className="pull-right"
+                style={{
+                  marginTop: '20px'
                 }}
               >
-                Cancel
-              </button>
-              <button type="button" className="btn btn-default btn-xs">Save</button>
+                <button
+                  type="button"
+                  className="btn btn-default btn-xs"
+                  onClick={() => {
+                    this.setState({ editing: false });
+                  }}
+                  style={{
+                    marginRight: '15px',
+                    border: 'none'
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-default btn-xs"
+                  style={{
+                    backgroundColor: 'white',
+                    color: '#4f4f4f'
+                  }}
+                >
+                  Save
+                </button>
+              </div>
             </div>
           }
         </div>
-        {!editing ? <div className="row">
-          <div className="col-xs-6">
-            <button
-              className="btn btn-default btn-xs"
-              onClick={() => {
-                this.setState({ editing: true });
+        {!editing ?
+          <div
+            style={{
+              marginTop: '10px'
+            }}
+          >
+            <div className="pull-left">
+              <button
+                className="btn btn-default btn-xs"
+                onClick={() => {
+                  this.setState({ editing: true });
+                }}
+              >
+                change
+              </button>
+            </div>
+            <div
+              className="pull-right"
+              style={{
+                marginRight: '15px'
               }}
             >
-              change
-            </button>
-          </div>
-          <i className="col-xs-offset-2 col-xs-2 material-icons md-24">delete</i>
-        </div> : ''}
+              <i className="material-icons md-24">delete</i>
+            </div>
+          </div> : ''}
       </div>
     );
   }

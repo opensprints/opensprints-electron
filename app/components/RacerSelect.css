@@ -31,3 +31,25 @@
   font-size: 20px;
   font-weight: normal;
 }
+
+.name-edit {
+  font-size: 20px;
+  color: white;
+  padding-top: 0;
+  margin-top: 6px;
+  height: 28px;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  border-bottom: white solid 2px;
+}
+
+.add-new-user-disabled {
+  color: #868686;
+}
+
+.race-setting-value {
+  color: #6FDCFF;
+  font-size: 20px;
+}

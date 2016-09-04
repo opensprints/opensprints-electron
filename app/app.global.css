@@ -24,10 +24,6 @@ body {
   url(../node_modules/material-design-icons/iconfont/MaterialIcons-Regular.ttf) format('truetype')
 }
 
-input[type='text'] {
-  color: initial;
-}
-
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -120,4 +116,33 @@ hr {
 
 hr.heading {
   margin-top: 0;
+}
+
+.input-group {
+  width: 100%;
+}
+
+.input-group .form-control:focus {
+  z-index: 2;
+}
+
+.form-control-feedback {
+  width: auto;
+}
+
+.select-container {
+  position: relative;
+}
+
+.select-container .form-control-feedback {
+  top: 0;
+}
+
+select.form-control {
+  background: transparent;
+  color: white;
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid white;
+  -webkit-appearance: none;
 }

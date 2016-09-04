@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import RacerEdit from './RacerEdit';
+import styles from './RacerSelect.css';
 
 export default class PreRaceReview extends Component {
   static propTypes = {
@@ -32,19 +33,21 @@ export default class PreRaceReview extends Component {
             </h4>
             <hr className="heading" />
             <div className="row">
-              <div className="col-xs-3 form-group">
-                <label>Race Type</label>
-                <div>Distance Race</div>
+              <div className="col-xs-10">
+                <div className="col-xs-5 form-group">
+                  <label>Race Type</label>
+                  <div className={styles['race-setting-value']}>Distance Race</div>
+                </div>
+                <div className="col-xs-4 form-group">
+                  <label>Distance</label>
+                  <div className={styles['race-setting-value']}>200.0 meters</div>
+                </div>
+                <div className="col-xs-3 form-group">
+                  <label>Visual</label>
+                  <div className={styles['race-setting-value']}>Clock</div>
+                </div>
               </div>
-              <div className="col-xs-3 form-group">
-                <label>Distance</label>
-                <div>200.0 meters</div>
-              </div>
-              <div className="col-xs-3 form-group">
-                <label>Visual</label>
-                <div>Clock</div>
-              </div>
-              <div className="col-xs-3 form-group">
+              <div className="col-xs-2 form-group">
                 <div>{'\u00A0'}</div>
                 <button className="btn btn-default btn-xs pull-right">Edit</button>
               </div>
