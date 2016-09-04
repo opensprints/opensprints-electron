@@ -1,7 +1,7 @@
 // import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import PreRaceReview from '../components/PreRaceReview';
+import RacePreview from '../components/race-preview/RacePreview';
 
 function mapStateToProps(state) {
   return {
@@ -11,4 +11,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, undefined)(withRouter(PreRaceReview));
+export default connect(mapStateToProps, undefined)(withRouter(RacePreview));

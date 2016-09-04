@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import RacerEdit from './RacerEdit';
 import styles from './RacerSelect.css';
 
-export default class PreRaceReview extends Component {
+export default class RacePreview extends Component {
   static propTypes = {
     params: PropTypes.object.isRequired,
     races: PropTypes.array.isRequired,

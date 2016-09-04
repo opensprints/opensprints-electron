@@ -55,7 +55,7 @@ class Header extends Component {
                   <NavLink isIndex to="/">Home</NavLink>
                   <NavLink to="/roster">roster</NavLink>
                   <NavLink to="/default-settings">default settings</NavLink>
-                  <NavLink to="/pre-race-review/0">Pre-Race Review</NavLink>
+                  <NavLink to="/race-preview/0">Pre-Race Review</NavLink>
                 </div>
               </div>
             ) : ''}
