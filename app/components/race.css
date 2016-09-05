@@ -39,3 +39,76 @@
   vertical-align: super;
   margin-right: 10px;
 }
+
+.poleContainer {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 24px;
+}
+
+.northContainer {
+  top: 20px;
+}
+
+.southContainer {
+  bottom: 20px;
+}
+
+.poleGuideline {
+  position: absolute;
+  left: 189px;
+  border-left: white solid 2px;
+  height: 15px;
+}
+
+.northGuideline {
+  top: 0;
+}
+
+.southGuideline {
+  bottom: 0;
+}
+
+.tropicContainer {
+  position: absolute;
+  top: 178px;
+
+  /* These are for the inner span */
+  vertical-align: middle;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+.eastContainer {
+  right: 20px;
+}
+
+.westContainer {
+  left: 20px;
+}
+
+.tropicGuideline {
+  position: absolute;
+  top: 189px;
+  border-top: white solid 2px;
+  width: 15px;
+}
+
+.eastGuideline {
+  right: 0;
+}
+
+.westGuideline {
+  left: 0;
+}
+
+.stopwatch {
+  position: absolute;
+  top: 28px;
+  right: 10px;
+  font-size: 26px;
+  line-height: 20px;
+  font-weight: bold;
+  /*text-shadow: -3px -3px 0 black, -2px -2px 0 black, -1px -1px 0 black;*/
+}
