@@ -79,7 +79,122 @@ RacerStats.propTypes = {
 const Clock = () => (
   <div className={styles['clock-frame']}>
     <div className={styles['clock-face']}>
+      <div
+        style={{
+          textAlign: 'center',
+          marginTop: '20px'
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            left: '191px',
+            top: 0,
+            borderLeft: 'white solid 2px',
+            height: '15px'
+          }}
+        />
+        <span
+          style={{
+            fontSize: '24px',
+          }}
+        >
+          100
+        </span>
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          top: '170px',
+          right: '20px'
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            right: '-20px',
+            top: '16px',
+            borderTop: 'white solid 2px',
+            width: '15px'
+          }}
+        />
+        <span
+          style={{
+            fontSize: '24px',
+            verticalAlign: 'middle'
+          }}
+        >
+          25
+        </span>
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          width: '100%',
+          textAlign: 'center',
+          bottom: '20px'
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            left: '191px',
+            bottom: '-20px',
+            borderLeft: 'white solid 2px',
+            height: '15px'
+          }}
+        />
+        <span
+          style={{
+            fontSize: '24px',
+          }}
+        >
+          50
+        </span>
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          top: '170px',
+          left: '20px'
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            left: '-20px',
+            top: '16px',
+            borderTop: 'white solid 2px',
+            width: '15px'
+          }}
+        />
+        <span
+          style={{
+            fontSize: '24px',
+            verticalAlign: 'middle'
+          }}
+        >
+          75
+        </span>
+      </div>
+
       <div className={styles['clock-center']} />
+    </div>
+    <div
+      style={{
+        position: 'absolute',
+        right: '10px',
+        top: '28px',
+        fontSize: '26px',
+        fontWeight: 'bold',
+        textShadow: 'black -5px -5px, black -3px -3px, black -1 -1',
+        lineHeight: '20px'
+      }}
+    >
+      00:00.2
     </div>
   </div>
 );
