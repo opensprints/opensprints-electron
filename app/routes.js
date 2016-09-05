@@ -5,6 +5,7 @@ import HomePage from './containers/HomePage';
 import RosterPage from './containers/RosterPage';
 import DefaultSettingsPage from './containers/DefaultSettingsPage';
 import RacePreviewPage from './containers/RacePreviewPage';
+import RacePage from './containers/RacePage';
 
 export default (
   <Route path="/" component={App}>
@@ -12,5 +13,6 @@ export default (
     <Route path="/roster" component={RosterPage} />
     <Route path="/default-settings" component={DefaultSettingsPage} />
     <Route path="/race-preview/:race" component={RacePreviewPage} />
+    <Route path="/race/:race" component={RacePage} />
   </Route>
 );

@@ -1,0 +1,40 @@
+.blue-message {
+  font-size: 20px;
+  color: #6FDCFF;
+}
+
+.clock-frame {
+  height: 388px;
+  width: 388px;
+  border: white solid 1px;
+  margin-left: auto;
+  margin-right: auto;
+  background: url("../../images/open-sprints-bg.jpg") center center / 388px 388px no-repeat;
+}
+
+.clock-face {
+  margin: 1px;
+  height: 384px;
+  width: 384px;
+  border: white solid 2px;
+  border-radius: 192px;
+  position: relative;
+}
+
+.clock-center {
+  border: white solid 8px;
+  border-radius: 8px;
+  display: inline-block;
+  position: absolute;
+  top: 184px;
+  left: 184px;
+  z-index: 100;
+}
+
+.add-message {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  vertical-align: super;
+  margin-right: 10px;
+}

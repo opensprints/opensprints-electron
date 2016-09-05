@@ -35,7 +35,7 @@ class Header extends Component {
     const { navigationVisible } = this.state;
     const intermission = undefined;
     return (
-      <div className="container">
+      <div className={`container ${styles.container}`}>
         <img className={styles.logo} alt="Open Sprints Logo" src={logoSrc} />
         <div className="pull-right">
           <div className={styles.intermission}>
@@ -56,6 +56,7 @@ class Header extends Component {
                   <NavLink to="/roster">roster</NavLink>
                   <NavLink to="/default-settings">default settings</NavLink>
                   <NavLink to="/race-preview/0">Pre-Race Review</NavLink>
+                  <NavLink to="/race/0">Race Screen</NavLink>
                 </div>
               </div>
             ) : ''}

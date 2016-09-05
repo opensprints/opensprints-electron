@@ -11,6 +11,7 @@
   line-height: 40px;
   font-size: 20px;
   color: #ffffff;
+  font-weight: bold;
 
   /* TODO Position correctly */
   display: inline-block;
@@ -25,11 +26,10 @@
   background-color: #4F4F4F;
   width: 100%;
   min-height: 90px;
-  padding: 25px 8px 32px;
+  padding: 25px 8px 0;
 }
 .name {
   font-size: 20px;
-  font-weight: normal;
 }
 
 .name-edit {
