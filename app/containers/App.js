@@ -7,10 +7,11 @@ export default class App extends Component {
   };
 
   render() {
+    const props = this.props;
     return (
       <div className="container-fluid">
-        <Header />
-        {this.props.children}
+        <Header {...props} />
+        {props.children}
       </div>
     );
   }

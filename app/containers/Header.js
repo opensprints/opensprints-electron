@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import { connect } from 'react-redux';
+import { Link, IndexLink, withRouter } from 'react-router';
+import { push } from 'react-router-redux';
 import styles from './Header.css';
 
-const logoSrc = '../images/logo_with_text.png';
+const logoSrc = '../images/logo.png';
 
 const NavLink = ({ isIndex, to, children }) => (isIndex ?
   (<IndexLink to={to} className={styles.link} activeClassName="active">{children}</IndexLink>) :
@@ -15,11 +17,28 @@ NavLink.propTypes = {
 };
 
 class Header extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func,
+    router: PropTypes.object
+  };
+
   constructor(props, context) {
     super(props, context);
     this.state = {
       navigationVisible: false
     };
+  }
+
+  navigateToIntermission() {
+    const { dispatch } = this.props;
+    dispatch(push('/intermission'));
+    return false;
+  }
+
+  navigateBack() {
+    const { router } = this.props;
+    router.goBack();
+    return false;
   }
 
   toggleNav() {
@@ -33,16 +52,27 @@ class Header extends Component {
 
   render() {
     const { navigationVisible } = this.state;
-    const intermission = undefined;
+    const { router } = this.props;
+    const intermission = router.isActive('/intermission');
     return (
       <div className={`container ${styles.container}`}>
         <img className={styles.logo} alt="Open Sprints Logo" src={logoSrc} />
         <div className="pull-right">
           <div className={styles.intermission}>
             {intermission ? (
-              <button className="btn btn-primary btn-xs">End Intermission</button>
+              <button
+                className="btn btn-primary"
+                onClick={() => { this.navigateBack(); }}
+              >
+                End Intermission
+              </button>
             ) : (
-              <button className="btn btn-default btn-xs">Intermission</button>
+              <button
+                className="btn btn-default"
+                onClick={() => { this.navigateToIntermission(); }}
+              >
+                Intermission
+              </button>
             )}
           </div>
           <div className={styles['drop-down-container']} onClick={() => this.toggleNav()}>
@@ -67,4 +97,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default connect()(withRouter(Header));

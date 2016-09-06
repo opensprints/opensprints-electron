@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './race.css';
+import styles from './Race.css';
 import racerStyles from './race-preview/RacerSelect.css';
 
 /**
