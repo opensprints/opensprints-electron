@@ -37,7 +37,7 @@ const RacerStats = ({ bikeIndex, bike, racer }) => (
     </div>
     <div
       style={{ marginBottom: '5px' }}
-      className={racerStyles['racer-select-container']}
+      className={racerStyles['racer-edit-container']}
     >
       <label className={racerStyles.name}>
         {racer.name}
