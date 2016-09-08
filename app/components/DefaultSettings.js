@@ -154,8 +154,32 @@ export default class DefaultSettings extends Component {
               <label className="text-uppercase">
                 Racer Colors
               </label>
-              <div>
-                Ye old color pickers will be here
+              <div className="row">
+                {bikes.map((bike, i) => (
+                  <div
+                    key={`colorPicker-${i}`}
+                    className="col-xs-3"
+                  >
+                    <div
+                      style={{
+                        border: '1px solid #6FDCFF',
+                        background: bike.color
+                      }}
+                    >
+                      {i + 1}
+                    </div>
+                    <span className="form-control-feedback">
+                      <i
+                        style={{
+                          color: '#6FDCFF'
+                        }}
+                        className="material-icons md-36"
+                      >
+                        arrow_drop_down
+                      </i>
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
 
