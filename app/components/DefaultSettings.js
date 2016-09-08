@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import styles from './settings.css';
 
 const StandardSelect = ({ selectProps = {}, children }) => {
   const { style } = selectProps;
@@ -33,6 +34,20 @@ const StandardSelect = ({ selectProps = {}, children }) => {
 StandardSelect.propTypes = {
   selectProps: PropTypes.object,
   children: PropTypes.array
+};
+
+const BikeContext = ({ children }) => (
+  <div className={styles.contextContainer}>
+    <div style={{ position: 'relative' }}>
+      <div className={styles.contextBorder}></div>
+      <span className={styles.contextContent}>
+        {children}
+      </span>
+    </div>
+  </div>
+);
+BikeContext.propTypes = {
+  children: PropTypes.number
 };
 
 export default class DefaultSettings extends Component {
@@ -86,30 +101,28 @@ export default class DefaultSettings extends Component {
                       padding: '3px 3px 3px 0'
                     }}
                   >
-                    <div className="input-context">
-                      <div style={{ position: 'relative' }}>
-                        <span>{i + 1}</span>
-                      </div>
+                    <div style={{ position: 'relative' }}>
+                      <BikeContext>{i + 1}</BikeContext>
+                      <input
+                        style={{
+                          border: '1px solid #0079A1',
+                          background: 'transparent',
+                          color: '#6FDCFF',
+                          fontSize: '18px',
+                          lineHeight: '18px',
+                          fontWeight: 'bold'
+                        }}
+                        className="form-control context"
+                        type="text"
+                        value={bike.rollerDiameter.value}
+                        onChange={(e) => {
+                          // TODO add validation for input values
+                          const newBike = Object.assign({}, bike);
+                          newBike.rollerDiameter.value = e.target.value;
+                          updateBikeConfiguration(i, newBike);
+                        }}
+                      />
                     </div>
-                    <input
-                      style={{
-                        border: '1px solid #0079A1',
-                        background: 'transparent',
-                        color: '#6FDCFF',
-                        fontSize: '18px',
-                        lineHeight: '18px',
-                        fontWeight: 'bold'
-                      }}
-                      className="form-control context"
-                      type="text"
-                      value={bike.rollerDiameter.value}
-                      onChange={(e) => {
-                        // TODO add validation for input values
-                        const newBike = Object.assign({}, bike);
-                        newBike.rollerDiameter.value = e.target.value;
-                        updateBikeConfiguration(i, newBike);
-                      }}
-                    />
                   </div>
                   <div
                     className="col-xs-6"
