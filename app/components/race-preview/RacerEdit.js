@@ -34,7 +34,19 @@ export default class RacerEdit extends Component {
                 <div className="form-group">
                   <div className="input-group">
                     <input
-                      className={`form-control input ${styles['name-edit']}`}
+                      className="form-control input"
+                      style={{
+                        fontSize: '20px',
+                        color: 'white',
+                        paddingTop: 0,
+                        marginTop: '6px',
+                        height: '28px',
+                        background: 'transparent',
+                        borderRadius: 0,
+                        boxShadow: 'none',
+                        border: 'none',
+                        borderBottom: 'white solid 2px'
+                      }}
                       type="text"
                       defaultValue={racer.name}
                     />
@@ -72,7 +84,8 @@ export default class RacerEdit extends Component {
               <div
                 className="pull-right"
                 style={{
-                  marginTop: '20px'
+                  marginTop: '20px',
+                  marginBottom: '20px'
                 }}
               >
                 <button
