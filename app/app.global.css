@@ -151,3 +151,30 @@ select.form-control {
   border: 1px solid white;
   -webkit-appearance: none;
 }
+
+.checkbox {
+  margin: 5px 0;
+}
+
+.checkbox i {
+  color: #6FDCFF;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.checkbox label {
+  color: #6FDCFF;
+  font-size: 24px;
+  padding-left: 10px;
+  vertical-align: top;
+}
+
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

@@ -1,5 +1,40 @@
 import React, { Component, PropTypes } from 'react';
 
+const StandardSelect = ({ selectProps = {}, children }) => {
+  const { style } = selectProps;
+  return (
+    <div className="select-container">
+      <select
+        className="form-control"
+        {...selectProps}
+        style={Object.assign({}, {
+          color: '#6FDCFF',
+          fontSize: '18px',
+          lineHeight: '18px',
+          fontWeight: 'bold',
+          borderColor: '#0079A1'
+        }, style)}
+      >
+        {children}
+      </select>
+      <span className="form-control-feedback">
+        <i
+          style={{
+            color: (style && style.color) ? style.color : '#6FDCFF'
+          }}
+          className="material-icons md-36"
+        >
+          arrow_drop_down
+        </i>
+      </span>
+    </div>
+  );
+};
+StandardSelect.propTypes = {
+  selectProps: PropTypes.object,
+  children: PropTypes.array
+};
+
 export default class DefaultSettings extends Component {
   static propTypes = {
     bikes: PropTypes.array.isRequired,
@@ -10,36 +45,57 @@ export default class DefaultSettings extends Component {
     const { bikes, updateBikesAvailable, updateBikeConfiguration } = this.props;
     return (
       <div className="container">
-        <h4>Default Settings</h4>
+        <h2>Default Settings</h2>
 
         {/* First Horizontal Row of Settings */}
         <div className="row">
 
           {/* First Column of Settings */}
-          <div className="col-xs-12 col-sm-6">
-            <div className="row">
-              <div className="input-group inline">
-                <label>
-                  Number of Bikes
-                  <select
-                    onChange={(e) => updateBikesAvailable(parseInt(e.target.value, 10))}
-                    value={bikes.length}
-                  >
-                    {[2, 4].map((num) => (
-                      <option key={`bikeNum-option-${num}`} value={num}>
-                        {num}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+          <div className="col-xs-4">
+            <div className="form-group">
+              <label className="text-uppercase">
+                Number of Bikes
+              </label>
+              <div>
+                <StandardSelect
+                  selectProps={{
+                    style: {
+                      width: '90px'
+                    },
+                    onChange: (e) => { updateBikesAvailable(parseInt(e.target.value, 10)); },
+                    value: bikes.length
+                  }}
+                >
+                  {[2, 4].map((num) => (
+                    <option key={`bikeNum-option-${num}`} value={num}>
+                      {num}
+                    </option>
+                  ))}
+                </StandardSelect>
               </div>
             </div>
-            {bikes.map((bike, i) => (
-              <div className="row" key={`bike-${i}-rollerDiameter`}>
-                <div className="input-group inline">
-                  <label>
-                    Roller Diameter
+            <div className="form-group">
+              <label className="text-uppercase">
+                Roller Diameter
+              </label>
+              {bikes.map((bike, i) => (
+                <div className="input-group inline" key={`bike-${i}-rollerDiameter`}>
+                  <div
+                    className="col-xs-4"
+                    style={{
+                      padding: '3px 3px 3px 0'
+                    }}
+                  >
                     <input
+                      style={{
+                        border: '1px solid #0079A1',
+                        background: 'transparent',
+                        color: '#6FDCFF',
+                        fontSize: '18px',
+                        lineHeight: '18px',
+                        fontWeight: 'bold'
+                      }}
+                      className="form-control"
                       type="text"
                       value={bike.rollerDiameter.value}
                       onChange={(e) => {
@@ -49,41 +105,65 @@ export default class DefaultSettings extends Component {
                         updateBikeConfiguration(i, newBike);
                       }}
                     />
-                  </label>
-                  <select
-                    onChange={(e) => {
-                      const newBike = Object.assign({}, bike);
-                      newBike.rollerDiameter.unit = e.target.value;
-                      updateBikeConfiguration(i, newBike);
+                  </div>
+                  <div
+                    className="col-xs-6"
+                    style={{
+                      padding: '3px 0 3px 2px'
                     }}
-                    value={bike.rollerDiameter.unit}
                   >
-                    <option value="inch">inches</option>
-                    <option value="centimeter">centimeters</option>
-                  </select>
+                    <StandardSelect
+                      selectProps={{
+                        style: {
+                          width: '130px'
+                        },
+                        onChange: (e) => {
+                          const newBike = Object.assign({}, bike);
+                          newBike.rollerDiameter.unit = e.target.value;
+                          updateBikeConfiguration(i, newBike);
+                        },
+                        value: bike.rollerDiameter.unit
+                      }}
+                    >
+                      <option value="inch">inches</option>
+                      <option value="centimeter">centimeters</option>
+                    </StandardSelect>
+                  </div>
                 </div>
-              </div>
-            ))}
-            <div className="row">
-              <label className="group-heading">
+              ))}
+            </div>
+            <div className="form-group">
+              <label className="text-uppercase">
                 Racer Colors
               </label>
-              <div className="row">
+              <div>
                 Ye old color pickers will be here
               </div>
             </div>
 
-            <div className="row">
-              <label className="group-heading">
+            <div className="form-group">
+              <label className="text-uppercase">
                 Racer Roster Options
               </label>
-              <div className="checkbox changeable">
-                <i className="material-icons md-24">check_box</i>
-                <label>Sex</label>
+              <div className="checkbox unselectable">
+                <i className="material-icons">check_box</i>
+                <label
+                  style={{
+                    fontSize: '24px'
+                  }}
+                >
+                  Sex
+                </label>
               </div>
-              <div className="checkbox changeable">
-                <i className="material-icons md-24">check_box_outline_blank</i>
-                <label>Racer Level</label>
+              <div className="checkbox unselectable">
+                <i className="material-icons">check_box_outline_blank</i>
+                <label
+                  style={{
+                    fontSize: '24px'
+                  }}
+                >
+                  Racer Level
+                </label>
               </div>
             </div>
           </div>
