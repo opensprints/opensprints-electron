@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import RacerEdit from './RacerEdit';
-import styles from './RacerSelect.css';
+import RaceQuickSettings from './RaceQuickSettings';
 
 export default class RacePreview extends Component {
   static propTypes = {
@@ -26,34 +26,7 @@ export default class RacePreview extends Component {
     const { bikes } = this.props;
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-xs-8 col-xs-offset-2">
-            <h4>
-              Review Race Settings
-            </h4>
-            <hr className="heading" />
-            <div className="row">
-              <div className="col-xs-10">
-                <div className="col-xs-5 form-group">
-                  <label>Race Type</label>
-                  <div className={styles['race-setting-value']}>Distance Race</div>
-                </div>
-                <div className="col-xs-4 form-group">
-                  <label>Distance</label>
-                  <div className={styles['race-setting-value']}>200.0 meters</div>
-                </div>
-                <div className="col-xs-3 form-group">
-                  <label>Visual</label>
-                  <div className={styles['race-setting-value']}>Clock</div>
-                </div>
-              </div>
-              <div className="col-xs-2 form-group">
-                <div>{'\u00A0'}</div>
-                <button className="btn btn-default btn-xs pull-right">Edit</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <RaceQuickSettings />
         <div className="row">
           {racers.map((racer, i) => (
             <RacerEdit
