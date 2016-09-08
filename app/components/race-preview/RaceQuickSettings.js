@@ -18,7 +18,7 @@ export default class RaceQuickSettings extends Component {
   }
 
   render() {
-    const { editing, raceType, saveResults } = this.state;
+    const { editing, raceType, saveResults, distance } = this.state;
     return (
       <div className="row">
         <div className="col-xs-8 col-xs-offset-2">
@@ -55,9 +55,25 @@ export default class RaceQuickSettings extends Component {
                 <div className="col-xs-4 form-group">
                   <label>Distance</label>
                   {editing ? (
-                    <input />
+                    <input
+                      style={{
+                        border: '1px solid #0079A1',
+                        background: 'transparent',
+                        color: '#6FDCFF',
+                        fontSize: '18px',
+                        lineHeight: '18px',
+                        fontWeight: 'bold'
+                      }}
+                      className="form-control context"
+                      type="text"
+                      value={distance}
+                      onChange={(e) => {
+                        // TODO add validation for input values
+                        this.setState({ distance: e.target.value });
+                      }}
+                    />
                   ) : (
-                    <div className={styles['race-setting-value']}>200.0 meters</div>
+                    <div className={styles['race-setting-value']}>{distance} meters</div>
                   )}
                 </div>
                 <div className="col-xs-4 form-group">
