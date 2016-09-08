@@ -83,9 +83,9 @@ class Header extends Component {
               <div className={styles['drop-down']} onMouseLeave={() => this.closeNav()}>
                 <div className={styles.list}>
                   <NavLink isIndex to="/">Home</NavLink>
-                  <NavLink to="/roster">roster</NavLink>
-                  <NavLink to="/default-settings">default settings</NavLink>
-                  <NavLink to="/race-preview/0">Pre-Race Review</NavLink>
+                  <NavLink to="/roster">Roster</NavLink>
+                  <NavLink to="/default-settings">Default Settings</NavLink>
+                  <NavLink to="/race-preview/0">Race Preview</NavLink>
                   <NavLink to="/race/0">Race Screen</NavLink>
                 </div>
               </div>
