@@ -27,7 +27,7 @@ export default class RacerEdit extends Component {
         >
           {bikeIndex + 1}
         </div>
-        <div className={styles['racer-select-container']}>
+        <div className={styles['racer-edit-container']}>
           {!editing ? <label className={styles.name}>{racer.name}</label> :
             <div>
               <form>
@@ -60,7 +60,7 @@ export default class RacerEdit extends Component {
                     </span>
                   </div>
                 </div>
-                <div className="select-container">
+                <div className="select-container block">
                   <select className="form-control">
                     <option>Male</option>
                     <option>Female</option>
@@ -70,7 +70,7 @@ export default class RacerEdit extends Component {
                   </span>
                 </div>
                 <br />
-                <div className="select-container">
+                <div className="select-container block">
                   <select className="form-control">
                     <option>Filthy Casual</option>
                     <option>I ride bikes, m'kay</option>

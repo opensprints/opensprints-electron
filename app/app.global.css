@@ -132,6 +132,11 @@ hr.heading {
 
 .select-container {
   position: relative;
+  display: inline-block;
+}
+
+.block {
+  display: block;
 }
 
 .select-container .form-control-feedback {
