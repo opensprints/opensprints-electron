@@ -37,7 +37,7 @@ export default function bikes(state = initialState, action) {
       if (action.n > state.length) {
         return [
           ...state,
-          ...initialState.slice(state.bikes.length, action.n)
+          ...initialState.slice(state.length, action.n)
         ];
       }
       return state.slice(0, action.n);
