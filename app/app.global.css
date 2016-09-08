@@ -171,10 +171,28 @@ select.form-control {
 
 
 .unselectable {
-  -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+}
+
+input.context {
+  padding-left: 20px;
+}
+
+div.input-context {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  color: #6FDCFF;
+  width: 15px;
+  height: 20px;
+  overflow: hidden;
+}
+
+
+div.input-context span {
+  position: absolute;
+  font-size: 12px;
+  top: 0;
+  left: 3px;
+
 }

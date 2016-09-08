@@ -86,6 +86,11 @@ export default class DefaultSettings extends Component {
                       padding: '3px 3px 3px 0'
                     }}
                   >
+                    <div className="input-context">
+                      <div style={{ position: 'relative' }}>
+                        <span>{i + 1}</span>
+                      </div>
+                    </div>
                     <input
                       style={{
                         border: '1px solid #0079A1',
@@ -95,7 +100,7 @@ export default class DefaultSettings extends Component {
                         lineHeight: '18px',
                         fontWeight: 'bold'
                       }}
-                      className="form-control"
+                      className="form-control context"
                       type="text"
                       value={bike.rollerDiameter.value}
                       onChange={(e) => {
