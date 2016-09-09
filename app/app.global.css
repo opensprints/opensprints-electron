@@ -159,7 +159,7 @@ select.form-control {
 .checkbox i {
   color: #6FDCFF;
   margin-right: 5px;
-  vertical-align: middle;
+  vertical-align: text-bottom;
 }
 
 .checkbox label {

@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './settings.css';
+import Checkbox from './Checkbox';
+import Background from './Background';
 
 const StandardSelect = ({ selectProps = {}, children }) => {
   const { style } = selectProps;
@@ -150,34 +152,47 @@ export default class DefaultSettings extends Component {
                 </div>
               ))}
             </div>
-            <div className="form-group">
+            <div
+              className="form-group"
+              style={{ marginBottom: '30px' }}
+            >
               <label className="text-uppercase">
                 Racer Colors
               </label>
-              <div className="row">
+              <div
+                className="row"
+                style={{
+                  marginLeft: 0,
+                  marginRight: '35px'
+                }}
+              >
                 {bikes.map((bike, i) => (
                   <div
                     key={`colorPicker-${i}`}
                     className="col-xs-3"
+                    style={{
+                      paddingLeft: 0,
+                      paddingRight: '10px'
+                    }}
                   >
-                    <div
-                      style={{
-                        border: '1px solid #6FDCFF',
-                        background: bike.color
-                      }}
-                    >
-                      {i + 1}
-                    </div>
-                    <span className="form-control-feedback">
-                      <i
+                    <div style={{ position: 'relative' }}>
+                      <BikeContext>{i + 1}</BikeContext>
+                      <div
                         style={{
-                          color: '#6FDCFF'
+                          height: '36px',
+                          border: '1px solid #6FDCFF',
+                          background: bike.color
                         }}
-                        className="material-icons md-36"
-                      >
-                        arrow_drop_down
-                      </i>
-                    </span>
+                      />
+                      <span className="form-control-feedback">
+                        <i
+                          style={{ color: '#6FDCFF' }}
+                          className="material-icons md-36"
+                        >
+                          arrow_drop_down
+                        </i>
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -187,26 +202,8 @@ export default class DefaultSettings extends Component {
               <label className="text-uppercase">
                 Racer Roster Options
               </label>
-              <div className="checkbox unselectable">
-                <i className="material-icons">check_box</i>
-                <label
-                  style={{
-                    fontSize: '24px'
-                  }}
-                >
-                  Sex
-                </label>
-              </div>
-              <div className="checkbox unselectable">
-                <i className="material-icons">check_box_outline_blank</i>
-                <label
-                  style={{
-                    fontSize: '24px'
-                  }}
-                >
-                  Racer Level
-                </label>
-              </div>
+              <Checkbox>Sex</Checkbox>
+              <Checkbox>Racer Level</Checkbox>
             </div>
           </div>
 
@@ -214,14 +211,25 @@ export default class DefaultSettings extends Component {
           <div className="col-xs-12 col-sm-6">
 
             <div className="row">
-              <div className="input-group inline">
-                <label className="group-heading">
+              <div className="form-group">
+                <label className="text-uppercase">
                   Distance/Speed Units
-                  <select>
-                    <option>Miles</option>
-                    <option>Kilometers</option>
-                  </select>
                 </label>
+                <div className="input-group">
+                  <StandardSelect
+                    selectProps={{
+                      style: {
+                        width: '190px'
+                      },
+                      onChange: () => {
+                        // TODO
+                      }
+                    }}
+                  >
+                    <option value="miles">Miles</option>
+                    <option value="kilometers">Kilometers</option>
+                  </StandardSelect>
+                </div>
               </div>
             </div>
 
@@ -233,6 +241,51 @@ export default class DefaultSettings extends Component {
               </div>
             </div>
 
+          </div>
+        </div>
+
+        <hr />
+
+        <div className="row">
+          <div className="col-xs-6">
+            <div className="form-group">
+              <label className="text-uppercase">
+                Race Screen Background
+              </label>
+              <Background />
+            </div>
+          </div>
+          <div className="col-xs-6">
+            <div className="form-group">
+              <label className="text-uppercase">
+                Race Clock Background
+              </label>
+              <Background />
+            </div>
+          </div>
+        </div>
+
+        <hr />
+
+        <div className="row">
+          <div className="col-xs-6">
+            <div className="form-group">
+              <label className="text-uppercase">
+                Intermission Screen Background
+              </label>
+              <Background />
+            </div>
+            Add an Intermission Screen Background
+          </div>
+          <div className="col-xs-6">
+            <div className="form-group">
+              <label className="text-uppercase">
+                Intermission Screen Options
+              </label>
+              <Checkbox>Show standings</Checkbox>
+              <Checkbox>Show upcoming races</Checkbox>
+              <Checkbox>Show message (90 character max)</Checkbox>
+            </div>
           </div>
         </div>
       </div>

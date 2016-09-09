@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import DefaultSettings from '../components/DefaultSettings';
+import DefaultSettings from '../components/default-settings/DefaultSettings';
 import * as DefaultSettingActions from '../actions/defaultSetting';
 import * as BikeActions from '../actions/bike';
 
