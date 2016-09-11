@@ -19,7 +19,7 @@ export default class Background extends Component {
           className="text-uppercase"
           style={{
             position: 'absolute',
-            top: '5px',
+            top: '10px',
             right: '10px',
             textShadow: '-1px 0 #6FDCFF, 0 1px #6FDCFF, 1px 0 #6FDCFF, 0 -1px #6FDCFF'
           }}
@@ -27,7 +27,8 @@ export default class Background extends Component {
           <span
             style={{
               fontSize: '12px',
-              verticalAlign: 'super'
+              verticalAlign: 'top',
+              paddingRight: '10px'
             }}
           >PSD Template</span>
           <i className="material-icons">file_download</i>

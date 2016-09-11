@@ -8,7 +8,9 @@ export default class Intermission extends Component {
 
   render() {
     return (
-      <div />
+      <div className="container">
+        INTERMISSION SCREEN UNDER CONSTRUCTION
+      </div>
     );
   }
 }
