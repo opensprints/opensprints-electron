@@ -23,8 +23,7 @@ export default class Checkbox extends Component {
       <div className="checkbox unselectable">
         <label
           style={{
-            fontSize: '24px',
-            verticalAlign: ''
+            fontSize: '24px'
           }}
         >
           <i className="material-icons">
