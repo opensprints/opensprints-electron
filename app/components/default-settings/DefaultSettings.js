@@ -285,6 +285,18 @@ export default class DefaultSettings extends Component {
               <Checkbox>Show standings</Checkbox>
               <Checkbox>Show upcoming races</Checkbox>
               <Checkbox>Show message (90 character max)</Checkbox>
+              <div>
+                <textarea
+                  className="form-control"
+                  style={{
+                    fontSize: '24px',
+                    backgroundColor: 'transparent',
+                    color: '#6FDCFF',
+                    border: '1px solid #0079A1'
+                  }}
+                  defaultValue="We'd like to thank Wal-Mart and the Koch Brothers."
+                />
+              </div>
             </div>
           </div>
         </div>
