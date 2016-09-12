@@ -235,9 +235,56 @@ export default class DefaultSettings extends Component {
 
             <div className="row">
               <div className="input-group inline">
-                <label className="group-heading">
+                <label className="group-heading text-uppercase">
                   Race Distance
                 </label>
+                <div className="input-group inline">
+                  <div
+                    className="col-xs-2"
+                    style={{
+                      padding: '3px 3px 3px 0'
+                    }}
+                  >
+                    <div style={{ position: 'relative' }}>
+                      <input
+                        style={{
+                          border: '1px solid #0079A1',
+                          background: 'transparent',
+                          color: '#6FDCFF',
+                          fontSize: '18px',
+                          lineHeight: '18px',
+                          fontWeight: 'bold'
+                        }}
+                        className="form-control context"
+                        type="text"
+                        defaultValue="200.0"
+                        onChange={(e) => {
+                          // TODO add validation for input values
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="col-xs-6"
+                    style={{
+                      padding: '3px 0 3px 2px'
+                    }}
+                  >
+                    <StandardSelect
+                      selectProps={{
+                        style: {
+                          width: '130px'
+                        },
+                        onChange: (e) => {
+                        },
+                        defaultValue: 'meters'
+                      }}
+                    >
+                      <option value="feet">feet</option>
+                      <option value="meters">meters</option>
+                    </StandardSelect>
+                  </div>
+                </div>
               </div>
             </div>
 
