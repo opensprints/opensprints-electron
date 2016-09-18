@@ -4,13 +4,14 @@
 require('babel-polyfill');
 const os = require('os');
 const webpack = require('webpack');
-const electronCfg = require('./webpack.config.electron.js');
-const cfg = require('./webpack.config.production.js');
+const electronCfg = require('./webpack.config.electron');
+const cfg = require('./webpack.config.production');
 const packager = require('electron-packager');
 const del = require('del');
 const exec = require('child_process').exec;
 const argv = require('minimist')(process.argv.slice(2));
 const pkg = require('./package.json');
+
 const deps = Object.keys(pkg.dependencies);
 const devDeps = Object.keys(pkg.devDependencies);
 
@@ -47,11 +48,11 @@ if (version) {
   startPack();
 } else {
   // use the same version as the currently-installed electron-prebuilt
-  exec('npm list electron-prebuilt --dev', (err, stdout) => {
+  exec('npm list electron --dev', (err, stdout) => {
     if (err) {
       DEFAULT_OPTS.version = '1.2.0';
     } else {
-      DEFAULT_OPTS.version = stdout.split('electron-prebuilt@')[1].replace(/\s/g, '');
+      DEFAULT_OPTS.version = stdout.split('electron@')[1].replace(/\s/g, '');
     }
 
     startPack();
@@ -68,30 +69,31 @@ function build(cfg) {
   });
 }
 
-function startPack() {
+async function startPack() {
   console.log('start pack...');
-  build(electronCfg)
-    .then(() => build(cfg))
-    .then(() => del('release'))
-    .then(paths => {
-      if (shouldBuildAll) {
-        // build for all platforms
-        const archs = ['ia32', 'x64'];
-        const platforms = ['linux', 'win32', 'darwin'];
 
-        platforms.forEach(plat => {
-          archs.forEach(arch => {
-            pack(plat, arch, log(plat, arch));
-          });
+  try {
+    await build(electronCfg);
+    await build(cfg);
+    const paths = await del('release');
+
+    if (shouldBuildAll) {
+      // build for all platforms
+      const archs = ['ia32', 'x64'];
+      const platforms = ['linux', 'win32', 'darwin'];
+
+      platforms.forEach((plat) => {
+        archs.forEach((arch) => {
+          pack(plat, arch, log(plat, arch));
         });
-      } else {
-        // build for current platform only
-        pack(os.platform(), os.arch(), log(os.platform(), os.arch()));
-      }
-    })
-    .catch(err => {
-      console.error(err);
-    });
+      });
+    } else {
+      // build for current platform only
+      pack(os.platform(), os.arch(), log(os.platform(), os.arch()));
+    }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function pack(plat, arch, cb) {

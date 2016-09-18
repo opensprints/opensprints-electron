@@ -7,24 +7,23 @@
     <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <!--<link rel="stylesheet" href="styles/index.css">-->
     <script>
-      (function() {
-        if (!process.env.HOT) {
-          const link = document.createElement('link');
-          link.rel = 'stylesheet';
-          link.href = '../dist/style.css';
-          document.write(link.outerHTML);
-        }
-      }());
+      if (!process.env.HOT) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '../dist/style.css';
+        document.write(link.outerHTML);
+      }
     </script>
   </head>
   <body>
     <div id="root"></div>
     <script>
-      (function() {
+      {
         const script = document.createElement('script');
-        script.src = (process.env.HOT) ? 'http://localhost:3000/dist/bundle.js' : '../dist/bundle.js';
+        const port = process.env.PORT || 3000;
+        script.src = (process.env.HOT) ? `http://localhost:${port}/dist/bundle.js` : '../dist/bundle.js';
         document.write(script.outerHTML);
-      }());
+      }
     </script>
     <!--<script>jQuery = require("./node_modules/jquery/dist/jquery.js")</script>-->
     <!--<script src="node_modules/bootstrap/dist/js/bootstrap.js" type="application/javascript"></script>-->
