@@ -1,40 +1,45 @@
 import React, { Component, PropTypes } from 'react';
 import { Arrow } from 'react-konva';
-
-let id;
+import johnnyFiveAdapter from '../../lib/johnnyFiveAdapter';
 
 export default class Indicator extends Component {
   static propTypes = {
-    color: PropTypes.string
+    color: PropTypes.string,
+    rotation: PropTypes.number
   }
 
   constructor(...args) {
     super(...args);
-    const now = new Date();
     this.state = {
-      rotation: (now.getSeconds() + (now.getMilliseconds() * 0.001)) * 6
+      ticks: 0,
+      rotation: 0
     };
     this.updateRotation = this.updateRotation.bind(this);
+    johnnyFiveAdapter([this.updateRotation]);
   }
 
-  componentDidMount() {
-    id = setInterval(this.updateRotation, 10);
-  }
+  componentDidMount() {}
 
-  componentWillUnmount() {
-    clearInterval(id);
-  }
+  componentWillUnmount() {}
 
   updateRotation() {
-    const now = new Date();
+    const { ticks } = this.state;
+
+    // total distance / distance per tick = number of ticks in a race
+    // 100 m / 3.9 in (99.06 mm) = 1009.4892
+
+    // 360 deg / (number of ticks in a race) = degrees per tick
+    // 360 * ticks / (number of ticks in a race) = current needle rotation
+
     this.setState({
-      rotation: (now.getSeconds() + (now.getMilliseconds() * 0.001)) * 6
+      rotation: (360 * (ticks + 1)) / 1009,
+      ticks: ticks + 1
     });
   }
 
   render() {
     const { color = 'white' } = this.props;
-    const { rotation } = this.state;
+    const { rotation = 0 } = this.state;
     return (
       <Arrow
         x={190}
