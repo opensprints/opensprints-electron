@@ -41,6 +41,8 @@ export default merge(baseConfig, {
   },
 
   plugins: [
+    new webpack.IgnorePlugin(/canvas$/),
+    new webpack.IgnorePlugin(/jsdom$/),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({

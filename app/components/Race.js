@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './Race.css';
 import racerStyles from './race-preview/RacerSelect.css';
+import TestClock from './race/Clock';
 
 /**
  * I'm Blue da ba dee da ba daa...
@@ -39,9 +40,9 @@ const RacerStats = ({ bikeIndex, bike, racer }) => (
       style={{ marginBottom: '5px' }}
       className={racerStyles['racer-edit-container']}
     >
-      <label className={racerStyles.name}>
+      <span className={racerStyles.name}>
         {racer.name}
-      </label>
+      </span>
       <div>
         00.0 m
         <div
@@ -100,6 +101,7 @@ const Clock = () => (
       <div className={`${styles.tropicGuideline} ${styles.westGuideline}`} />
 
       <div className={styles['clock-center']} />
+      <TestClock />
     </div>
     <div className={styles.stopwatch}>
       00:00.2
@@ -137,9 +139,17 @@ export default class Race extends Component {
       <div className="container">
         <div className="row">
           <div className="col-xs-3">
-            <label style={{ fontSize: '14px' }}>
-              ON DECK
-            </label>
+            <span
+              style={{
+                textTransform: 'uppercase',
+                display: 'inline-block',
+                maxWidth: '100%',
+                marginBottom: '5px',
+                fontWeight: 'bold'
+              }}
+            >
+              On Deck
+            </span>
             <BasicHR />
             <div style={messageGroupStyle}>
               <BlueMessage>1. Monk Dude</BlueMessage>
@@ -188,7 +198,17 @@ export default class Race extends Component {
               }}
               className="pull-right"
             >
-              <label>Last Call</label>
+              <span
+                style={{
+                  textTransform: 'uppercase',
+                  display: 'inline-block',
+                  maxWidth: '100%',
+                  marginBottom: '5px',
+                  fontWeight: 'bold'
+                }}
+              >
+                Last Call
+              </span>
             </div>
             <BasicHR />
             <div style={{ float: 'right' }}>
