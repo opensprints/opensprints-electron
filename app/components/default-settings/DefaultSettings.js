@@ -258,7 +258,7 @@ export default class DefaultSettings extends Component {
                         className="form-control context"
                         type="text"
                         defaultValue="200.0"
-                        onChange={(e) => {
+                        onChange={() => {
                           // TODO add validation for input values
                         }}
                       />
@@ -275,7 +275,7 @@ export default class DefaultSettings extends Component {
                         style: {
                           width: '130px'
                         },
-                        onChange: (e) => {
+                        onChange: () => {
                         },
                         defaultValue: 'meters'
                       }}
