@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Arrow } from 'react-konva';
-import johnnyFiveAdapter from '../../lib/johnnyFiveAdapter';
 
 export default class Indicator extends Component {
   static propTypes = {
@@ -15,7 +14,7 @@ export default class Indicator extends Component {
       rotation: 0
     };
     this.updateRotation = this.updateRotation.bind(this);
-    johnnyFiveAdapter([this.updateRotation]);
+    johnnyFiveAdapter([this.updateRotation]); // eslint-disable-line
   }
 
   componentDidMount() {}

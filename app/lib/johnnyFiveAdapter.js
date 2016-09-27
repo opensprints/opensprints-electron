@@ -1,12 +1,13 @@
 // Connecting to the arduino and configuring its gpio pin.
 // Each 'up' on a sensor is a 'tick'.
 
-import * as five from 'johnny-five';
+const five = require('johnny-five');
+
 // const DEFAULT_NUM_BIKES = 4;
 const LED_PINS = [9, 10, 11, 12, 13];
 const SENSOR_PINS = [2, 3, 4, 5, 6];
 
-export default function johnnyFiveAdapter(senseFunctions) {
+module.exports = function johnnyFiveAdapter(senseFunctions) {
   this.board = new five.Board({
     repl: false
   });
@@ -18,12 +19,12 @@ export default function johnnyFiveAdapter(senseFunctions) {
   this.board.on('ready', () => {
     console.log('The board is ready.');
     // Example of changing baudRate
-    this.io.transport.update({ baudRate: 115200 }, (err) => {
-      if (err) {
-        console.error(`Error: ${err}`);
-      }
-      console.log('Successfully switched baudRate to 115200');
-    });
+    // this.board.io.transport.update({ baudRate: 115200 }, (err) => {
+    //   if (err) {
+    //     console.error(`Error: ${err}`);
+    //   }
+    //   console.log('Successfully switched baudRate to 115200');
+    // });
 
     function setupButton(i) {
       // Create the LEDs:
@@ -60,4 +61,4 @@ export default function johnnyFiveAdapter(senseFunctions) {
       event.type, event.class, event.message
     );
   });
-}
+};
