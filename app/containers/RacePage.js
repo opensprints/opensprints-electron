@@ -1,7 +1,7 @@
 // import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import Race from '../components/Race';
+import Race from '../components/race/Race';
 
 function mapStateToProps(state) {
   return {

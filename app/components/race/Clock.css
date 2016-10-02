@@ -1,15 +1,10 @@
-.blue-message {
-  font-size: 20px;
-  color: #6FDCFF;
-}
-
 .clock-frame {
   height: 388px;
   width: 388px;
   border: white solid 1px;
   margin-left: auto;
   margin-right: auto;
-  background: url("../../images/open-sprints-bg.jpg") center center / 388px 388px no-repeat;
+  background: url("../../../images/open-sprints-bg.jpg") center center / 388px 388px no-repeat;
   position: relative;
 }
 
@@ -30,14 +25,6 @@
   top: 182px;
   left: 182px;
   z-index: 100;
-}
-
-.add-message {
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
-  vertical-align: super;
-  margin-right: 10px;
 }
 
 .poleContainer {
@@ -101,13 +88,4 @@
 
 .westGuideline {
   left: 0;
-}
-
-.stopwatch {
-  position: absolute;
-  top: 28px;
-  right: 10px;
-  font-size: 26px;
-  line-height: 20px;
-  font-weight: bold;
 }
