@@ -89,3 +89,12 @@
 .westGuideline {
   left: 0;
 }
+
+.stopwatch {
+  position: absolute;
+  top: 28px;
+  right: 10px;
+  font-size: 26px;
+  line-height: 20px;
+  font-weight: bold;
+}
