@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Button, Modal, Popover, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import styles from './Race.css';
 import Clock from './Clock';
 import RacerStats from './RacerStats';
@@ -110,9 +111,21 @@ export default class Race extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      showModal: true,
       activeRace: props.races.find((race) => race.id === parseInt(props.params.race, 10))
     };
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
   }
+
+  close() {
+    this.setState({ showModal: false });
+  }
+
+  open() {
+    this.setState({ showModal: true });
+  }
+
   render() {
     const { bikes } = this.props;
     const racers = [
@@ -121,6 +134,20 @@ export default class Race extends Component {
       { id: 2, name: 'Chim Chim' },
       { id: 3, name: 'Snake Oiler' }
     ];
+
+    // popover <p>there is a <OverlayTrigger overlay={popover}>popover</OverlayTrigger> here</p>
+    const popover = (
+      <Popover id="modal-popover" title="popover">
+        very popover. such engagement
+      </Popover>
+    );
+
+    // tooltip <p>there is a <OverlayTrigger overlay={tooltip}>tooltip</OverlayTrigger> here</p>
+    const tooltip = (
+      <Tooltip id="modal-tooltip">
+        wow.
+      </Tooltip>
+    );
     return (
       <div className="container">
         <div className="row">
@@ -157,6 +184,30 @@ export default class Race extends Component {
             />
           ))}
         </div>
+
+        <Modal
+          show={this.state.showModal}
+          onHide={this.close}
+          animation={false}
+        >
+          <Modal.Body>
+            <h1>Racers Ready?</h1>
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              className="btn btn-default"
+              onClick={this.close}
+            >
+              Go Back
+            </button>
+            <button
+              className="btn btn-primary"
+              onClick={this.close}
+            >
+              Start The Countdown!
+            </button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }

@@ -169,11 +169,26 @@ select.form-control {
   vertical-align: top;
 }
 
-
 .unselectable {
   -webkit-user-select: none;
 }
 
 input.context {
   padding-left: 20px;
+}
+
+.modal-dialog {
+  margin: 100px auto;
+}
+
+.modal-content {
+  border: 1px solid #6FDCFF;
+  border-radius: 0;
+  background: #000000;
+  text-align: center;
+}
+
+.modal-footer {
+  border-top: none;
+  text-align: center;
 }
