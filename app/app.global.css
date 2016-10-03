@@ -192,3 +192,8 @@ input.context {
   border-top: none;
   text-align: center;
 }
+
+.label {
+  padding: 0;
+  font-size: 100%;
+}

@@ -41,7 +41,7 @@ StandardSelect.propTypes = {
 const BikeContext = ({ children }) => (
   <div className={styles.contextContainer}>
     <div style={{ position: 'relative' }}>
-      <div className={styles.contextBorder}></div>
+      <div className={styles.contextBorder} />
       <span className={styles.contextContent}>
         {children}
       </span>
@@ -70,12 +70,13 @@ export default class DefaultSettings extends Component {
           {/* First Column of Settings */}
           <div className="col-xs-4">
             <div className="form-group">
-              <label className="text-uppercase">
+              <label htmlFor="select-bikes" className="text-uppercase">
                 Number of Bikes
               </label>
               <div>
                 <StandardSelect
                   selectProps={{
+                    id: 'select-bikes',
                     style: {
                       width: '90px'
                     },
@@ -92,9 +93,9 @@ export default class DefaultSettings extends Component {
               </div>
             </div>
             <div className="form-group">
-              <label className="text-uppercase">
+              <span className="label text-uppercase">
                 Roller Diameter
-              </label>
+              </span>
               {bikes.map((bike, i) => (
                 <div className="input-group inline" key={`bike-${i}-rollerDiameter`}>
                   <div
@@ -156,9 +157,9 @@ export default class DefaultSettings extends Component {
               className="form-group"
               style={{ marginBottom: '30px' }}
             >
-              <label className="text-uppercase">
+              <span className="label text-uppercase">
                 Racer Colors
-              </label>
+              </span>
               <div
                 className="row"
                 style={{
@@ -199,9 +200,9 @@ export default class DefaultSettings extends Component {
             </div>
 
             <div className="form-group">
-              <label className="text-uppercase">
+              <span className="label text-uppercase">
                 Racer Roster Options
-              </label>
+              </span>
               <Checkbox>Sex</Checkbox>
               <Checkbox>Racer Level</Checkbox>
             </div>
@@ -212,12 +213,13 @@ export default class DefaultSettings extends Component {
 
             <div className="row">
               <div className="form-group">
-                <label className="text-uppercase">
+                <label htmlFor="select-metric-units" className="text-uppercase">
                   Distance/Speed Units
                 </label>
                 <div className="input-group">
                   <StandardSelect
                     selectProps={{
+                      id: 'select-metric-units',
                       style: {
                         width: '190px'
                       },
@@ -235,7 +237,7 @@ export default class DefaultSettings extends Component {
 
             <div className="row">
               <div className="input-group inline">
-                <label className="group-heading text-uppercase">
+                <label htmlFor="distance-input" className="group-heading text-uppercase">
                   Race Distance
                 </label>
                 <div className="input-group inline">
@@ -247,7 +249,9 @@ export default class DefaultSettings extends Component {
                   >
                     <div style={{ position: 'relative' }}>
                       <input
+                        id="distance-input"
                         style={{
+                          padding: '6px 10px',
                           border: '1px solid #0079A1',
                           background: 'transparent',
                           color: '#6FDCFF',
@@ -296,17 +300,17 @@ export default class DefaultSettings extends Component {
         <div className="row">
           <div className="col-xs-6">
             <div className="form-group">
-              <label className="text-uppercase">
+              <span className="label text-uppercase">
                 Race Screen Background
-              </label>
+              </span>
               <Background />
             </div>
           </div>
           <div className="col-xs-6">
             <div className="form-group">
-              <label className="text-uppercase">
+              <span className="label text-uppercase">
                 Race Clock Background
-              </label>
+              </span>
               <Background />
             </div>
           </div>
@@ -317,18 +321,18 @@ export default class DefaultSettings extends Component {
         <div className="row">
           <div className="col-xs-6">
             <div className="form-group">
-              <label className="text-uppercase">
+              <span className="label text-uppercase">
                 Intermission Screen Background
-              </label>
+              </span>
               <Background />
             </div>
             Add an Intermission Screen Background
           </div>
           <div className="col-xs-6">
             <div className="form-group">
-              <label className="text-uppercase">
+              <span className="label text-uppercase">
                 Intermission Screen Options
-              </label>
+              </span>
               <Checkbox>Show standings</Checkbox>
               <Checkbox>Show upcoming races</Checkbox>
               <Checkbox>Show message (90 character max)</Checkbox>
