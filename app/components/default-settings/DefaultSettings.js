@@ -52,6 +52,228 @@ BikeContext.propTypes = {
   children: PropTypes.number
 };
 
+const PlainContext = ({ children }) => (
+  <div className={styles.contextContainer}>
+    <div style={{ position: 'relative' }}>
+      <span className={styles.contextContent}>
+        {children}
+      </span>
+    </div>
+  </div>
+);
+PlainContext.propTypes = {
+  children: PropTypes.string
+};
+
+const RaceDistanceSetting = () => (
+  <div className="row">
+    <div className="input-group inline">
+      <label htmlFor="distance-input" className="group-heading text-uppercase">
+        Race Distance
+      </label>
+      <div className="input-group inline">
+        <div
+          className="col-xs-2"
+          style={{
+            padding: '3px 3px 3px 0'
+          }}
+        >
+          <div style={{ position: 'relative' }}>
+            <input
+              id="distance-input"
+              style={{
+                padding: '6px 10px',
+                border: '1px solid #0079A1',
+                background: 'transparent',
+                color: '#6FDCFF',
+                fontSize: '18px',
+                lineHeight: '18px',
+                fontWeight: 'bold'
+              }}
+              className="form-control context"
+              type="text"
+              defaultValue="100"
+              onChange={() => {
+                // TODO add validation for input values
+              }}
+            />
+          </div>
+        </div>
+        <div
+          className="col-xs-6"
+          style={{
+            padding: '3px 0 3px 2px'
+          }}
+        >
+          <StandardSelect
+            selectProps={{
+              style: {
+                width: '130px'
+              },
+              onChange: () => {
+              },
+              defaultValue: 'meters'
+            }}
+          >
+            <option value="feet">feet</option>
+            <option value="meters">meters</option>
+          </StandardSelect>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const RaceDurationSetting = () => (
+  <div className="row">
+    <div className="input-group inline">
+      <span className="label group-heading text-uppercase">
+        Trial Duration
+      </span>
+      <div className="input-group inline">
+        <div
+          className="col-xs-2"
+          style={{
+            padding: '3px 3px 3px 0'
+          }}
+        >
+          <div style={{ position: 'relative' }}>
+            <PlainContext>H</PlainContext>
+            <input
+              style={{
+                padding: '6px 20px',
+                border: '1px solid #0079A1',
+                background: 'transparent',
+                color: '#6FDCFF',
+                fontSize: '18px',
+                lineHeight: '18px',
+                fontWeight: 'bold'
+              }}
+              className="form-control context"
+              type="text"
+              defaultValue="00"
+              onChange={() => {
+                // TODO add validation for input values
+              }}
+            />
+          </div>
+        </div>
+        <div
+          className="col-xs-2"
+          style={{
+            padding: '3px'
+          }}
+        >
+          <div style={{ position: 'relative' }}>
+            <PlainContext>M</PlainContext>
+            <input
+              style={{
+                padding: '6px 20px',
+                border: '1px solid #0079A1',
+                background: 'transparent',
+                color: '#6FDCFF',
+                fontSize: '18px',
+                lineHeight: '18px',
+                fontWeight: 'bold'
+              }}
+              className="form-control context"
+              type="text"
+              defaultValue="00"
+              onChange={() => {
+                // TODO add validation for input values
+              }}
+            />
+          </div>
+        </div>
+        <div
+          className="col-xs-2"
+          style={{
+            padding: '3px'
+          }}
+        >
+          <div style={{ position: 'relative' }}>
+            <PlainContext>S</PlainContext>
+            <input
+              style={{
+                padding: '6px 20px',
+                border: '1px solid #0079A1',
+                background: 'transparent',
+                color: '#6FDCFF',
+                fontSize: '18px',
+                lineHeight: '18px',
+                fontWeight: 'bold'
+              }}
+              className="form-control context"
+              type="text"
+              defaultValue="00"
+              onChange={() => {
+                // TODO add validation for input values
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const RaceScreenSettings = () => (
+  <div className="row">
+    <div className="col-xs-6">
+      <div className="form-group">
+        <span className="label text-uppercase">
+          Race Screen Background
+        </span>
+        <Background />
+      </div>
+    </div>
+    <div className="col-xs-6">
+      <div className="form-group">
+        <span className="label text-uppercase">
+          Race Clock Background
+        </span>
+        <Background />
+      </div>
+    </div>
+  </div>
+);
+
+const IntermissionScreenSettings = () => (
+  <div className="row">
+    <div className="col-xs-6">
+      <div className="form-group">
+        <span className="label text-uppercase">
+          Intermission Screen Background
+        </span>
+        <Background />
+      </div>
+      Add an Intermission Screen Background
+    </div>
+    <div className="col-xs-6">
+      <div className="form-group">
+        <span className="label text-uppercase">
+          Intermission Screen Options
+        </span>
+        <Checkbox>Show standings</Checkbox>
+        <Checkbox>Show upcoming races</Checkbox>
+        <Checkbox>Show message (90 character max)</Checkbox>
+        <div>
+          <textarea
+            className="form-control"
+            style={{
+              fontSize: '24px',
+              backgroundColor: 'transparent',
+              color: '#6FDCFF',
+              border: '1px solid #0079A1'
+            }}
+            defaultValue="We'd like to thank Wal-Mart and the Koch Brothers."
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 export default class DefaultSettings extends Component {
   static propTypes = {
     bikes: PropTypes.array.isRequired,
@@ -85,9 +307,7 @@ export default class DefaultSettings extends Component {
                   }}
                 >
                   {[2, 4].map((num) => (
-                    <option key={`bikeNum-option-${num}`} value={num}>
-                      {num}
-                    </option>
+                    <option key={`bikeNum-option-${num}`} value={num}>{num}</option>
                   ))}
                 </StandardSelect>
               </div>
@@ -234,123 +454,34 @@ export default class DefaultSettings extends Component {
                 </div>
               </div>
             </div>
-
+            <RaceDistanceSetting />
+            <RaceDurationSetting />
             <div className="row">
-              <div className="input-group inline">
-                <label htmlFor="distance-input" className="group-heading text-uppercase">
-                  Race Distance
-                </label>
-                <div className="input-group inline">
-                  <div
-                    className="col-xs-2"
-                    style={{
-                      padding: '3px 3px 3px 0'
-                    }}
-                  >
-                    <div style={{ position: 'relative' }}>
-                      <input
-                        id="distance-input"
-                        style={{
-                          padding: '6px 10px',
-                          border: '1px solid #0079A1',
-                          background: 'transparent',
-                          color: '#6FDCFF',
-                          fontSize: '18px',
-                          lineHeight: '18px',
-                          fontWeight: 'bold'
-                        }}
-                        className="form-control context"
-                        type="text"
-                        defaultValue="200.0"
-                        onChange={() => {
-                          // TODO add validation for input values
-                        }}
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className="col-xs-6"
-                    style={{
-                      padding: '3px 0 3px 2px'
-                    }}
-                  >
-                    <StandardSelect
-                      selectProps={{
-                        style: {
-                          width: '130px'
-                        },
-                        onChange: () => {
-                        },
-                        defaultValue: 'meters'
-                      }}
-                    >
-                      <option value="feet">feet</option>
-                      <option value="meters">meters</option>
-                    </StandardSelect>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <hr />
-
-        <div className="row">
-          <div className="col-xs-6">
-            <div className="form-group">
-              <span className="label text-uppercase">
-                Race Screen Background
-              </span>
-              <Background />
-            </div>
-          </div>
-          <div className="col-xs-6">
-            <div className="form-group">
-              <span className="label text-uppercase">
-                Race Clock Background
-              </span>
-              <Background />
-            </div>
-          </div>
-        </div>
-
-        <hr />
-
-        <div className="row">
-          <div className="col-xs-6">
-            <div className="form-group">
-              <span className="label text-uppercase">
-                Intermission Screen Background
-              </span>
-              <Background />
-            </div>
-            Add an Intermission Screen Background
-          </div>
-          <div className="col-xs-6">
-            <div className="form-group">
-              <span className="label text-uppercase">
-                Intermission Screen Options
-              </span>
-              <Checkbox>Show standings</Checkbox>
-              <Checkbox>Show upcoming races</Checkbox>
-              <Checkbox>Show message (90 character max)</Checkbox>
-              <div>
-                <textarea
-                  className="form-control"
-                  style={{
-                    fontSize: '24px',
-                    backgroundColor: 'transparent',
-                    color: '#6FDCFF',
-                    border: '1px solid #0079A1'
-                  }}
-                  defaultValue="We'd like to thank Wal-Mart and the Koch Brothers."
+              <label className="radio-inline">
+                <input
+                  type="radio"
+                  name="durationCountDirection"
+                  id="durationCountDown"
+                  value="down"
                 />
-              </div>
+                Count Down
+              </label>
+              <label className="radio-inline">
+                <input
+                  type="radio"
+                  name="durationCountDirection"
+                  id="durationCountUp"
+                  value="up"
+                />
+                Count Up
+              </label>
             </div>
           </div>
         </div>
+        <hr />
+        <RaceScreenSettings />
+        <hr />
+        <IntermissionScreenSettings />
       </div>
     );
   }
