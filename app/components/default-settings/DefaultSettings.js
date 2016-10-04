@@ -247,6 +247,7 @@ const IntermissionScreenSettings = () => (
         </span>
         <Background />
       </div>
+      <i className="material-icons">add_circle</i>
       Add an Intermission Screen Background
     </div>
     <div className="col-xs-6">
