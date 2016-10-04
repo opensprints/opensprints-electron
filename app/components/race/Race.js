@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Button, Modal, Popover, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import styles from './Race.css';
 import Clock from './Clock';
 import RacerStats from './RacerStats';
@@ -135,19 +135,6 @@ export default class Race extends Component {
       { id: 3, name: 'Snake Oiler' }
     ];
 
-    // popover <p>there is a <OverlayTrigger overlay={popover}>popover</OverlayTrigger> here</p>
-    const popover = (
-      <Popover id="modal-popover" title="popover">
-        very popover. such engagement
-      </Popover>
-    );
-
-    // tooltip <p>there is a <OverlayTrigger overlay={tooltip}>tooltip</OverlayTrigger> here</p>
-    const tooltip = (
-      <Tooltip id="modal-tooltip">
-        wow.
-      </Tooltip>
-    );
     return (
       <div className="container">
         <div className="row">
