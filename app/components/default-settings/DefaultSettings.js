@@ -73,7 +73,7 @@ const RaceDistanceSetting = () => (
       </label>
       <div className="input-group inline">
         <div
-          className="col-xs-2"
+          className="col-xs-4"
           style={{
             padding: '3px 3px 3px 0'
           }}
@@ -100,7 +100,7 @@ const RaceDistanceSetting = () => (
           </div>
         </div>
         <div
-          className="col-xs-6"
+          className="col-xs-4"
           style={{
             padding: '3px 0 3px 2px'
           }}
@@ -132,7 +132,7 @@ const RaceDurationSetting = () => (
       </span>
       <div className="input-group inline">
         <div
-          className="col-xs-2"
+          className="col-xs-3"
           style={{
             padding: '3px 3px 3px 0'
           }}
@@ -159,7 +159,7 @@ const RaceDurationSetting = () => (
           </div>
         </div>
         <div
-          className="col-xs-2"
+          className="col-xs-3"
           style={{
             padding: '3px'
           }}
@@ -186,7 +186,7 @@ const RaceDurationSetting = () => (
           </div>
         </div>
         <div
-          className="col-xs-2"
+          className="col-xs-3"
           style={{
             padding: '3px'
           }}
@@ -430,8 +430,7 @@ export default class DefaultSettings extends Component {
           </div>
 
           {/* Second Column of Settings */}
-          <div className="col-xs-12 col-sm-6">
-
+          <div className="col-xs-4">
             <div className="row">
               <div className="form-group">
                 <label htmlFor="select-metric-units" className="text-uppercase">
@@ -477,6 +476,9 @@ export default class DefaultSettings extends Component {
                 Count Up
               </label>
             </div>
+          </div>
+          <div className="col-xs-4">
+            Message Settings will go here
           </div>
         </div>
         <hr />
