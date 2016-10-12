@@ -279,7 +279,7 @@ export default class DefaultSettings extends Component {
   static propTypes = {
     bikes: PropTypes.array.isRequired,
     updateBikesAvailable: PropTypes.func.isRequired,
-    updateBikeConfiguration: PropTypes.func.isRequired,
+    updateBikeConfiguration: PropTypes.func.isRequired
   }
   render() {
     const { bikes, updateBikesAvailable, updateBikeConfiguration } = this.props;
@@ -478,7 +478,118 @@ export default class DefaultSettings extends Component {
             </div>
           </div>
           <div className="col-xs-4">
-            Message Settings will go here
+            <div className="row">
+              <div className="form-group">
+                <label
+                  className="control-label text-uppercase"
+                  htmlFor="preCountdownMsgInput"
+                >
+                  Pre Countdown Message
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="preCountdownMsgInput"
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="form-group">
+                <span
+                  className="control-label text-uppercase"
+                  style={{
+                    display: 'inline-block',
+                    maxWidth: '100%',
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  Countdown Messages
+                </span>
+                <div style={{ position: 'relative' }}>
+                  <PlainContext>3</PlainContext>
+                  <input
+                    style={{
+                      padding: '6px 30px'
+                    }}
+                    className="form-control context"
+                    type="text"
+                    onChange={() => {
+                      // TODO
+                    }}
+                  />
+                </div>
+                <div style={{ position: 'relative' }}>
+                  <PlainContext>2</PlainContext>
+                  <input
+                    style={{
+                      padding: '6px 30px'
+                    }}
+                    className="form-control context"
+                    type="text"
+                    onChange={() => {
+                      // TODO
+                    }}
+                  />
+                </div>
+                <div style={{ position: 'relative' }}>
+                  <PlainContext>1</PlainContext>
+                  <input
+                    style={{
+                      padding: '6px 30px'
+                    }}
+                    className="form-control context"
+                    type="text"
+                    onChange={() => {
+                      // TODO
+                    }}
+                  />
+                </div>
+                <div style={{ position: 'relative' }}>
+                  <PlainContext>GO</PlainContext>
+                  <input
+                    style={{
+                      padding: '6px 30px'
+                    }}
+                    className="form-control context"
+                    type="text"
+                    onChange={() => {
+                      // TODO
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="form-group">
+                <label
+                  className="control-label text-uppercase"
+                  htmlFor="winnerMsgInput"
+                >
+                  Winner Message
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="winnerMsgInput"
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="form-group">
+                <label
+                  className="control-label text-uppercase"
+                  htmlFor="falseStartMsgInput"
+                >
+                  False Start Message
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="falseStartMsgInput"
+                />
+              </div>
+            </div>
           </div>
         </div>
         <hr />
