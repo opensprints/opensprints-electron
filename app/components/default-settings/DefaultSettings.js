@@ -82,13 +82,7 @@ const RaceDistanceSetting = () => (
             <input
               id="distance-input"
               style={{
-                padding: '6px 10px',
-                border: '1px solid #0079A1',
-                background: 'transparent',
-                color: '#6FDCFF',
-                fontSize: '18px',
-                lineHeight: '18px',
-                fontWeight: 'bold'
+                padding: '6px 10px'
               }}
               className="form-control context"
               type="text"
@@ -141,13 +135,7 @@ const RaceDurationSetting = () => (
             <PlainContext>H</PlainContext>
             <input
               style={{
-                padding: '6px 20px',
-                border: '1px solid #0079A1',
-                background: 'transparent',
-                color: '#6FDCFF',
-                fontSize: '18px',
-                lineHeight: '18px',
-                fontWeight: 'bold'
+                padding: '6px 20px'
               }}
               className="form-control context"
               type="text"
@@ -168,13 +156,7 @@ const RaceDurationSetting = () => (
             <PlainContext>M</PlainContext>
             <input
               style={{
-                padding: '6px 20px',
-                border: '1px solid #0079A1',
-                background: 'transparent',
-                color: '#6FDCFF',
-                fontSize: '18px',
-                lineHeight: '18px',
-                fontWeight: 'bold'
+                padding: '6px 20px'
               }}
               className="form-control context"
               type="text"
@@ -195,13 +177,7 @@ const RaceDurationSetting = () => (
             <PlainContext>S</PlainContext>
             <input
               style={{
-                padding: '6px 20px',
-                border: '1px solid #0079A1',
-                background: 'transparent',
-                color: '#6FDCFF',
-                fontSize: '18px',
-                lineHeight: '18px',
-                fontWeight: 'bold'
+                padding: '6px 20px'
               }}
               className="form-control context"
               type="text"
@@ -328,14 +304,6 @@ export default class DefaultSettings extends Component {
                     <div style={{ position: 'relative' }}>
                       <BikeContext>{i + 1}</BikeContext>
                       <input
-                        style={{
-                          border: '1px solid #0079A1',
-                          background: 'transparent',
-                          color: '#6FDCFF',
-                          fontSize: '18px',
-                          lineHeight: '18px',
-                          fontWeight: 'bold'
-                        }}
                         className="form-control context"
                         type="text"
                         value={bike.rollerDiameter.value}
