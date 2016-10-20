@@ -256,10 +256,11 @@ export default class DefaultSettings extends Component {
     bikes: PropTypes.array.isRequired,
     messages: PropTypes.object,
     updateBikesAvailable: PropTypes.func.isRequired,
-    updateBikeConfiguration: PropTypes.func.isRequired
+    updateBikeConfiguration: PropTypes.func.isRequired,
+    updateMessageText: PropTypes.func.isRequired
   }
   render() {
-    const { bikes, updateBikesAvailable, updateBikeConfiguration } = this.props;
+    const { bikes, updateBikesAvailable, updateBikeConfiguration, updateMessageText } = this.props;
     const {
       PRE_COUNTDOWN_MESSAGE,
       COUNTDOWN_MESSAGE_3,
@@ -269,6 +270,11 @@ export default class DefaultSettings extends Component {
       WINNER_MESSAGE,
       FALSE_START_MESSAGE
     } = this.props.messages;
+
+    const handleMessageChange = (key) => (e) => {
+      updateMessageText(key, e.target.value);
+    };
+
     return (
       <div className="container">
         <h2>Default Settings</h2>
@@ -468,7 +474,8 @@ export default class DefaultSettings extends Component {
                   type="text"
                   className="form-control"
                   id="preCountdownMsgInput"
-                  defaultValue={PRE_COUNTDOWN_MESSAGE}
+                  value={PRE_COUNTDOWN_MESSAGE}
+                  onChange={handleMessageChange('PRE_COUNTDOWN_MESSAGE')}
                 />
               </div>
             </div>
@@ -493,10 +500,8 @@ export default class DefaultSettings extends Component {
                     }}
                     className="form-control context"
                     type="text"
-                    defaultValue={COUNTDOWN_MESSAGE_3}
-                    onChange={() => {
-                      // TODO
-                    }}
+                    value={COUNTDOWN_MESSAGE_3}
+                    onChange={handleMessageChange('COUNTDOWN_MESSAGE_3')}
                   />
                 </div>
                 <div style={{ position: 'relative' }}>
@@ -507,10 +512,8 @@ export default class DefaultSettings extends Component {
                     }}
                     className="form-control context"
                     type="text"
-                    defaultValue={COUNTDOWN_MESSAGE_2}
-                    onChange={() => {
-                      // TODO
-                    }}
+                    value={COUNTDOWN_MESSAGE_2}
+                    onChange={handleMessageChange('COUNTDOWN_MESSAGE_2')}
                   />
                 </div>
                 <div style={{ position: 'relative' }}>
@@ -521,10 +524,8 @@ export default class DefaultSettings extends Component {
                     }}
                     className="form-control context"
                     type="text"
-                    defaultValue={COUNTDOWN_MESSAGE_1}
-                    onChange={() => {
-                      // TODO
-                    }}
+                    value={COUNTDOWN_MESSAGE_1}
+                    onChange={handleMessageChange('COUNTDOWN_MESSAGE_1')}
                   />
                 </div>
                 <div style={{ position: 'relative' }}>
@@ -535,10 +536,8 @@ export default class DefaultSettings extends Component {
                     }}
                     className="form-control context"
                     type="text"
-                    defaultValue={COUNTDOWN_MESSAGE_GO}
-                    onChange={() => {
-                      // TODO
-                    }}
+                    value={COUNTDOWN_MESSAGE_GO}
+                    onChange={handleMessageChange('COUNTDOWN_MESSAGE_GO')}
                   />
                 </div>
               </div>
@@ -555,7 +554,8 @@ export default class DefaultSettings extends Component {
                   type="text"
                   className="form-control"
                   id="winnerMsgInput"
-                  defaultValue={WINNER_MESSAGE}
+                  value={WINNER_MESSAGE}
+                  onChange={handleMessageChange('WINNER_MESSAGE')}
                 />
               </div>
             </div>
@@ -571,7 +571,8 @@ export default class DefaultSettings extends Component {
                   type="text"
                   className="form-control"
                   id="falseStartMsgInput"
-                  defaultValue={FALSE_START_MESSAGE}
+                  value={FALSE_START_MESSAGE}
+                  onChange={handleMessageChange('FALSE_START_MESSAGE')}
                 />
               </div>
             </div>
