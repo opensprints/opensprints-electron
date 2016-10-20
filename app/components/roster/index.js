@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import { Modal } from 'react-bootstrap';
 import RosterRacer from './Racer';
 import RosterRace from './Race';
+import style from './roster.css';
 
 export default class Roster extends Component {
   static propTypes = {
@@ -15,7 +17,10 @@ export default class Roster extends Component {
     super(props, context);
     this.state = {
       search: '',
-      selectedRacers: []
+      previousSearch: '',
+      newRacerName: '',
+      selectedRacers: [],
+      showModal: false
     };
   }
 
@@ -36,6 +41,25 @@ export default class Roster extends Component {
     }
   }
 
+  open() {
+    const { search } = this.state;
+    this.setState({
+      newRacerName: search,
+      previousSearch: search,
+      search: '',
+      showModal: true
+    });
+  }
+
+  cancel() {
+    this.setState({
+      search: this.state.previousSearch,
+      previousSearch: '',
+      newRacerName: '',
+      showModal: false
+    });
+  }
+
   render() {
     let input;
     const { search, selectedRacers } = this.state;
@@ -43,19 +67,51 @@ export default class Roster extends Component {
 
     return (
       <div className="container">
-        <h4>Roster</h4>
+        <h2 style={{ marginBottom: '30px' }}>
+          Roster
+        </h2>
         <div className="col-xs-6">
           <div className="row">
-            <label>
-              Racers
-              <input
-                type="text"
-                placeholder="Search"
-                autoFocus="true"
-                value={this.state.text}
-                onChange={this.handleSearch.bind(this)}
-              />
-            </label>
+            <div className="form-group">
+              <span
+                className="control-label text-uppercase"
+                style={{
+                  display: 'inline-block',
+                  maxWidth: '100%',
+                  marginBottom: '5px',
+                  fontWeight: 'bold'
+                }}
+              >
+                Racers
+              </span>
+              <div className="form-inline">
+                <div className="form-group" style={{ width: '100%' }}>
+                  <input
+                    type="text"
+                    className="form-control"
+                    style={{
+                      width: '80%'
+                    }}
+                    placeholder="Search for or create a new racer..."
+                    autoFocus="true"
+                    value={this.state.search}
+                    onChange={this.handleSearch.bind(this)}
+                  />
+                  <i
+                    className={`material-icons md-36 unselectable ${style.addRacerBtn}`}
+                    tabIndex="0"
+                    onClick={() => { this.open(); }}
+                    onKeyDown={(e) => {
+                      if (e.keyCode === 13) {
+                        this.open();
+                      }
+                    }}
+                  >
+                    add_box
+                  </i>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="row">
             <ul>

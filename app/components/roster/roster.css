@@ -1,0 +1,8 @@
+.addRacerBtn {
+  vertical-align: middle;
+  color: #0079A1;
+  cursor: pointer;
+}
+.addRacerBtn:hover, .addRacerBtn:focus {
+  color: #6FDCFF;
+}
