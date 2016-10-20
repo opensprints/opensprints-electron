@@ -32,7 +32,7 @@ export default class Checkbox extends Component {
           <input
             type="checkbox"
             className="sr-only"
-            defaultChecked={checked}
+            checked={checked}
             onChange={() => {
               this.checkboxClicked();
             }}
