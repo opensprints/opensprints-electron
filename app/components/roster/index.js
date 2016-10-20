@@ -130,28 +130,6 @@ export default class Roster extends Component {
               ))}
             </ul>
           </div>
-          <div className="row">
-            <label>
-              Name
-              <input
-                ref={node => {
-                  input = node;
-                }}
-                type="text"
-              />
-            </label>
-            <button
-              className="btn btn-default"
-              onClick={() => {
-                if (input.value.trim().length > 0) {
-                  addRacer({ name: input.value.trim() });
-                  input.value = '';
-                }
-              }}
-            >
-              Add Racer
-            </button>
-          </div>
         </div>
         <div className="col-xs-6">
           <div className="row">
@@ -184,6 +162,54 @@ export default class Roster extends Component {
             </div>
           </div>
         </div>
+        <Modal
+          show={this.state.showModal}
+          onHide={() => { this.cancel(); }}
+          animation={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Add Racer</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="form-group">
+              <label htmlFor="newRacerName" className="control-label text-uppercase">Name</label>
+              <input
+                className="form-control"
+                type="text"
+                id="newRacerName"
+                value={this.state.newRacerName}
+                onChange={(e) => {
+                  this.setState({ newRacerName: e.target.value });
+                }}
+              />
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              className="btn btn-default"
+              onClick={() => { this.cancel(); }}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                const { newRacerName } = this.state;
+                if (newRacerName.trim().length > 0) {
+                  addRacer({ name: newRacerName.trim() });
+                  this.setState({
+                    search: '',
+                    previousSearch: '',
+                    newRacerName: '',
+                    showModal: false
+                  });
+                }
+              }}
+            >
+              Save
+            </button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
