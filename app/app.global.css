@@ -186,19 +186,29 @@ input.context {
   padding-left: 20px;
 }
 
-.modal-dialog {
-  margin: 100px auto;
-}
-
 .modal-content {
+  background: #000000;
   border: 1px solid #6FDCFF;
   border-radius: 0;
-  background: #000000;
-  text-align: center;
+}
+
+.modal-header {
+  border-bottom: none;
 }
 
 .modal-footer {
   border-top: none;
+}
+
+.countdown-modal {
+  margin: 100px auto;
+}
+
+.countdown-modal .modal-content {
+  text-align: center;
+}
+
+.countdown-modal .modal-content .modal-footer {
   text-align: center;
 }
 

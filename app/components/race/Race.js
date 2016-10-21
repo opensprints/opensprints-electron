@@ -176,6 +176,7 @@ export default class Race extends Component {
           show={this.state.showModal}
           onHide={this.close}
           animation={false}
+          dialogClassName="countdown-modal"
         >
           <Modal.Body>
             <h1>Racers Ready?</h1>
