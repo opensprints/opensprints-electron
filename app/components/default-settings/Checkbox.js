@@ -2,23 +2,12 @@ import React, { Component, PropTypes } from 'react';
 
 export default class Checkbox extends Component {
   static propTypes = {
+    checked: PropTypes.bool,
     children: PropTypes.string.isRequired
   }
 
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      checked: false
-    };
-  }
-
-  checkboxClicked() {
-    this.setState({ checked: !this.state.checked });
-  }
-
   render() {
-    const { checked } = this.state;
-    const { children } = this.props;
+    const { checked, children, ...props } = this.props;
     return (
       <div className="checkbox unselectable">
         <label
@@ -32,10 +21,7 @@ export default class Checkbox extends Component {
           <input
             type="checkbox"
             className="sr-only"
-            checked={checked}
-            onChange={() => {
-              this.checkboxClicked();
-            }}
+            {...props}
           />
           {children}
         </label>

@@ -257,10 +257,20 @@ export default class DefaultSettings extends Component {
     messages: PropTypes.object,
     updateBikesAvailable: PropTypes.func.isRequired,
     updateBikeConfiguration: PropTypes.func.isRequired,
-    updateMessageText: PropTypes.func.isRequired
+    updateMessageText: PropTypes.func.isRequired,
+    racerAttributes: PropTypes.object.isRequired,
+    toggleAttribute: PropTypes.func.isRequired
   }
   render() {
-    const { bikes, updateBikesAvailable, updateBikeConfiguration, updateMessageText } = this.props;
+    const {
+      bikes,
+      updateBikesAvailable,
+      updateBikeConfiguration,
+      updateMessageText,
+      racerAttributes,
+      toggleAttribute
+    } = this.props;
+
     const {
       PRE_COUNTDOWN_MESSAGE,
       COUNTDOWN_MESSAGE_3,
@@ -408,8 +418,22 @@ export default class DefaultSettings extends Component {
               <span className="label text-uppercase">
                 Racer Roster Options
               </span>
-              <Checkbox>Sex</Checkbox>
-              <Checkbox>Racer Level</Checkbox>
+              <Checkbox
+                checked={racerAttributes.sex !== undefined}
+                onChange={() => {
+                  toggleAttribute('sex');
+                }}
+              >
+                Sex
+              </Checkbox>
+              <Checkbox
+                checked={racerAttributes.level !== undefined}
+                onChange={() => {
+                  toggleAttribute('level');
+                }}
+              >
+                Racer Level
+              </Checkbox>
             </div>
           </div>
 
@@ -461,6 +485,8 @@ export default class DefaultSettings extends Component {
               </label>
             </div>
           </div>
+
+          {/* Third Column of Settings */}
           <div className="col-xs-4">
             <div className="row">
               <div className="form-group">
