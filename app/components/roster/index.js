@@ -10,6 +10,7 @@ export default class Roster extends Component {
     addRace: PropTypes.func.isRequired,
     racers: PropTypes.array.isRequired,
     addRacer: PropTypes.func.isRequired,
+    removeRacers: PropTypes.func.isRequired,
     editRacer: PropTypes.func
   }
 
@@ -77,7 +78,7 @@ export default class Roster extends Component {
   render() {
     let input;
     const { search, selectedRacers } = this.state;
-    const { races, addRace, racers, addRacer } = this.props;
+    const { races, addRace, racers, addRacer, removeRacers } = this.props;
 
     return (
       <div className="container">
@@ -167,11 +168,25 @@ export default class Roster extends Component {
               </table>
             </div>
           </div>
-        </div>
-        <div className="col-xs-6">
           <div className="row">
-            Race Setup
-            <div className="row">
+            <div
+              style={{
+                float: 'right'
+              }}
+            >
+              <button
+                className={`btn btn-default${(selectedRacers.length > 0 ? '' : ' disabled')}`}
+                onClick={() => {
+                  if (selectedRacers.length > 0) {
+                    removeRacers(selectedRacers);
+                    this.setState({
+                      selectedRacers: []
+                    });
+                  }
+                }}
+              >
+                Delete Selected
+              </button>
               <button
                 className={`btn btn-default${(selectedRacers.length > 0 ? '' : ' disabled')}`}
                 onClick={() => {
@@ -185,18 +200,36 @@ export default class Roster extends Component {
               >
                 Add Race with selected Racers
               </button>
-              <ul>
-                {races.map((race) => (
-                  <RosterRace
-                    key={`race-${race.id}`}
-                    race={race}
-                    racers={race.racers.map(
-                      (racerId) => racers.find((racer) => racer.id === racerId)
-                    )}
-                  />
-                ))}
-              </ul>
             </div>
+          </div>
+        </div>
+        <div className="col-xs-6">
+          <div className="row">
+            <div className="form-group">
+              <span
+                className="control-label text-uppercase"
+                style={{
+                  display: 'inline-block',
+                  maxWidth: '100%',
+                  marginBottom: '5px',
+                  fontWeight: 'bold'
+                }}
+              >
+                Race Setup
+              </span>
+            </div>
+
+            <ul>
+              {races.map((race) => (
+                <RosterRace
+                  key={`race-${race.id}`}
+                  race={race}
+                  racers={race.racers.map(
+                    (racerId) => racers.find((racer) => racer.id === racerId)
+                  )}
+                />
+              ))}
+            </ul>
           </div>
         </div>
         <Modal

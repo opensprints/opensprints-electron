@@ -1,4 +1,5 @@
 export const ADD_RACER = 'ADD_RACER';
+export const REMOVE_RACERS = 'REMOVE_RACERS';
 export const EDIT_RACER = 'EDIT_RACER';
 
 let id = 0;
@@ -10,6 +11,13 @@ export function addRacer(racer) {
       ...racer,
       id: id++
     }
+  };
+}
+
+export function removeRacers(ids) {
+  return {
+    type: REMOVE_RACERS,
+    ids
   };
 }
 

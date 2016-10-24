@@ -1,4 +1,4 @@
-import { ADD_RACER } from '../actions/racer';
+import { ADD_RACER, REMOVE_RACERS } from '../actions/racer';
 
 export default function racers(state = [], action) {
   switch (action.type) {
@@ -7,6 +7,9 @@ export default function racers(state = [], action) {
         ...state,
         action.racer
       ];
+    case REMOVE_RACERS: {
+      return state.filter((racer) => action.ids.indexOf(racer.id) === -1);
+    }
     default:
       return state;
   }
