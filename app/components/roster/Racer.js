@@ -12,12 +12,19 @@ export default class RosterRacer extends Component {
     const { racer, selected, onClick } = this.props;
 
     return (
-      <li
+      <tr
         className={(`${styles.racer} ${(selected ? styles.selected : '')}`)}
         onClick={onClick}
       >
-        {racer.name}
-      </li>
+        <td>
+          <i className="material-icons">
+            {selected ? 'check_box' : 'check_box_outline_blank'}
+          </i>
+        </td>
+        <td>
+          {racer.name}
+        </td>
+      </tr>
     );
   }
 }

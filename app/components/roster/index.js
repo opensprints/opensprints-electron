@@ -28,6 +28,20 @@ export default class Roster extends Component {
     this.setState({ search: e.target.value });
   }
 
+  handleSelectAllRacers() {
+    const { selectedRacers } = this.state;
+    const { racers } = this.props;
+    if (selectedRacers.length === racers.length) {
+      this.setState({
+        selectedRacers: []
+      });
+    } else {
+      this.setState({
+        selectedRacers: racers.map((racer) => (racer.id))
+      });
+    }
+  }
+
   handleRacerSelect(racer) {
     const { selectedRacers } = this.state;
     if (~selectedRacers.indexOf(racer.id)) {
@@ -114,21 +128,44 @@ export default class Roster extends Component {
             </div>
           </div>
           <div className="row">
-            <ul>
-              {racers.filter((racer) => {
-                if (search && search && search.trim()) {
-                  return ~racer.name.toLowerCase().indexOf(search.trim().toLowerCase());
-                }
-                return true;
-              }).map((racer) => (
-                <RosterRacer
-                  key={`racer-${racer.id}`}
-                  racer={racer}
-                  selected={(selectedRacers.indexOf(racer.id) > -1)}
-                  onClick={() => this.handleRacerSelect(racer)}
-                />
-              ))}
-            </ul>
+            <div
+              style={{
+                height: '450px',
+                backgroundColor: '#0079A1',
+                padding: '10px'
+              }}
+            >
+              <table>
+                <thead>
+                  <tr>
+                    <th
+                      onClick={() => this.handleSelectAllRacers()}
+                    >
+                      <i className="material-icons">
+                        {selectedRacers.length === racers.length ?
+                          'check_box' : 'check_box_outline_blank'}
+                      </i>
+                    </th>
+                    <th>Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {racers.filter((racer) => {
+                    if (search && search && search.trim()) {
+                      return ~racer.name.toLowerCase().indexOf(search.trim().toLowerCase());
+                    }
+                    return true;
+                  }).map((racer) => (
+                    <RosterRacer
+                      key={`racer-${racer.id}`}
+                      racer={racer}
+                      selected={(selectedRacers.indexOf(racer.id) > -1)}
+                      onClick={() => this.handleRacerSelect(racer)}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div className="col-xs-6">
