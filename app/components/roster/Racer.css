@@ -1,11 +1,6 @@
 .racer {
-  -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  cursor: pointer;
+  border-bottom: solid #0095C2 1px;
 }
-.selected {
-  color: red;
-}
+.selected { }

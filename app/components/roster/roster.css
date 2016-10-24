@@ -6,3 +6,8 @@
 .addRacerBtn:hover, .addRacerBtn:focus {
   color: #6FDCFF;
 }
+
+.racersHeader {
+  border-bottom: solid #6FDCFF 1px;
+  cursor: pointer;
+}

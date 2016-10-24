@@ -140,14 +140,16 @@ export default class Roster extends Component {
                 <thead>
                   <tr>
                     <th
+                      className={`${style.racersHeader} unselectable`}
                       onClick={() => this.handleSelectAllRacers()}
                     >
                       <i className="material-icons">
-                        {selectedRacers.length === racers.length ?
-                          'check_box' : 'check_box_outline_blank'}
+                        {selectedRacers.length === racers.length && racers.length ?
+                          'check_box' : 'check_box_outline_blank'
+                        }
                       </i>
                     </th>
-                    <th>Name</th>
+                    <th className={`${style.racersHeader} unselectable`}>Name</th>
                   </tr>
                 </thead>
                 <tbody>
