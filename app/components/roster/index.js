@@ -83,12 +83,21 @@ export default class Roster extends Component {
 
   open() {
     const { search } = this.state;
-    this.setState({
-      newRacerName: search,
-      previousSearch: search,
-      search: '',
-      showModal: true
-    });
+    const { racerAttributes } = this.props;
+    if (Object.keys(racerAttributes).length) {
+      this.setState({
+        newRacerName: search,
+        previousSearch: search,
+        search: '',
+        showModal: true
+      });
+    } else {
+      this.setState({
+        newRacerName: search,
+        search: ''
+      });
+      this.createRacer(); // TODO: fix this!  Race condition with setState
+    }
   }
 
   cancel() {
