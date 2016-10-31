@@ -149,7 +149,7 @@ export default class Roster extends Component {
                     type="text"
                     className="form-control"
                     style={{
-                      width: '80%'
+                      width: 'calc(100% - 41px)'
                     }}
                     placeholder="Search for or create a new racer..."
                     autoFocus="true"

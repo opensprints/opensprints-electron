@@ -1,10 +1,12 @@
 .addRacerBtn {
+  margin-left: 5px;
   vertical-align: middle;
   color: #0079A1;
   cursor: pointer;
 }
 .addRacerBtn:hover, .addRacerBtn:focus {
   color: #6FDCFF;
+  outline: 0;
 }
 
 .racersHeader {
