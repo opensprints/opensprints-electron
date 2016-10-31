@@ -9,6 +9,7 @@ export default class Roster extends Component {
     races: PropTypes.array.isRequired,
     addRace: PropTypes.func.isRequired,
     racers: PropTypes.array.isRequired,
+    racerAttributes: PropTypes.object.isRequired,
     addRacer: PropTypes.func.isRequired,
     removeRacers: PropTypes.func.isRequired,
     editRacer: PropTypes.func

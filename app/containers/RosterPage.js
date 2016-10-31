@@ -7,7 +7,8 @@ import * as RacerActions from '../actions/racer';
 function mapStateToProps(state) {
   return {
     racers: state.racers,
-    races: state.races
+    races: state.races,
+    racerAttributes: state.racerAttributes
   };
 }
 
