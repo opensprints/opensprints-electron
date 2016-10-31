@@ -4,12 +4,27 @@ import styles from './Racer.css';
 export default class RosterRacer extends Component {
   static propTypes = {
     racer: PropTypes.object.isRequired,
+    racerAttributes: PropTypes.object,
     selected: PropTypes.bool,
     onClick: PropTypes.func
   };
 
+  abrValue(key, value) {
+    if (value) {
+      switch (key.toLowerCase()) {
+        case 'sex':
+          return value[0];
+        case 'level':
+          return value.slice(0, 3);
+        default:
+          return value;
+      }
+    }
+    return value;
+  }
+
   render() {
-    const { racer, selected, onClick } = this.props;
+    const { racer, racerAttributes, selected, onClick } = this.props;
 
     return (
       <tr
@@ -24,6 +39,11 @@ export default class RosterRacer extends Component {
         <td>
           {racer.name}
         </td>
+        {Object.keys(racerAttributes).map((key) => (
+          <td className={styles.columnCell}>
+            {this.abrValue(key, racer[key])}
+          </td>
+        ))}
       </tr>
     );
   }
