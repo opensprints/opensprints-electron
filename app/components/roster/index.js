@@ -95,8 +95,9 @@ export default class Roster extends Component {
       this.setState({
         newRacerName: search,
         search: ''
+      }, () => {
+        this.createRacer();
       });
-      this.createRacer(); // TODO: fix this!  Race condition with setState
     }
   }
 
