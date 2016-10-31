@@ -1,8 +1,31 @@
 import React, { Component, PropTypes } from 'react';
-import { Modal } from 'react-bootstrap';
+import { FormGroup, Modal, Radio } from 'react-bootstrap';
 import RosterRacer from './Racer';
 import RosterRace from './Race';
 import style from './roster.css';
+
+const racerAttributeRadioGroup = (key, options, onChange) => (
+  <FormGroup
+    style={{
+      float: 'left',
+      display: 'inline-block',
+      width: '50%',
+      paddingLeft: '5px'
+    }}
+  >
+    <span className="label text-uppercase">{key}</span>
+    {options.map((option) => (
+      <Radio
+        key={option}
+        name={key}
+        value={option}
+        onChange={onChange}
+      >
+        {option}
+      </Radio>
+    ))}
+  </FormGroup>
+);
 
 export default class Roster extends Component {
   static propTypes = {
@@ -171,6 +194,9 @@ export default class Roster extends Component {
                       </i>
                     </th>
                     <th className={`${style.racersHeader} unselectable`}>Name</th>
+                    {Object.keys(racerAttributes).map((key) => (
+                      <th className={`${style.racersHeader} unselectable`}>{key}</th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
@@ -183,6 +209,7 @@ export default class Roster extends Component {
                     <RosterRacer
                       key={`racer-${racer.id}`}
                       racer={racer}
+                      racerAttributes={racerAttributes}
                       selected={(selectedRacers.indexOf(racer.id) > -1)}
                       onClick={() => this.handleRacerSelect(racer)}
                     />
@@ -276,6 +303,21 @@ export default class Roster extends Component {
                 }}
               />
             </div>
+
+            {
+              Object.keys(racerAttributes).map((key) => (
+                racerAttributeRadioGroup(key, racerAttributes[key], (e) => {
+                  const { newRacerAttributes } = this.state;
+                  this.setState({
+                    newRacerAttributes: Object.assign(
+                      {},
+                      newRacerAttributes,
+                      { [key]: e.target.value }
+                    )
+                  });
+                })
+              ))
+            }
           </Modal.Body>
           <Modal.Footer>
             <button
