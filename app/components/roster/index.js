@@ -21,6 +21,7 @@ export default class Roster extends Component {
       search: '',
       previousSearch: '',
       newRacerName: '',
+      newRacerAttributes: {},
       selectedRacers: [],
       showModal: false
     };
@@ -72,14 +73,33 @@ export default class Roster extends Component {
       search: this.state.previousSearch,
       previousSearch: '',
       newRacerName: '',
+      newRacerAttributes: {},
       showModal: false
     });
+  }
+
+  createRacer() {
+    const { newRacerName, newRacerAttributes } = this.state;
+    const { addRacer } = this.props;
+    if (newRacerName.trim().length) {
+      addRacer({
+        name: newRacerName.trim(),
+        ...newRacerAttributes
+      });
+      this.setState({
+        search: '',
+        previousSearch: '',
+        newRacerName: '',
+        newRacerAttributes: {},
+        showModal: false
+      });
+    }
   }
 
   render() {
     let input;
     const { search, selectedRacers } = this.state;
-    const { races, addRace, racers, addRacer, removeRacers } = this.props;
+    const { racerAttributes, races, addRace, racers, removeRacers } = this.props;
 
     return (
       <div className="container">
@@ -267,16 +287,7 @@ export default class Roster extends Component {
             <button
               className="btn btn-primary"
               onClick={() => {
-                const { newRacerName } = this.state;
-                if (newRacerName.trim().length > 0) {
-                  addRacer({ name: newRacerName.trim() });
-                  this.setState({
-                    search: '',
-                    previousSearch: '',
-                    newRacerName: '',
-                    showModal: false
-                  });
-                }
+                this.createRacer();
               }}
             >
               Save
