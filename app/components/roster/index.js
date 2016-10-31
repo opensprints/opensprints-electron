@@ -6,6 +6,7 @@ import style from './roster.css';
 
 const racerAttributeRadioGroup = (key, options, onChange) => (
   <FormGroup
+    key={`${key}-option-group`}
     style={{
       float: 'left',
       display: 'inline-block',
@@ -16,7 +17,7 @@ const racerAttributeRadioGroup = (key, options, onChange) => (
     <span className="label text-uppercase">{key}</span>
     {options.map((option) => (
       <Radio
-        key={option}
+        key={`${option}-radio-btn`}
         name={key}
         value={option}
         onChange={onChange}
@@ -205,7 +206,12 @@ export default class Roster extends Component {
                     </th>
                     <th className={`${style.racersHeader} unselectable`}>Name</th>
                     {Object.keys(racerAttributes).map((key) => (
-                      <th className={`${style.racersHeader} unselectable`}>{key}</th>
+                      <th
+                        className={`${style.racersHeader} unselectable`}
+                        key={`${key}-roster-header`}
+                      >
+                        {key}
+                      </th>
                     ))}
                   </tr>
                 </thead>

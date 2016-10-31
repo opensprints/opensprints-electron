@@ -40,7 +40,10 @@ export default class RosterRacer extends Component {
           {racer.name}
         </td>
         {Object.keys(racerAttributes).map((key) => (
-          <td className={styles.columnCell}>
+          <td
+            key={`racer-${racer.id}-${key}`}
+            className={styles.columnCell}
+          >
             {this.abrValue(key, racer[key])}
           </td>
         ))}
