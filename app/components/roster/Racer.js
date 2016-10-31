@@ -31,12 +31,12 @@ export default class RosterRacer extends Component {
         className={(`${styles.racer} ${(selected ? styles.selected : '')}`)}
         onClick={onClick}
       >
-        <td>
+        <td className={styles.columnCell}>
           <i className="material-icons">
             {selected ? 'check_box' : 'check_box_outline_blank'}
           </i>
         </td>
-        <td>
+        <td className={styles.columnCell}>
           {racer.name}
         </td>
         {Object.keys(racerAttributes).map((key) => (

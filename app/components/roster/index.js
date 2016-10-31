@@ -180,7 +180,7 @@ export default class Roster extends Component {
                 padding: '10px'
               }}
             >
-              <table>
+              <table className={style.racerTable}>
                 <thead>
                   <tr>
                     <th

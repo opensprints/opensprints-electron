@@ -10,6 +10,24 @@
 }
 
 .racersHeader {
+  padding: 5px 10px;
   border-bottom: solid #6FDCFF 1px;
   cursor: pointer;
+  text-transform: uppercase;
+}
+
+.racersHeader:first-child {
+  padding: 5px 0;
+}
+
+.racerTable {
+  width: 100%;
+}
+
+.racerTable th:first-child, .racerTable td:first-child {
+  width: 24px;
+}
+
+.racerTable i {
+  vertical-align: middle;
 }
