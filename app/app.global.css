@@ -145,6 +145,7 @@ hr.heading {
 
 input[type=text].form-control {
   border: 1px solid #0079A1;
+  border-radius: 0;
   background: transparent;
   color: #6FDCFF;
   font-size: 18px;
