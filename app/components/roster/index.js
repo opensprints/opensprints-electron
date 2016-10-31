@@ -218,7 +218,12 @@ export default class Roster extends Component {
               </table>
             </div>
           </div>
-          <div className="row">
+          <div
+            className="row"
+            style={{
+              margin: '15px -15px'
+            }}
+          >
             <div
               style={{
                 float: 'right'
