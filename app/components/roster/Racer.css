@@ -9,6 +9,10 @@
   padding: 5px 10px;
 }
 
+.columnCell:nth-child(2) {
+  width: 50%;
+}
+
 .columnCell:first-child {
   padding: 5px 0;
 }
