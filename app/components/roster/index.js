@@ -213,6 +213,7 @@ export default class Roster extends Component {
                         {key}
                       </th>
                     ))}
+                    <th className={`${style.racersHeader} unselectable`}>Time</th>
                   </tr>
                 </thead>
                 <tbody>

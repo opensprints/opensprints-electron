@@ -47,6 +47,9 @@ export default class RosterRacer extends Component {
             {this.abrValue(key, racer[key])}
           </td>
         ))}
+        <td className={styles.columnCell}>
+          {racer.time}
+        </td>
       </tr>
     );
   }
