@@ -12,7 +12,7 @@ export default class RosterRace extends Component {
     return (
       <li>
         Race {race.id + 1}
-        <Link to={`pre-race-review/${race.id}`}>
+        <Link to={`race-preview/${race.id}`}>
           <button className="btn btn-default">
             Start Race
           </button>
