@@ -32,6 +32,12 @@ or run two servers with one command
 $ npm run dev
 ```
 
+If there are issues, this sequence of commands worked:
+
+```bash
+rm -rf node_modules && npm cache clean && npm i && npm rb && npm run dev
+```
+
 *Note: requires a node version >= 4 and an npm version >= 2.*
 
 
