@@ -296,7 +296,7 @@ export default class Roster extends Component {
                 <RosterRace
                   key={`race-${race.id}`}
                   race={race}
-                  racers={race.racers.map(
+                  racers={race.bikeRacerMap.map(
                     (racerId) => racers.find((racer) => racer.id === racerId)
                   )}
                 />
