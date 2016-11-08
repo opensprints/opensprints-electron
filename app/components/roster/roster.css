@@ -22,6 +22,7 @@
 
 .racerTable {
   width: 100%;
+  overflow-y: scroll;
 }
 
 .racerTable th:first-child, .racerTable td:first-child {
