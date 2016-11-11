@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Header from './Header';
+import Undo from './Undo';
 
 export default class App extends Component {
   static propTypes = {
@@ -12,6 +13,7 @@ export default class App extends Component {
       <div className="container-fluid">
         <Header {...props} />
         {props.children}
+        <Undo {...props} />
       </div>
     );
   }
