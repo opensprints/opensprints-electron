@@ -1,6 +1,7 @@
+import undoable from 'redux-undo';
 import { ADD_RACER, REMOVE_RACERS } from '../actions/racer';
 
-export default function racers(state = [], action) {
+const racers = (state = [], action) => {
   switch (action.type) {
     case ADD_RACER:
       return [
@@ -13,4 +14,6 @@ export default function racers(state = [], action) {
     default:
       return state;
   }
-}
+};
+const undoableRacers = undoable(racers);
+export default undoableRacers;

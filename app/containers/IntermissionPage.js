@@ -4,7 +4,7 @@ import Intermission from '../components/Intermission';
 
 function mapStateToProps(state) {
   return {
-    racers: state.racers,
+    racers: state.racers.present,
     races: state.races
   };
 }

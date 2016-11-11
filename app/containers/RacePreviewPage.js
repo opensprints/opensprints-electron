@@ -5,7 +5,7 @@ import RacePreview from '../components/race-preview/RacePreview';
 
 function mapStateToProps(state) {
   return {
-    racers: state.racers,
+    racers: state.racers.present,
     races: state.races,
     bikes: state.bikes
   };

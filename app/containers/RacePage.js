@@ -5,10 +5,10 @@ import Race from '../components/race/Race';
 
 function mapStateToProps(state) {
   return {
-    racers: state.racers,
+    racers: state.racers.present,
     races: state.races,
     bikes: state.bikes
   };
 }
 
-export default connect(mapStateToProps, undefined)(withRouter(Race));
+export default connect(mapStateToProps)(withRouter(Race));
