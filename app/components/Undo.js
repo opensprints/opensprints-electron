@@ -34,7 +34,8 @@ export default class Undo extends Component {
                 <span
                   style={{
                     float: 'right',
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    cursor: 'pointer'
                   }}
                   onClick={() => {
                     undo();
