@@ -13,16 +13,31 @@ const undoContainerStyle = {
   fontSize: '12px'
 };
 
+let timeout;
+
 export default class Undo extends Component {
   static propTypes = {
     show: PropTypes.bool.isRequired,
     message: PropTypes.string.isRequired,
     undo: PropTypes.func.isRequired,
+    hideUndo: PropTypes.func.isRequired
   };
+
+  setupTimeout() {
+    const { show, hideUndo } = this.props;
+    if (show) {
+      timeout = setTimeout(() => {
+        hideUndo();
+      }, 5000);
+    }
+  }
 
   render() {
     const { show, message, undo } = this.props;
     if (show) {
+      if (!timeout) {
+        this.setupTimeout();
+      }
       return (
         <div className="container">
           <div className="row">
@@ -38,6 +53,8 @@ export default class Undo extends Component {
                     cursor: 'pointer'
                   }}
                   onClick={() => {
+                    clearTimeout(timeout);
+                    timeout = undefined;
                     undo();
                   }}
                 >

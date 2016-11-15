@@ -1,6 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { ActionCreators } from 'redux-undo';
+import * as UndoActions from '../actions/showUndo';
 import Undo from '../components/Undo';
 
 let setupProps = true;
@@ -28,7 +29,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ ...ActionCreators }, dispatch);
+  return bindActionCreators({ ...ActionCreators, ...UndoActions }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Undo);
