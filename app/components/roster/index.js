@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { FormGroup, Modal, Radio } from 'react-bootstrap';
 import RosterRacer from './Racer';
-import RosterRace from './Race';
+import RaceSetup from './RaceSetup';
 import style from './roster.css';
 
 const racerAttributeRadioGroup = (key, options, onChange) => (
@@ -30,6 +30,7 @@ const racerAttributeRadioGroup = (key, options, onChange) => (
 
 export default class Roster extends Component {
   static propTypes = {
+    bikes: PropTypes.array.isRequired,
     races: PropTypes.array.isRequired,
     addRace: PropTypes.func.isRequired,
     racers: PropTypes.array.isRequired,
@@ -133,7 +134,7 @@ export default class Roster extends Component {
   render() {
     let input;
     const { search, selectedRacers } = this.state;
-    const { racerAttributes, races, addRace, racers, removeRacers } = this.props;
+    const { racerAttributes, races, addRace, racers, bikes, removeRacers } = this.props;
 
     return (
       <div className="container">
@@ -141,7 +142,12 @@ export default class Roster extends Component {
           Roster
         </h2>
         <div className="col-xs-6">
-          <div className="row">
+          <div
+            style={{
+              margin: '0 15px 0 -15px'
+            }}
+            className="row"
+          >
             <div className="form-group">
               <span
                 className="control-label text-uppercase"
@@ -183,7 +189,12 @@ export default class Roster extends Component {
               </div>
             </div>
           </div>
-          <div className="row">
+          <div
+            style={{
+              margin: '0 15px 0 -15px'
+            }}
+            className="row"
+          >
             <div
               style={{
                 height: '450px',
@@ -238,7 +249,7 @@ export default class Roster extends Component {
           <div
             className="row"
             style={{
-              margin: '15px -15px'
+              margin: '15px 15px 15px -15px'
             }}
           >
             <div
@@ -263,7 +274,7 @@ export default class Roster extends Component {
                 className={`btn btn-default${(selectedRacers.length > 0 ? '' : ' disabled')}`}
                 onClick={() => {
                   if (selectedRacers.length > 0) {
-                    addRace(selectedRacers);
+                    addRace(bikes, selectedRacers);
                     this.setState({
                       selectedRacers: []
                     });
@@ -275,35 +286,9 @@ export default class Roster extends Component {
             </div>
           </div>
         </div>
-        <div className="col-xs-6">
-          <div className="row">
-            <div className="form-group">
-              <span
-                className="control-label text-uppercase"
-                style={{
-                  display: 'inline-block',
-                  maxWidth: '100%',
-                  marginBottom: '5px',
-                  fontWeight: 'bold'
-                }}
-              >
-                Race Setup
-              </span>
-            </div>
 
-            <ul>
-              {races.map((race) => (
-                <RosterRace
-                  key={`race-${race.id}`}
-                  race={race}
-                  racers={race.bikeRacerMap.map(
-                    (racerId) => racers.find((racer) => racer.id === racerId)
-                  )}
-                />
-              ))}
-            </ul>
-          </div>
-        </div>
+        <RaceSetup races={races} bikes={bikes} racers={racers} />
+
         <Modal
           show={this.state.showModal}
           onHide={() => { this.cancel(); }}

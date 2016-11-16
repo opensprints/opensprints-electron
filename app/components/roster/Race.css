@@ -1,0 +1,19 @@
+.bikeContainer {
+  border: 1px #6FDCFF solid;
+  margin-right: 10px;
+  padding-right: 5px;
+  width: calc(25% - 10px);
+  height: 48px;
+  line-height: 46px;
+}
+
+.raceOptionsRow {
+  height: 36px;
+  padding-left: 0;
+}
+
+.action {
+  cursor: pointer;
+  margin-left: 15px;
+  vertical-align: middle;
+}

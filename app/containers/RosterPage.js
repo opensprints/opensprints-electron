@@ -6,6 +6,7 @@ import * as RacerActions from '../actions/racer';
 
 function mapStateToProps(state) {
   return {
+    bikes: state.bikes,
     racers: state.racers.present,
     races: state.races,
     racerAttributes: state.racerAttributes
