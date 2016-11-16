@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { ActionCreators } from 'redux-undo';
 import * as UndoActions from '../actions/showUndo';
-import Undo from '../components/Undo';
+import Undo from '../components/undo';
 
 let setupProps = true;
 function mapStateToProps(state) {

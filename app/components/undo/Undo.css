@@ -1,0 +1,35 @@
+.container {
+  background-color: white;
+  color: #0079A1;
+  position: absolute;
+  top: -90px;
+  left: -45px;
+  width: 400px;
+  height: 90px;
+  padding-left: 25px;
+  border-right: 10px #FCCC06 solid;
+  font-size: 12px;
+}
+
+.message {
+  float: left;
+  padding: 35px 0;
+}
+
+.button {
+  -webkit-user-select: none;
+  float: right;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 35px 25px;
+  height: 90px;
+  width: 87px;
+  background: linear-gradient(to right, white 50%, #FCCC06 50%);
+  background-size: 200% 100%;
+  background-position: left bottom;
+  transition: background 1s ease;
+}
+
+.button:hover {
+  background-position: right bottom;
+}

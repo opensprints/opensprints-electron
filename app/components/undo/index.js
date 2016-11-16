@@ -1,17 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-
-const undoContainerStyle = {
-  backgroundColor: 'white',
-  color: '#0079A1',
-  position: 'absolute',
-  top: '-90px',
-  left: '-45px',
-  width: '400px',
-  height: '90px',
-  padding: '35px 25px',
-  borderRight: '10px #FCCC06 solid',
-  fontSize: '12px'
-};
+import style from './Undo.css';
 
 let timeout;
 
@@ -41,17 +29,11 @@ export default class Undo extends Component {
       return (
         <div className="container">
           <div className="row">
-            <div
-              className="col-xs-12"
-            >
-              <div style={undoContainerStyle}>
-                <span>{message}</span>
+            <div className="col-xs-12">
+              <div className={style.container}>
+                <span className={style.message}>{message}</span>
                 <span
-                  style={{
-                    float: 'right',
-                    fontWeight: 'bold',
-                    cursor: 'pointer'
-                  }}
+                  className={style.button}
                   onClick={() => {
                     clearTimeout(timeout);
                     timeout = undefined;
