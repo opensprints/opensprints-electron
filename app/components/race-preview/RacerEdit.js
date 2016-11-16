@@ -29,90 +29,90 @@ export default class RacerEdit extends Component {
         </div>
         <div className={styles['racer-edit-container']}>
           {!editing ? <label className={styles.name}>{racer.name}</label> :
-            <div>
-              <form>
-                <div className="form-group">
-                  <div className="input-group">
-                    <input
-                      className="form-control input"
-                      style={{
-                        fontSize: '20px',
-                        color: 'white',
-                        paddingTop: 0,
-                        marginTop: '6px',
-                        height: '28px',
-                        background: 'transparent',
-                        borderRadius: 0,
-                        boxShadow: 'none',
-                        border: 'none',
-                        borderBottom: 'white solid 2px'
-                      }}
-                      type="text"
-                      defaultValue={racer.name}
-                    />
-                    <span className="form-control-feedback">
-                      <i
-                        className={`material-icons md-24
-                          ${(true ? '' : styles['add-new-user-disabled'])}`}
-                      >
-                        add_box
-                      </i>
-                    </span>
-                  </div>
-                </div>
-                <div className="select-container block">
-                  <select className="form-control">
-                    <option>Male</option>
-                    <option>Female</option>
-                  </select>
+          <div>
+            <form>
+              <div className="form-group">
+                <div className="input-group">
+                  <input
+                    className="form-control input"
+                    style={{
+                      fontSize: '20px',
+                      color: 'white',
+                      paddingTop: 0,
+                      marginTop: '6px',
+                      height: '28px',
+                      background: 'transparent',
+                      borderRadius: 0,
+                      boxShadow: 'none',
+                      border: 'none',
+                      borderBottom: 'white solid 2px'
+                    }}
+                    type="text"
+                    defaultValue={racer.name}
+                  />
                   <span className="form-control-feedback">
-                    <i className="material-icons md-36">arrow_drop_down</i>
+                    <i
+                      className={`material-icons md-24
+                        ${(true ? '' : styles['add-new-user-disabled'])}`}
+                    >
+                      add_box
+                    </i>
                   </span>
                 </div>
-                <br />
-                <div className="select-container block">
-                  <select className="form-control">
-                    <option>Filthy Casual</option>
-                    <option>I ride bikes, m'kay</option>
-                    <option>It's not about the bike, Bro.</option>
-                  </select>
-                  <span className="form-control-feedback">
-                    <i className="material-icons md-36">arrow_drop_down</i>
-                  </span>
-                </div>
-              </form>
-              <div
-                className="pull-right"
+              </div>
+              <div className="select-container block">
+                <select className="form-control">
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+                <span className="form-control-feedback">
+                  <i className="material-icons md-36">arrow_drop_down</i>
+                </span>
+              </div>
+              <br />
+              <div className="select-container block">
+                <select className="form-control">
+                  <option>Filthy Casual</option>
+                  <option>I ride bikes, m'kay</option>
+                  <option>It's not about the bike, Bro.</option>
+                </select>
+                <span className="form-control-feedback">
+                  <i className="material-icons md-36">arrow_drop_down</i>
+                </span>
+              </div>
+            </form>
+            <div
+              className="pull-right"
+              style={{
+                marginTop: '20px',
+                marginBottom: '20px'
+              }}
+            >
+              <button
+                type="button"
+                className="btn btn-default btn-xs"
+                onClick={() => {
+                  this.setState({ editing: false });
+                }}
                 style={{
-                  marginTop: '20px',
-                  marginBottom: '20px'
+                  marginRight: '15px',
+                  border: 'none'
                 }}
               >
-                <button
-                  type="button"
-                  className="btn btn-default btn-xs"
-                  onClick={() => {
-                    this.setState({ editing: false });
-                  }}
-                  style={{
-                    marginRight: '15px',
-                    border: 'none'
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-default btn-xs"
-                  style={{
-                    backgroundColor: 'white',
-                    color: '#4f4f4f'
-                  }}
-                >
-                  Save
-                </button>
-              </div>
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-default btn-xs"
+                style={{
+                  backgroundColor: 'white',
+                  color: '#4f4f4f'
+                }}
+              >
+                Save
+              </button>
             </div>
+          </div>
           }
         </div>
         {!editing ?

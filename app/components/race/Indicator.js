@@ -56,6 +56,6 @@ export default class Indicator extends Component {
         rotation={rotation}
         listening={false}
       />
-  );
+    );
   }
 }
