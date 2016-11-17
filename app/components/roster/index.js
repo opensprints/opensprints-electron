@@ -134,7 +134,7 @@ export default class Roster extends Component {
   render() {
     let input;
     const { search, selectedRacers } = this.state;
-    const { racerAttributes, races, addRace, racers, bikes, removeRacers } = this.props;
+    const { racerAttributes, addRace, racers, bikes, removeRacers } = this.props;
 
     return (
       <div className="container">
@@ -287,7 +287,7 @@ export default class Roster extends Component {
           </div>
         </div>
 
-        <RaceSetup races={races} bikes={bikes} racers={racers} />
+        <RaceSetup {...this.props} />
 
         <Modal
           show={this.state.showModal}

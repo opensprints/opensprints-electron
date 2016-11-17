@@ -49,7 +49,7 @@ export default class RosterRace extends Component {
               return (
                 <div
                   key={`race-${race.id}-bike-${i}`}
-                  className={`col-xs-3 ${style.bikeContainer}`}
+                  className={style.bikeContainer}
                 >
                   <span>{racer.name}</span>
                 </div>

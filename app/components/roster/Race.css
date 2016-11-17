@@ -5,6 +5,10 @@
   width: calc(25% - 10px);
   height: 48px;
   line-height: 46px;
+  float: left;
+  position: relative;
+  padding-left: 15px;
+  box-sizing: border-box;
 }
 
 .raceOptionsRow {
