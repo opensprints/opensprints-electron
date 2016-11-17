@@ -1,3 +1,7 @@
+.raceContainer {
+  padding: 5px 0 20px;
+}
+
 .bikeContainer {
   border: 1px #6FDCFF solid;
   margin-right: 10px;
@@ -20,4 +24,8 @@
   cursor: pointer;
   margin-left: 15px;
   vertical-align: middle;
+}
+
+.disabled {
+  color: grey;
 }

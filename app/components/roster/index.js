@@ -199,7 +199,9 @@ export default class Roster extends Component {
               style={{
                 height: '450px',
                 backgroundColor: '#0079A1',
-                padding: '10px'
+                padding: '10px',
+                overflowX: 'hidden',
+                overflowY: racers.length > 11 ? 'scroll' : undefined
               }}
             >
               <table className={style.racerTable}>

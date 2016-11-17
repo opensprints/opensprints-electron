@@ -42,14 +42,18 @@ export default class RaceSetup extends Component {
             style={{
               height: '450px',
               backgroundColor: '#0079A1',
-              padding: '10px'
+              padding: '10px',
+              overflowX: 'hidden',
+              overflowY: races.length > 4 ? 'scroll' : undefined
             }}
           >
             {races.map((race) => (
               <RosterRace
+                {...this.props}
                 key={`race-${race.id}`}
                 race={race}
                 bikes={bikes}
+                races={races}
                 racers={race.bikeRacerMap.map(
                   (racerId) => racers.find((racer) => racer.id === racerId)
                 )}
