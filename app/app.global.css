@@ -217,3 +217,65 @@ input.context {
   padding: 0;
   font-size: 100%;
 }
+
+/*** Dropdown ***/
+.Dropdown-root {
+  position: relative;
+  display: inline-block;
+}
+
+.Dropdown-control {
+  position: relative;
+  overflow: hidden;
+  color: #6FDCFF;
+  cursor: pointer;
+  padding: 8px 52px 8px 10px;
+  transition: all 200ms ease;
+  width: 183px;
+}
+
+.Dropdown-arrow {
+  border-color: #6FDCFF transparent transparent;
+  border-style: solid;
+  border-width: 5px 5px 0;
+  content: ' ';
+  display: block;
+  height: 0;
+  width: 0;
+  position: absolute;
+  right: 10px;
+  top: 14px;
+}
+
+.is-open .Dropdown-arrow {
+  border-color: #FFFFFF transparent transparent;
+}
+
+.Dropdown-menu {
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+  box-sizing: border-box;
+  margin-top: -1px;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: 1000;
+}
+
+.Dropdown-option {
+  color: #0079A1;
+  cursor: pointer;
+  display: block;
+  padding: 8px 10px;
+}
+
+.Dropdown-option.is-selected:before {
+  color: #0079A1;
+  font-size: 18px;
+  position: absolute;
+  font-family: "Material Icons";
+  content: '\E86C';
+}

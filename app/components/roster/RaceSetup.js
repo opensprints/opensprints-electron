@@ -1,5 +1,13 @@
 import React, { Component, PropTypes } from 'react';
+import Dropdown from 'react-dropdown';
 import RosterRace from './Race';
+
+const options = [
+  { value: 'unfinished', label: 'Unfinished Races' },
+  { value: 'finished', label: 'Finished Races' },
+  { value: 'deleted', label: 'Deleted Races' },
+  { value: 'all', label: 'All Races' }
+];
 
 export default class RaceSetup extends Component {
   static propTypes = {
@@ -8,7 +16,22 @@ export default class RaceSetup extends Component {
     racers: PropTypes.array.isRequired
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      raceFilterValue: options[0]
+    };
+  }
+
+  onFilterChange(selected) {
+    this.setState({
+      raceFilterValue: selected
+    });
+    console.log(selected);
+  }
+
   render() {
+    const { raceFilterValue } = this.state;
     const { races, bikes, racers } = this.props;
     return (
       <div className="col-xs-6">
@@ -36,7 +59,14 @@ export default class RaceSetup extends Component {
             style={{
               height: '36px'
             }}
-          />
+          >
+            <Dropdown
+              options={options}
+              onChange={this.onFilterChange.bind(this)}
+              value={raceFilterValue}
+              placeholder="Select a Race Filter"
+            />
+          </div>
 
           <div
             style={{
