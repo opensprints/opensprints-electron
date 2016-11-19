@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Dropdown from 'react-dropdown';
+import Dropdown from '../../../bobinette-react-dropdown-fix';
 import RosterRace from './Race';
 
 const options = [
