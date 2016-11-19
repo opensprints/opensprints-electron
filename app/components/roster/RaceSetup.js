@@ -27,7 +27,6 @@ export default class RaceSetup extends Component {
     this.setState({
       raceFilterValue: selected
     });
-    console.log(selected);
   }
 
   render() {
@@ -41,23 +40,22 @@ export default class RaceSetup extends Component {
           }}
           className="row"
         >
-          <div className="form-group">
-            <span
-              className="control-label text-uppercase"
-              style={{
-                display: 'inline-block',
-                maxWidth: '100%',
-                marginBottom: '5px',
-                fontWeight: 'bold'
-              }}
-            >
-              Race Setup
-            </span>
-          </div>
+          <span
+            className="control-label text-uppercase"
+            style={{
+              display: 'inline-block',
+              maxWidth: '100%',
+              marginBottom: '5px',
+              fontWeight: 'bold'
+            }}
+          >
+            Race Setup
+          </span>
 
           <div
             style={{
-              height: '36px'
+              height: '36px',
+              marginBottom: '15px'
             }}
           >
             <Dropdown

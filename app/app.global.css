@@ -229,26 +229,24 @@ input.context {
   overflow: hidden;
   color: #6FDCFF;
   cursor: pointer;
-  padding: 8px 52px 8px 10px;
+  padding: 8px 52px 8px 35px;
   transition: all 200ms ease;
-  width: 183px;
+  width: 208px;
 }
 
-.Dropdown-arrow {
-  border-color: #6FDCFF transparent transparent;
-  border-style: solid;
-  border-width: 5px 5px 0;
-  content: ' ';
-  display: block;
-  height: 0;
-  width: 0;
+.Dropdown-arrow:before {
+  font-size: 36px;
+  line-height: 38px;
+  font-family: "Material Icons";
+  content: '\E5C5';
+  color: #6FDCFF;
   position: absolute;
-  right: 10px;
-  top: 14px;
+  right: 15px;
+  top: 0;
 }
 
-.is-open .Dropdown-arrow {
-  border-color: #FFFFFF transparent transparent;
+.is-open .Dropdown-arrow:before {
+  color: #FFFFFF;
 }
 
 .Dropdown-menu {
@@ -257,7 +255,7 @@ input.context {
   box-shadow: 0 1px 0 rgba(0,0,0,0.06);
   box-sizing: border-box;
   margin-top: -1px;
-  max-height: 200px;
+  /*max-height: 200px;*/
   overflow-y: auto;
   position: absolute;
   top: 100%;
@@ -269,13 +267,21 @@ input.context {
   color: #0079A1;
   cursor: pointer;
   display: block;
-  padding: 8px 10px;
+  padding: 12px 30px;
+  margin: 0 5px;
+  white-space: nowrap;
+  border-bottom: solid #0095C2 1px;
+}
+
+.Dropdown-option:last-child {
+  border-bottom: none;
 }
 
 .Dropdown-option.is-selected:before {
   color: #0079A1;
   font-size: 18px;
   position: absolute;
+  left: 10px;
   font-family: "Material Icons";
   content: '\E86C';
 }
