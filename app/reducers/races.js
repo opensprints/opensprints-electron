@@ -9,7 +9,12 @@ export default function races(state = [], action) {
       ];
 
     case REMOVE_RACE:
-      return state.filter((race) => race.id !== action.id);
+      return state.map((race) => {
+        if (race.id === action.id) {
+          return Object.assign({}, race, { deleted: true });
+        }
+        return race;
+      });
 
     case CHANGE_RACE_ORDER: {
       const uno = state.filter((race) => race.id === action.id)[0];

@@ -9,6 +9,15 @@ const options = [
   { value: 'all', label: 'All Races' }
 ];
 
+const raceFilters = {
+  unfinished: (race) => (!race.finished && !race.deleted),
+  finished: (race) => (race.finished && !race.deleted),
+  deleted: (race) => (race.deleted),
+  all: () => (true)
+};
+
+const filteredRaces = (races, filter) => races.filter(raceFilters[filter]);
+
 export default class RaceSetup extends Component {
   static propTypes = {
     races: PropTypes.array.isRequired,
@@ -19,19 +28,20 @@ export default class RaceSetup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      raceFilterValue: options[0]
+      raceFilter: options[0]
     };
   }
 
   onFilterChange(selected) {
     this.setState({
-      raceFilterValue: selected
+      raceFilter: selected
     });
   }
 
   render() {
-    const { raceFilterValue } = this.state;
-    const { races, bikes, racers } = this.props;
+    const { raceFilter } = this.state;
+    const { bikes, racers } = this.props;
+    const races = filteredRaces(this.props.races, raceFilter.value);
     return (
       <div className="col-xs-6">
         <div
@@ -61,7 +71,7 @@ export default class RaceSetup extends Component {
             <Dropdown
               options={options}
               onChange={this.onFilterChange.bind(this)}
-              value={raceFilterValue}
+              value={raceFilter}
               placeholder="Select a Race Filter"
             />
           </div>
