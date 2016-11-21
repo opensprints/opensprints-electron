@@ -97,6 +97,7 @@
   "dependencies": {
     "accounting": "^0.4.1",
     "bootstrap": "^3.3.6",
+    "classnames": "^2.2.5",
     "css-modules-require-hook": "^4.0.2",
     "electron-debug": "^1.0.1",
     "johnny-five": "^0.10.0",
