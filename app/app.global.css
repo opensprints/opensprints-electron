@@ -229,9 +229,9 @@ input.context {
   overflow: hidden;
   color: #6FDCFF;
   cursor: pointer;
-  padding: 8px 52px 8px 35px;
+  padding: 8px 0 8px;
   transition: all 200ms ease;
-  width: 208px;
+  width: 180px;
 }
 
 .Dropdown-arrow:before {
@@ -241,7 +241,7 @@ input.context {
   content: '\E5C5';
   color: #6FDCFF;
   position: absolute;
-  right: 15px;
+  right: 0;
   top: 0;
 }
 
@@ -255,11 +255,10 @@ input.context {
   box-shadow: 0 1px 0 rgba(0,0,0,0.06);
   box-sizing: border-box;
   margin-top: -1px;
-  /*max-height: 200px;*/
   overflow-y: auto;
   position: absolute;
-  top: 100%;
-  width: 100%;
+  left: -35px;
+  width: calc(100% + 35px);
   z-index: 1000;
 }
 
