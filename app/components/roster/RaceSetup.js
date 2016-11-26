@@ -74,6 +74,17 @@ export default class RaceSetup extends Component {
               value={raceFilter}
               placeholder="Select a Race Filter"
             />
+            <div className="pull-right">
+              <i
+                className="material-icons md-36"
+                style={{
+                  color: '#6FDCFF'
+                }}
+              >
+                settings_applications
+              </i>
+
+            </div>
           </div>
 
           <div
@@ -97,6 +108,21 @@ export default class RaceSetup extends Component {
                 )}
               />
             ))}
+          </div>
+        </div>
+        <div
+          className="row"
+          style={{
+            margin: '15px -15px 15px 15px'
+          }}
+        >
+          <div className="pull-right">
+            <button className="btn btn-default">
+              Clear All Races
+            </button>
+            <button className="btn btn-default">
+              Start All Races
+            </button>
           </div>
         </div>
       </div>
