@@ -1,0 +1,10 @@
+.gear {
+  color: #0079a1;
+  cursor: pointer;
+}
+.gear:hover, .gear.open {
+  color: #6FDCFF;
+}
+.gear:focus {
+  outline: none;
+}

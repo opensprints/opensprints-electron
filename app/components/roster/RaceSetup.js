@@ -1,12 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import Dropdown from './Dropdown';
+import StaticDropdown from './StaticDropdown';
 import RosterRace from './Race';
+import style from './RaceSetup.css';
 
 const options = [
   { value: 'unfinished', label: 'Unfinished Races' },
   { value: 'finished', label: 'Finished Races' },
   { value: 'deleted', label: 'Deleted Races' },
   { value: 'all', label: 'All Races' }
+];
+
+const gearOptions = [
+  { value: 'defaultSettings', label: 'Go to Default Settings' },
+  { value: 'raceResults', label: 'Download Race Results (.csv)' }
 ];
 
 const raceFilters = {
@@ -22,13 +29,15 @@ export default class RaceSetup extends Component {
   static propTypes = {
     races: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
-    racers: PropTypes.array.isRequired
+    racers: PropTypes.array.isRequired,
+    push: PropTypes.func.isRequired
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      raceFilter: options[0]
+      raceFilter: options[0],
+      gearMenuOpen: false
     };
   }
 
@@ -38,10 +47,23 @@ export default class RaceSetup extends Component {
     });
   }
 
+  gearOptionClicked(value) {
+    if (value === 'defaultSettings') {
+      this.props.push('/default-settings');
+    } else if (value === 'raceResults') {
+      // TODO export race results somehow
+    }
+  }
+
   render() {
-    const { raceFilter } = this.state;
+    const { raceFilter, gearMenuOpen } = this.state;
     const { bikes, racers } = this.props;
     const races = filteredRaces(this.props.races, raceFilter.value);
+    const gear = (
+      <i className={`material-icons md-36 ${style.gear} ${gearMenuOpen ? style.open : ''}`}>
+        settings_applications
+      </i>
+    );
     return (
       <div className="col-xs-6">
         <div
@@ -75,15 +97,11 @@ export default class RaceSetup extends Component {
               placeholder="Select a Race Filter"
             />
             <div className="pull-right">
-              <i
-                className="material-icons md-36"
-                style={{
-                  color: '#6FDCFF'
-                }}
-              >
-                settings_applications
-              </i>
-
+              <StaticDropdown
+                label={gear}
+                options={gearOptions}
+                onOptionClicked={this.gearOptionClicked.bind(this)}
+              />
             </div>
           </div>
 
