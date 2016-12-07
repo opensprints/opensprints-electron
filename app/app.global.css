@@ -284,3 +284,23 @@ input.context {
   font-family: "Material Icons";
   content: '\E86C';
 }
+
+.gearMenu.Dropdown-root {
+  height: 36px;
+}
+
+.gearMenu.Dropdown-control {
+  float: right;
+}
+
+.gearMenu.Dropdown-placeholder {
+  text-align: right;
+}
+
+.gearMenu.Dropdown-menu {
+  right: 0;
+  left: auto;
+  top: 40px;
+  text-align: left;
+  width: auto;
+}

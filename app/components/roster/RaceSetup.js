@@ -98,6 +98,7 @@ export default class RaceSetup extends Component {
             />
             <div className="pull-right">
               <StaticDropdown
+                baseClassName="gearMenu Dropdown"
                 label={gear}
                 options={gearOptions}
                 onOptionClicked={this.gearOptionClicked.bind(this)}
