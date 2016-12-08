@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { hashHistory } from 'react-router';
 import Dropdown from './Dropdown';
 import StaticDropdown from './StaticDropdown';
 import RosterRace from './Race';
@@ -47,10 +48,10 @@ export default class RaceSetup extends Component {
     });
   }
 
-  gearOptionClicked(value) {
-    if (value === 'defaultSettings') {
-      this.props.push('/default-settings');
-    } else if (value === 'raceResults') {
+  gearOptionClicked(option) {
+    if (option.value === 'defaultSettings') {
+      hashHistory.push('/default-settings');
+    } else if (option.value === 'raceResults') {
       // TODO export race results somehow
     }
   }
