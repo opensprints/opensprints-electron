@@ -16,7 +16,7 @@ export default class RacerEdit extends Component {
   }
 
   render() {
-    const { bikeIndex, bike, racer } = this.props;
+    const { bikeIndex, bike, racer = {} } = this.props;
     const { editing } = this.state;
 
     return (

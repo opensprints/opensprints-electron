@@ -17,23 +17,20 @@ export default class RacePreview extends Component {
   }
 
   render() {
-    const racers = [
-      { id: 0, name: 'Speed Racer' },
-      { id: 1, name: 'Racer X' },
-      { id: 2, name: 'Chim Chim' },
-      { id: 3, name: 'Snake Oiler' }
-    ];
+    const racers = this.state.activeRace.bikeRacerMap.map(
+      (racerId) => this.props.racers.find((racer) => racer.id === racerId)
+    );
     const { bikes } = this.props;
     return (
       <div className="container">
         <RaceQuickSettings />
         <div className="row">
-          {racers.map((racer, i) => (
+          {bikes.map((bike, i) => (
             <RacerEdit
               key={`QuickRacerDisplay-${i}`}
               bikeIndex={i}
-              bike={bikes[i]}
-              racer={racer}
+              bike={bike}
+              racer={racers[i]}
             />
           ))}
         </div>
