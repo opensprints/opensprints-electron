@@ -30,8 +30,7 @@ export default class RaceSetup extends Component {
   static propTypes = {
     races: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
-    racers: PropTypes.array.isRequired,
-    push: PropTypes.func.isRequired
+    racers: PropTypes.array.isRequired
   }
 
   constructor(props) {

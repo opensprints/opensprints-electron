@@ -2,6 +2,16 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import style from './Race.css';
 
+const RaceLabel = (props) => {
+  const { races, race } = props;
+  const position = races.indexOf(race);
+  return (
+    <span className={style.name}>
+      Race {position + 1}
+    </span>
+  );
+};
+
 export default class RosterRace extends Component {
   static propTypes = {
     race: PropTypes.object.isRequired,
@@ -18,13 +28,7 @@ export default class RosterRace extends Component {
     return (
       <div className={`${style.raceContainer} col-xs-12`}>
         <div className={`col-xs-12 ${style.raceOptionsRow}`}>
-          <span
-            style={{
-              verticalAlign: 'middle'
-            }}
-          >
-            Race {position + 1}
-          </span>
+          <RaceLabel {...this.props} />
           <Link to={`race-preview/${race.id}`}>
             <i className={`material-icons md-24 unselectable ${style.action}`}>
               play_circle_filled

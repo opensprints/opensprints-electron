@@ -15,6 +15,10 @@
   box-sizing: border-box;
 }
 
+.name {
+  vertical-align: middle;
+}
+
 .raceOptionsRow {
   height: 36px;
   padding-left: 0;
