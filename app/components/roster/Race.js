@@ -12,6 +12,11 @@ const RaceLabel = (props) => {
   );
 };
 
+RaceLabel.propTypes = {
+  races: PropTypes.array.isRequired,
+  race: PropTypes.object.isRequired
+};
+
 export default class RosterRace extends Component {
   static propTypes = {
     race: PropTypes.object.isRequired,

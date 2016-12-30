@@ -67,7 +67,7 @@ class StaticDropdown extends Component {
 
   handleDocumentClick(event) {
     if (this.mounted) {
-      if (!ReactDOM.findDOMNode(this).contains(event.target)) {
+      if (!ReactDOM.findDOMNode(this).contains(event.target)) { // eslint-disable-line
         this.setState({ isOpen: false });
       }
     }
