@@ -17,8 +17,9 @@ export default class RacePreview extends Component {
   }
 
   render() {
-    const racers = this.state.activeRace.bikeRacerMap.map(
-      (racerId) => this.props.racers.find((racer) => racer.id === racerId)
+    const { activeRace } = this.state;
+    const racers = Object.keys(activeRace.bikeRacerMap).map((key) =>
+      this.props.racers.find((racer) => racer.id === activeRace.bikeRacerMap[key])
     );
     const { bikes } = this.props;
     return (

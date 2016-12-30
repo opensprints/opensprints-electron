@@ -122,8 +122,8 @@ export default class RaceSetup extends Component {
                 race={race}
                 bikes={bikes}
                 races={races}
-                racers={race.bikeRacerMap.map(
-                  (racerId) => racers.find((racer) => racer.id === racerId)
+                racers={Object.keys(race.bikeRacerMap).map((key) =>
+                  racers.find((racer) => racer.id === race.bikeRacerMap[key])
                 )}
               />
             ))}

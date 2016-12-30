@@ -13,7 +13,7 @@ export default class RacePreview extends Component {
     this.state = {
       activeRace: {
         id: 0,
-        bikeRacerMap: [0, 1, 2, 3],
+        bikeRacerMap: { 0: 0, 1: 1, 2: 2, 3: 3 },
         results: [
           { place: 3 },
           { place: 2 },
@@ -27,14 +27,15 @@ export default class RacePreview extends Component {
 
   render() {
     const { activeRace } = this.state;
-    const racers = activeRace.bikeRacerMap.map(
-      (racerId) => /* this.props.racers */
+    const racers = Object.keys(activeRace.bikeRacerMap).map((key) =>
       [
         { id: 0, name: 'Speed' },
         { id: 1, name: 'Jonathan' },
         { id: 2, name: 'Nick' },
         { id: 3, name: 'Monk' }
-      ].find((racer) => racer.id === racerId)
+      ]
+      /* this.props.racers */
+        .find((racer) => racer.id === activeRace.bikeRacerMap[key])
     );
     const { bikes } = this.props;
     return (
@@ -49,6 +50,13 @@ export default class RacePreview extends Component {
               race={activeRace}
             />
           ))}
+        </div>
+        <div className="row">
+          <div className="col-xs-offset-4 col-xs-4">
+            <button className="btn btn-default">Ad Hoc Race</button>
+            <button className="btn btn-primary">Next Race</button>
+
+          </div>
         </div>
       </div>
     );

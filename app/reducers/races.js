@@ -1,11 +1,11 @@
-import { ADD_RACE, REMOVE_RACE, CHANGE_RACE_ORDER } from '../actions/race';
+import { ADD_RACES, REMOVE_RACE, CHANGE_RACE_ORDER } from '../actions/race';
 
 export default function races(state = [], action) {
   switch (action.type) {
-    case ADD_RACE:
+    case ADD_RACES:
       return [
         ...state,
-        action.race
+        ...action.races
       ];
 
     case REMOVE_RACE:

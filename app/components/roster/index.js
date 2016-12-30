@@ -32,7 +32,7 @@ export default class Roster extends Component {
   static propTypes = {
     bikes: PropTypes.array.isRequired,
     races: PropTypes.array.isRequired,
-    addRace: PropTypes.func.isRequired,
+    addRaces: PropTypes.func.isRequired,
     racers: PropTypes.array.isRequired,
     racerAttributes: PropTypes.object.isRequired,
     addRacer: PropTypes.func.isRequired,
@@ -134,7 +134,7 @@ export default class Roster extends Component {
   render() {
     let input;
     const { search, selectedRacers } = this.state;
-    const { racerAttributes, addRace, racers, bikes, removeRacers } = this.props;
+    const { racerAttributes, addRaces, racers, bikes, removeRacers } = this.props;
 
     return (
       <div className="container">
@@ -276,7 +276,7 @@ export default class Roster extends Component {
                 className={`btn btn-default${(selectedRacers.length > 0 ? '' : ' disabled')}`}
                 onClick={() => {
                   if (selectedRacers.length > 0) {
-                    addRace(bikes, selectedRacers);
+                    addRaces(bikes, selectedRacers);
                     this.setState({
                       selectedRacers: []
                     });
