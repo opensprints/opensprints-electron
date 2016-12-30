@@ -17,14 +17,14 @@ export default function races(state = [], action) {
       });
 
     case CHANGE_RACE_ORDER: {
-      const uno = state.filter((race) => race.id === action.id)[0];
-      const dos = state.filter((race) => race.id === action.secondId)[0];
+      const raceOne = state.filter((race) => race.id === action.id)[0];
+      const raceTwo = state.filter((race) => race.id === action.secondId)[0];
       return state.map((race) => {
         if (race.id === action.id) {
-          return dos;
+          return raceTwo;
         }
         if (race.id === action.secondId) {
-          return uno;
+          return raceOne;
         }
         return race;
       });
