@@ -87,6 +87,7 @@ class Header extends Component {
                   <NavLink to="/default-settings">Default Settings</NavLink>
                   <NavLink to="/race-preview/0">Race Preview</NavLink>
                   <NavLink to="/race/0">Race Screen</NavLink>
+                  <NavLink to="/race-results/0">Race Results</NavLink>
                 </div>
               </div>
             ) : ''}

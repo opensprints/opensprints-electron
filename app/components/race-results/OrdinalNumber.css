@@ -1,0 +1,56 @@
+.container {
+  display: inline-block;
+  position: absolute;
+}
+
+.first {
+  font-size: 62px;
+  font-weight: bold;
+  left: 32px;
+  top: -75px;
+}
+
+.second {
+  font-size: 54px;
+  font-weight: bold;
+  left: 32px;
+  top: -66px;
+}
+
+.third {
+  font-size: 46px;
+  font-weight: bold;
+  left: 36px;
+  top: -56px;
+}
+
+.fourth {
+  font-size: 40px;
+  font-weight: bold;
+  left: 42px;
+  top: -48px;
+}
+
+.suffix-first {
+  margin-left: -5px;
+  font-size: 40px;
+}
+
+.suffix-second {
+  margin-left: -1px;
+  font-size: 30px;
+}
+
+.suffix-third {
+  margin-left: -1px;
+  font-size: 26px;
+}
+
+.suffix-fourth {
+  margin-left: -1px;
+  font-size: 24px;
+}
+
+.suffix {
+  vertical-align: super;
+}
