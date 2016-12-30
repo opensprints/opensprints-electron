@@ -304,3 +304,8 @@ input.context {
   text-align: left;
   width: auto;
 }
+
+.btn {
+  border-width: 2px;
+  padding: 2px 21px;
+}
