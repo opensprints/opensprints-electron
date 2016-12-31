@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const ADD_RACES = 'ADD_RACES';
 export const REMOVE_RACE = 'REMOVE_RACE';
 export const CHANGE_RACE_ORDER = 'CHANGE_RACE_ORDER';
@@ -14,7 +16,8 @@ export function addRaces(bikes, racerIds) {
       });
     races.push({
       id: staticId++,
-      bikeRacerMap
+      bikeRacerMap,
+      createdDate: moment()
     });
   }
   return {

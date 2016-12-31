@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const ADD_RACER = 'ADD_RACER';
 export const REMOVE_RACERS = 'REMOVE_RACERS';
 export const EDIT_RACER = 'EDIT_RACER';
@@ -9,7 +11,8 @@ export function addRacer(racer) {
     type: ADD_RACER,
     racer: {
       ...racer,
-      id: id++
+      id: id++,
+      createdDate: moment()
     }
   };
 }
