@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { ADD_RACES, REMOVE_RACE, CHANGE_RACE_ORDER } from '../actions/race';
 
 export default function races(state = [], action) {
@@ -11,7 +12,7 @@ export default function races(state = [], action) {
     case REMOVE_RACE:
       return state.map((race) => {
         if (race.id === action.id) {
-          return Object.assign({}, race, { deleted: true });
+          return Object.assign({}, race, { deleted: true, deletedDate: moment() });
         }
         return race;
       });
