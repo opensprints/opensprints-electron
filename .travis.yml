@@ -5,6 +5,8 @@ language: node_js
 node_js:
   - "6.3.1"
 
+cache: yarn
+
 addons:
   apt:
     sources:
