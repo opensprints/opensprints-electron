@@ -31,8 +31,8 @@ export default class RosterRace extends Component {
     const { race, races, racers, bikes, removeRace, changeRaceOrder } = this.props;
     const position = races.indexOf(race);
     return (
-      <div className={`${style.raceContainer} col-xs-12`}>
-        <div className={`col-xs-12 ${style.raceOptionsRow}`}>
+      <div className={`${style.raceContainer}`}>
+        <div className={`${style.raceOptionsRow}`}>
           <RaceLabel {...this.props} />
           <Link to={`race-preview/${race.id}`}>
             <i className={`material-icons md-24 unselectable ${style.action}`}>
