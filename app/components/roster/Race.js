@@ -99,10 +99,11 @@ export default class RosterRace extends Component {
         <div>
           {bikes.map((_, i) => {
             const racer = racers[i];
+            const key = `race-${race.id}-bike-${i}`;
             if (racer) {
               return (
                 <div
-                  key={`race-${race.id}-bike-${i}`}
+                  key={key}
                   className={style.bikeContainer}
                 >
                   <span>{racer.name}</span>
@@ -112,7 +113,7 @@ export default class RosterRace extends Component {
             // TODO get racers selected and display icon for adding them to this race
             return (
               <div
-                key={`race-${race.id}-bike-${i}`}
+                key={key}
                 className={style.bikeContainer}
               >
                 <span />
