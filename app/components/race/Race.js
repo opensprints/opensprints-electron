@@ -135,6 +135,7 @@ export default class Race extends Component {
   }
 
   render() {
+    const { activeRace } = this.state;
     const { bikes } = this.props;
     const racers = [
       { id: 0, name: 'Speed Racer' },
@@ -151,7 +152,7 @@ export default class Race extends Component {
             style={{ marginBottom: '6px' }}
             className="col-xs-6"
           >
-            <Clock />
+            <Clock startTime={activeRace.startTime} />
             <div className="col-xs-6">
               <button
                 style={{
