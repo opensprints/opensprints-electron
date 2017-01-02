@@ -120,6 +120,7 @@ export default class Race extends Component {
   }
 
   close() {
+    this.props.startRace(this.state.activeRace.id);
     this.setState({ showModal: false });
   }
 
