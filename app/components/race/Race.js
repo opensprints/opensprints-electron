@@ -119,6 +119,12 @@ export default class Race extends Component {
     this.close = this.close.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      activeRace: nextProps.races.find((race) => race.id === parseInt(nextProps.params.race, 10))
+    });
+  }
+
   close() {
     this.props.startRace(this.state.activeRace.id);
     this.setState({ showModal: false });
