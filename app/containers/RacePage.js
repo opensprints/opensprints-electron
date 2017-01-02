@@ -1,6 +1,7 @@
-// import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import * as RaceActions from '../actions/race';
 import Race from '../components/race/Race';
 
 function mapStateToProps(state) {
@@ -11,4 +12,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(withRouter(Race));
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ ...RaceActions }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Race));

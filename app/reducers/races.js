@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { ADD_RACES, REMOVE_RACE, CHANGE_RACE_ORDER } from '../actions/race';
+import { ADD_RACES, REMOVE_RACE, CHANGE_RACE_ORDER, START_RACE } from '../actions/race';
 
 export default function races(state = [], action) {
   switch (action.type) {
@@ -30,6 +30,14 @@ export default function races(state = [], action) {
         return race;
       });
     }
+
+    case START_RACE:
+      return state.map((race) => {
+        if (race.id === action.id) {
+          return Object.assign({}, race, { startTime: moment() });
+        }
+        return race;
+      });
 
     default:
       return state;

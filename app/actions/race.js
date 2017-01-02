@@ -3,6 +3,7 @@ import moment from 'moment';
 export const ADD_RACES = 'ADD_RACES';
 export const REMOVE_RACE = 'REMOVE_RACE';
 export const CHANGE_RACE_ORDER = 'CHANGE_RACE_ORDER';
+export const START_RACE = 'START_RACE';
 
 let staticId = 0;
 
@@ -38,5 +39,12 @@ export function changeRaceOrder(id, secondId) {
     type: CHANGE_RACE_ORDER,
     id,
     secondId
+  };
+}
+
+export function startRace(id) {
+  return {
+    type: START_RACE,
+    id
   };
 }

@@ -107,6 +107,7 @@ export default class Race extends Component {
     races: PropTypes.array.isRequired,
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
+    startRace: PropTypes.func.isRequired
   }
   constructor(props, context) {
     super(props, context);
