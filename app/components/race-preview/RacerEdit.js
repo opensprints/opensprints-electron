@@ -5,7 +5,7 @@ export default class RacerEdit extends Component {
   static propTypes = {
     bikeIndex: PropTypes.number.isRequired,
     bike: PropTypes.object.isRequired,
-    racer: PropTypes.object.isRequired
+    racer: PropTypes.object
   }
 
   constructor(props, context) {
