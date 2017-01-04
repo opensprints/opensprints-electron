@@ -1,8 +1,14 @@
 import moment from 'moment';
-import { ADD_RACES, REMOVE_RACE, CHANGE_RACE_ORDER, START_RACE } from '../actions/race';
+import { ADD_AD_HOC_RACE, ADD_RACES, REMOVE_RACE, CHANGE_RACE_ORDER, START_RACE } from '../actions/race';
 
 export default function races(state = [], action) {
   switch (action.type) {
+    case ADD_AD_HOC_RACE:
+      return [
+        action.race,
+        ...state
+      ];
+
     case ADD_RACES:
       return [
         ...state,

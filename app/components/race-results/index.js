@@ -7,6 +7,7 @@ export default class RacePreview extends Component {
     races: PropTypes.array.isRequired,
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
+    onAdHocRaceClick: PropTypes.func.isRequired
   }
   constructor(props, context) {
     super(props, context);
@@ -37,7 +38,7 @@ export default class RacePreview extends Component {
       /* this.props.racers */
         .find((racer) => racer.id === activeRace.bikeRacerMap[key])
     );
-    const { bikes } = this.props;
+    const { bikes, onAdHocRaceClick } = this.props;
     return (
       <div className="container">
         <div className="row">
@@ -53,10 +54,17 @@ export default class RacePreview extends Component {
         </div>
         <div className="row">
           <div className="col-xs-offset-4 col-xs-4">
-            <button className="btn btn-default">Ad Hoc Race</button>
+            <button
+              className="btn btn-default"
+              onClick={onAdHocRaceClick}
+            >
+              Ad Hoc Race
+            </button>
             <button className="btn btn-primary">Next Race</button>
-
           </div>
+        </div>
+        <div className="row">
+          <span />
         </div>
       </div>
     );

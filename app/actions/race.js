@@ -1,11 +1,23 @@
 import moment from 'moment';
 
+export const ADD_AD_HOC_RACE = 'ADD_AD_HOC_RACE';
 export const ADD_RACES = 'ADD_RACES';
 export const REMOVE_RACE = 'REMOVE_RACE';
 export const CHANGE_RACE_ORDER = 'CHANGE_RACE_ORDER';
 export const START_RACE = 'START_RACE';
 
 let staticId = 0;
+
+export function addEmptyRace() {
+  return {
+    type: ADD_AD_HOC_RACE,
+    race: {
+      id: staticId++,
+      bikeRacerMap: {},
+      createdDate: moment()
+    }
+  };
+}
 
 export function addRaces(bikes, racerIds) {
   const races = [];

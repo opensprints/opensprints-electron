@@ -1,6 +1,6 @@
-// import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { push } from 'react-router-redux';
+import * as RaceActions from '../actions/race';
 import RaceResults from '../components/race-results';
 
 function mapStateToProps(state) {
@@ -11,4 +11,14 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(withRouter(RaceResults));
+function mapDispatchToProps(dispatch) {
+  return {
+    onAdHocRaceClick: () => {
+      const newRace = RaceActions.addEmptyRace();
+      dispatch(newRace);
+      dispatch(push(`/race-preview/${newRace.race.id}`));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RaceResults);
