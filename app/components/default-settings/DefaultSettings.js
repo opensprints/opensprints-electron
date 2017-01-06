@@ -259,7 +259,9 @@ export default class DefaultSettings extends Component {
     updateBikeConfiguration: PropTypes.func.isRequired,
     updateMessageText: PropTypes.func.isRequired,
     racerAttributes: PropTypes.object.isRequired,
-    toggleAttribute: PropTypes.func.isRequired
+    toggleAttribute: PropTypes.func.isRequired,
+    changeDefaultRaceSetting: PropTypes.func.isRequired,
+    defaultRaceSettings: PropTypes.object.isRequired
   }
   render() {
     const {
@@ -268,8 +270,14 @@ export default class DefaultSettings extends Component {
       updateBikeConfiguration,
       updateMessageText,
       racerAttributes,
-      toggleAttribute
+      toggleAttribute,
+      changeDefaultRaceSetting,
+      defaultRaceSettings
     } = this.props;
+
+    const onTimerDirectionChanged = (e) => {
+      changeDefaultRaceSetting('timerDirection', e.target.value);
+    };
 
     const {
       PRE_COUNTDOWN_MESSAGE,
@@ -451,13 +459,14 @@ export default class DefaultSettings extends Component {
                       style: {
                         width: '190px'
                       },
-                      onChange: () => {
-                        // TODO
+                      value: defaultRaceSettings.measurementSystem,
+                      onChange: (e) => {
+                        changeDefaultRaceSetting('measurementSystem', e.target.value);
                       }
                     }}
                   >
-                    <option value="miles">Miles</option>
-                    <option value="kilometers">Kilometers</option>
+                    <option value="imperial">Miles</option>
+                    <option value="metric">Kilometers</option>
                   </StandardSelect>
                 </div>
               </div>
@@ -470,7 +479,9 @@ export default class DefaultSettings extends Component {
                   type="radio"
                   name="durationCountDirection"
                   id="durationCountDown"
+                  checked={defaultRaceSettings.timerDirection === 'down'}
                   value="down"
+                  onChange={onTimerDirectionChanged}
                 />
                 Count Down
               </label>
@@ -479,7 +490,9 @@ export default class DefaultSettings extends Component {
                   type="radio"
                   name="durationCountDirection"
                   id="durationCountUp"
+                  checked={defaultRaceSettings.timerDirection === 'up'}
                   value="up"
+                  onChange={onTimerDirectionChanged}
                 />
                 Count Up
               </label>

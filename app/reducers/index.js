@@ -7,8 +7,10 @@ import races from './races';
 import racers from './racers';
 import racerAttributes from './racerAttributes';
 import showUndo from './showUndo';
+import defaultRaceSettings from './defaultRaceSettings';
 
 const rootReducer = combineReducers({
+  defaultRaceSettings,
   showUndo,
   messages,
   bikes,
