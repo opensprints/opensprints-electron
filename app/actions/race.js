@@ -5,8 +5,16 @@ export const ADD_RACES = 'ADD_RACES';
 export const REMOVE_RACE = 'REMOVE_RACE';
 export const CHANGE_RACE_ORDER = 'CHANGE_RACE_ORDER';
 export const START_RACE = 'START_RACE';
+export const UPDATE_RACE = 'UPDATE_RACE';
 
 let staticId = 0;
+
+export function updateRace(newRace) {
+  return {
+    type: UPDATE_RACE,
+    race: newRace
+  };
+}
 
 export function addEmptyRace() {
   return {

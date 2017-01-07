@@ -4,7 +4,8 @@ import {
   ADD_RACES,
   REMOVE_RACE,
   CHANGE_RACE_ORDER,
-  START_RACE
+  START_RACE,
+  UPDATE_RACE
 } from '../actions/race';
 
 export default function races(state = [], action) {
@@ -20,6 +21,14 @@ export default function races(state = [], action) {
         ...state,
         ...action.races
       ];
+
+    case UPDATE_RACE:
+      return state.map((race) => {
+        if (race.id === action.race.id) {
+          return action.race;
+        }
+        return race;
+      });
 
     case REMOVE_RACE:
       return state.map((race) => {
