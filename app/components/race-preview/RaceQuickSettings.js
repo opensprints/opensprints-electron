@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import styles from './RacerSelect.css';
 
 const raceTypes = [
@@ -7,18 +7,26 @@ const raceTypes = [
 ];
 
 export default class RaceQuickSettings extends Component {
-  constructor(props, context) {
-    super(props, context);
+  static propTypes = {
+    race: PropTypes.object.isRequired,
+    defaultRaceSettings: PropTypes.object.isRequired,
+    updateRace: PropTypes.func.isRequired
+  }
+
+  constructor(props) {
+    super(props);
     this.state = {
       editing: false,
-      saveResults: false,
-      distance: '200.0',
+      saveResults: true,
+      distance: props.defaultRaceSettings.raceDistance,
       raceType: raceTypes[0]
     };
   }
 
   render() {
+    const { defaultRaceSettings, race, updateRace } = this.props;
     const { editing, raceType, saveResults, distance } = this.state;
+
     return (
       <div className="row">
         <div className="col-xs-8 col-xs-offset-2">
@@ -68,12 +76,15 @@ export default class RaceQuickSettings extends Component {
                       type="text"
                       value={distance}
                       onChange={(e) => {
-                        // TODO add validation for input values
-                        this.setState({ distance: e.target.value });
+                        this.setState({
+                          distance: parseInt(e.target.value.replace(/[^\d]/g, ''), 10)
+                        });
                       }}
                     />
                   ) : (
-                    <div className={styles['race-setting-value']}>{distance} meters</div>
+                    <div className={styles['race-setting-value']}>
+                      {distance} {defaultRaceSettings.raceDistanceUnits}
+                    </div>
                   )}
                 </div>
                 <div className="col-xs-4 form-group">
@@ -97,10 +108,13 @@ export default class RaceQuickSettings extends Component {
               <button
                 className="btn btn-default btn-xs pull-right"
                 onClick={() => {
+                  if (editing) {
+                    // TODO update race
+                  }
                   this.setState({ editing: !editing });
                 }}
               >
-                Edit
+                {!editing ? 'Edit' : 'Save'}
               </button>
             </div>
           </div>
