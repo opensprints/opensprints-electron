@@ -31,8 +31,10 @@ export default class RaceDistanceSetting extends Component {
                   className="form-control context"
                   type="text"
                   value={defaultRaceSettings.raceDistance}
-                  onChange={() => {
-                    // TODO add validation for input values
+                  onChange={(e) => {
+                    changeDefaultRaceSetting('raceDistance',
+                      parseInt(e.target.value.replace(/[^\d]/g, ''), 10)
+                    );
                   }}
                 />
               </div>
