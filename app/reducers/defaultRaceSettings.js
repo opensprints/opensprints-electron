@@ -3,7 +3,7 @@ import { CHANGE_DEFAULT_RACE_SETTING } from '../actions/defaultRaceSetting';
 
 const initialState = {
   measurementSystem: 'metric',
-  raceDistance: '200',
+  raceDistance: '100',
   raceDistanceUnits: 'meters',
   trialDuration: moment.duration('00:00:30'),
   timerDirection: 'down'
