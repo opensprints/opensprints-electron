@@ -7,8 +7,8 @@ export default class MessageSettings extends Component {
     updateMessageText: PropTypes.func.isRequired
   }
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.handleMessageChange = this.handleMessageChange.bind(this);
   }
 

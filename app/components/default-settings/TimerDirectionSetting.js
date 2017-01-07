@@ -6,8 +6,8 @@ export default class TimerDirectionSetting extends Component {
     changeDefaultRaceSetting: PropTypes.func.isRequired
   }
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.onTimerDirectionChanged = this.onTimerDirectionChanged.bind(this);
   }
 
