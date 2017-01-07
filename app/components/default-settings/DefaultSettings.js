@@ -66,7 +66,7 @@ const IntermissionScreenSettings = () => (
   </div>
 );
 
-const bikeNumber = (bikes, updateBikesAvailable) => (
+const BikeCount = (bikes, updateBikesAvailable) => (
   <div className="form-group">
     <label htmlFor="select-bikes" className="text-uppercase">
       Number of Bikes
@@ -90,7 +90,7 @@ const bikeNumber = (bikes, updateBikesAvailable) => (
   </div>
 );
 
-const bikeRollers = (bikes, updateBikeConfiguration) => (
+const BikeRollerDimensions = (bikes, updateBikeConfiguration) => (
   <div className="form-group">
     <span className="label text-uppercase">
       Roller Diameter
@@ -181,9 +181,9 @@ export default class DefaultSettings extends Component {
 
           {/* First Column of Settings */}
           <div className="col-xs-4">
-            {bikeNumber(bikes, updateBikesAvailable)}
+            <BikeCount bikes={bikes} updateBikesAvailable={updateBikesAvailable} />
 
-            {bikeRollers(bikes, updateBikeConfiguration)}
+            <BikeRollerDimensions bikes={bikes} updateBikeConfiguration={updateBikeConfiguration} />
 
             <div className="form-group">
               <span className="label text-uppercase">
