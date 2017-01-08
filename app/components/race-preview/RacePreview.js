@@ -8,23 +8,59 @@ export default class RacePreview extends Component {
     races: PropTypes.array.isRequired,
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
+    defaultRaceSettings: PropTypes.object.isRequired,
+    updateRace: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired
   }
   constructor(props, context) {
     super(props, context);
+    const { races, params, defaultRaceSettings } = props;
     this.state = {
-      activeRace: props.races.find((race) => race.id === parseInt(props.params.race, 10))
+      activeRace: races.find((race) => race.id === parseInt(params.race, 10)),
+      raceSettings: Object.assign({}, defaultRaceSettings, { raceType: 'distance' })
     };
+    this.updateRaceSettings = this.updateRaceSettings.bind(this);
+    this.loadRaceClicked = this.loadRaceClicked.bind(this);
+  }
+
+  updateRaceSettings(updatedSettings) {
+    this.setState({
+      raceSettings: updatedSettings
+    });
+  }
+
+  loadRaceClicked() {
+    const { updateRace, push } = this.props;
+    const { activeRace, raceSettings } = this.state;
+    const newRaceSettings = raceSettings.raceType === 'distance' ?
+    {
+      raceType: 'distance',
+      raceDistance: raceSettings.raceDistance,
+      raceDistanceUnits: raceSettings.raceDistanceUnits,
+      measurementSystem: raceSettings.measurementSystem
+    } :
+    {
+      raceType: 'time',
+      trialDuration: raceSettings.trialDuration,
+      timerDirection: raceSettings.timerDirection,
+      measurementSystem: raceSettings.measurementSystem
+    };
+    updateRace(Object.assign({}, activeRace, newRaceSettings));
+    push(`/race/${activeRace.id}`);
   }
 
   render() {
-    const { activeRace } = this.state;
+    const { activeRace, raceSettings } = this.state;
     const racers = Object.keys(activeRace.bikeRacerMap).map((key) =>
       this.props.racers.find((racer) => racer.id === activeRace.bikeRacerMap[key])
     );
     const { bikes } = this.props;
     return (
       <div className="container">
-        <RaceQuickSettings />
+        <RaceQuickSettings
+          updateRaceSettings={this.updateRaceSettings}
+          raceSettings={raceSettings}
+        />
         <div className="row">
           {bikes.map((bike, i) => (
             <RacerEdit
@@ -37,7 +73,12 @@ export default class RacePreview extends Component {
         </div>
         <div className="row">
           <div className="col-xs-offset-5 col-xs-2">
-            <button className="btn btn-primary">Load Race</button>
+            <button
+              className="btn btn-primary"
+              onClick={this.loadRaceClicked}
+            >
+              Load Race
+            </button>
           </div>
         </div>
       </div>

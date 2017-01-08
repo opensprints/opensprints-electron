@@ -8,25 +8,45 @@ const raceTypes = [
 
 export default class RaceQuickSettings extends Component {
   static propTypes = {
-    race: PropTypes.object.isRequired,
-    defaultRaceSettings: PropTypes.object.isRequired,
-    updateRace: PropTypes.func.isRequired
+    raceSettings: PropTypes.object.isRequired,
+    updateRaceSettings: PropTypes.func.isRequired
   }
 
   constructor(props) {
     super(props);
+    const { raceSettings } = this.props;
     this.state = {
       editing: false,
-      saveResults: true,
-      distance: props.defaultRaceSettings.raceDistance,
-      raceType: raceTypes[0]
+      raceType: raceSettings.raceType,
+      raceDistance: raceSettings.raceDistance,
+      raceDistanceUnits: raceSettings.raceDistanceUnits,
+      trialDuration: raceSettings.trialDuration
     };
+    this.saveChanges = this.saveChanges.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { raceSettings } = nextProps;
+    this.setState({
+      raceType: raceSettings.raceType,
+      raceDistance: raceSettings.raceDistance,
+      raceDistanceUnits: raceSettings.raceDistanceUnits,
+      trialDuration: raceSettings.trialDuration
+    });
+  }
+
+  saveChanges() {
+    const { raceType, raceDistance, raceDistanceUnits, trialDuration } = this.state;
+    this.props.updateRaceSettings({
+      raceType,
+      raceDistance,
+      raceDistanceUnits,
+      trialDuration
+    });
   }
 
   render() {
-    const { defaultRaceSettings, race, updateRace } = this.props;
-    const { editing, raceType, saveResults, distance } = this.state;
-
+    const { editing, raceType, saveResults, raceDistance, raceDistanceUnits } = this.state;
     return (
       <div className="row">
         <div className="col-xs-8 col-xs-offset-2">
@@ -43,11 +63,11 @@ export default class RaceQuickSettings extends Component {
                         className={styles['race-setting-value']}
                         key={`raceType-${i}`}
                         onClick={() => {
-                          this.setState({ raceType: type });
+                          this.setState({ raceType: type.value });
                         }}
                       >
                         <i className="material-icons">
-                          {type.value === raceType.value ?
+                          {type.value === raceType ?
                             'check_circle' : 'radio_button_unchecked'
                           }
                         </i>
@@ -56,7 +76,7 @@ export default class RaceQuickSettings extends Component {
                     ))
                   : (
                     <div className={styles['race-setting-value']}>
-                      {raceType.label}
+                      {raceTypes.find((type) => type.value === raceType).label}
                     </div>
                   )}
                 </div>
@@ -74,16 +94,16 @@ export default class RaceQuickSettings extends Component {
                       }}
                       className="form-control context"
                       type="text"
-                      value={distance}
+                      value={raceDistance}
                       onChange={(e) => {
                         this.setState({
-                          distance: parseInt(e.target.value.replace(/[^\d]/g, ''), 10)
+                          raceDistance: parseInt(e.target.value.replace(/[^\d]/g, ''), 10)
                         });
                       }}
                     />
                   ) : (
                     <div className={styles['race-setting-value']}>
-                      {distance} {defaultRaceSettings.raceDistanceUnits}
+                      {raceDistance} {raceDistanceUnits}
                     </div>
                   )}
                 </div>
@@ -109,7 +129,7 @@ export default class RaceQuickSettings extends Component {
                 className="btn btn-default btn-xs pull-right"
                 onClick={() => {
                   if (editing) {
-                    // TODO update race
+                    this.saveChanges();
                   }
                   this.setState({ editing: !editing });
                 }}
