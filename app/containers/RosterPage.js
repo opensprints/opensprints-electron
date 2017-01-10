@@ -15,7 +15,15 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ ...RaceActions, ...RacerActions, push }, dispatch);
+  return {
+    ...bindActionCreators({ ...RaceActions, ...RacerActions, push }, dispatch),
+    startSpecificRace: (firstRaceId, raceId) => {
+      if (firstRaceId !== raceId) {
+        dispatch(RaceActions.changeRaceOrder(firstRaceId, raceId));
+      }
+      dispatch(push(`/race-preview/${raceId}`));
+    }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Roster);

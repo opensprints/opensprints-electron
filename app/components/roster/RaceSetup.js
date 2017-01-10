@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { hashHistory } from 'react-router';
 import Dropdown from './Dropdown';
 import StaticDropdown from './StaticDropdown';
 import RosterRace from './Race';
@@ -30,7 +29,10 @@ export default class RaceSetup extends Component {
   static propTypes = {
     races: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
-    racers: PropTypes.array.isRequired
+    racers: PropTypes.array.isRequired,
+    startSpecificRace: PropTypes.func.isRequired,
+    removeRace: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -48,8 +50,9 @@ export default class RaceSetup extends Component {
   }
 
   gearOptionClicked(option) {
+    const { push } = this.props;
     if (option.value === 'defaultSettings') {
-      hashHistory.push('/default-settings');
+      push('/default-settings');
     } else if (option.value === 'raceResults') {
       // TODO export race results somehow
     }
@@ -57,8 +60,11 @@ export default class RaceSetup extends Component {
 
   render() {
     const { raceFilter, gearMenuOpen } = this.state;
-    const { bikes, racers } = this.props;
+    const { bikes, racers, removeRace, push } = this.props;
+    const unfinishedRaces = this.props.races.filter(raceFilters.unfinished);
     const races = filteredRaces(this.props.races, raceFilter.value);
+    const startSpecificRace = races.length > 0 ?
+      this.props.startSpecificRace.bind(null, races[0].id) : this.props.startSpecificRace;
     const gear = (
       <i className={`material-icons md-36 ${style.gear} ${gearMenuOpen ? style.open : ''}`}>
         settings_applications
@@ -122,6 +128,7 @@ export default class RaceSetup extends Component {
                 race={race}
                 bikes={bikes}
                 races={races}
+                startSpecificRace={startSpecificRace}
                 racers={Object.keys(race.bikeRacerMap).map((key) =>
                   racers.find((racer) => racer.id === race.bikeRacerMap[key])
                 )}
@@ -136,10 +143,24 @@ export default class RaceSetup extends Component {
           }}
         >
           <div className="pull-right">
-            <button className="btn btn-default">
+            <button
+              className={`btn btn-default${(unfinishedRaces.length > 0 ? '' : ' disabled')}`}
+              onClick={() => {
+                unfinishedRaces.forEach((r) => {
+                  removeRace(r.id);
+                });
+              }}
+            >
               Clear All Races
             </button>
-            <button className="btn btn-default">
+            <button
+              className={`btn btn-default${(unfinishedRaces.length > 0 ? '' : ' disabled')}`}
+              onClick={() => {
+                if (unfinishedRaces.length > 0) {
+                  push(`/race-preview/${unfinishedRaces[0].id}`);
+                }
+              }}
+            >
               Start All Races
             </button>
           </div>

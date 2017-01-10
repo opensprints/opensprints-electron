@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import style from './Race.css';
 
 const RaceLabel = (props) => {
@@ -23,8 +22,6 @@ RaceLabel.propTypes = {
   race: PropTypes.object.isRequired
 };
 
-// TODO upcoming races will act like a queue
-// TODO starting a race other than the first will place it first in the queue
 export default class RosterRace extends Component {
   static propTypes = {
     race: PropTypes.object.isRequired,
@@ -32,7 +29,8 @@ export default class RosterRace extends Component {
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
     removeRace: PropTypes.func.isRequired,
-    changeRaceOrder: PropTypes.func.isRequired
+    changeRaceOrder: PropTypes.func.isRequired,
+    startSpecificRace: PropTypes.func.isRequired
   };
 
   static hideDeletedStyle(race) {
@@ -40,20 +38,21 @@ export default class RosterRace extends Component {
   }
 
   render() {
-    const { race, races, racers, bikes, removeRace, changeRaceOrder } = this.props;
+    const {
+      race, races, racers, bikes, removeRace, changeRaceOrder, startSpecificRace
+    } = this.props;
     const position = races.indexOf(race);
     return (
       <div className={`${style.raceContainer}`}>
         <div className={`${style.raceOptionsRow}`}>
           <RaceLabel {...this.props} />
-          <Link
-            to={`race-preview/${race.id}`}
+          <i
+            className={`material-icons md-24 unselectable ${style.action}`}
             style={RosterRace.hideDeletedStyle(race)}
+            onClick={() => startSpecificRace(race.id)}
           >
-            <i className={`material-icons md-24 unselectable ${style.action}`}>
-              play_circle_filled
-            </i>
-          </Link>
+            play_circle_filled
+          </i>
           <i
             className={`material-icons md-24 unselectable ${style.action}`}
             style={RosterRace.hideDeletedStyle(race)}
