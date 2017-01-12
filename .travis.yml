@@ -34,9 +34,10 @@ before_script:
   - sleep 3
 
 script:
-  - yarn run lint
-  - yarn run test
-  - yarn run build
+- yarn run lint
+- yarn run test
+- yarn run build
 
 deploy:
-  - yarn run build-installers 
+  provider: script
+  script: yarn run build-installers
