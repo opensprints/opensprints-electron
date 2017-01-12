@@ -37,7 +37,4 @@ script:
 - yarn run lint
 - yarn run test
 - yarn run build
-
-deploy:
-  provider: script
-  script: yarn run build-installers
+- yarn run build-installers
