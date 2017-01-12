@@ -66,7 +66,7 @@ const IntermissionScreenSettings = () => (
   </div>
 );
 
-const BikeCount = (bikes, updateBikesAvailable) => (
+const BikeCount = ({ bikes, updateBikesAvailable }) => (
   <div className="form-group">
     <label htmlFor="select-bikes" className="text-uppercase">
       Number of Bikes
@@ -89,8 +89,12 @@ const BikeCount = (bikes, updateBikesAvailable) => (
     </div>
   </div>
 );
+BikeCount.propTypes = {
+  bikes: PropTypes.array.isRequired,
+  updateBikesAvailable: PropTypes.func.isRequired
+};
 
-const BikeRollerDimensions = (bikes, updateBikeConfiguration) => (
+const BikeRollerDimensions = ({ bikes, updateBikeConfiguration }) => (
   <div className="form-group">
     <span className="label text-uppercase">
       Roller Diameter
@@ -145,6 +149,10 @@ const BikeRollerDimensions = (bikes, updateBikeConfiguration) => (
     ))}
   </div>
 );
+BikeRollerDimensions.propTypes = {
+  bikes: PropTypes.array.isRequired,
+  updateBikeConfiguration: PropTypes.func.isRequired
+};
 
 export default class DefaultSettings extends Component {
   static propTypes = {
