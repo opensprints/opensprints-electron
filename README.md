@@ -10,32 +10,24 @@ First, clone the repo via git:
 git clone https://github.com/opensprints/opensprints-electron.git
 ```
 
-And then install dependencies.
+And install [yarn](https://yarnpkg.com/en/docs/install) package manager.
 
 ```bash
-$ cd opensprints-electron && npm install
+$ cd opensprints-electron && yarn  
 ```
-
 
 ## Run
 
-Run this two commands __simultaneously__ in different console tabs.
+Run two servers with one command
 
 ```bash
-$ npm run hot-server
-$ npm run start-hot
-```
-
-or run two servers with one command
-
-```bash
-$ npm run dev
+$ yarn run dev
 ```
 
 If there are issues, this sequence of commands worked:
 
 ```bash
-rm -rf node_modules && npm cache clean && npm i && npm rb && npm run dev
+rm -rf node_modules && npm cache clean && npm i && npm rb && yarn run dev
 ```
 
 *Note: requires a node version >= 4 and an npm version >= 2.*
