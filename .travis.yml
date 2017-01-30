@@ -37,4 +37,4 @@ script:
 - yarn run lint
 - yarn run test
 - yarn run build
-- yarn run build-installers
+- yarn run package-linux
