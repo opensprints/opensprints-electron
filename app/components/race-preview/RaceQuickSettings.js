@@ -46,7 +46,7 @@ export default class RaceQuickSettings extends Component {
   }
 
   render() {
-    const { editing, raceType, saveResults, raceDistance, raceDistanceUnits } = this.state;
+    const { editing, raceType, raceDistance, raceDistanceUnits } = this.state;
     return (
       <div className="row">
         <div className="col-xs-8 col-xs-offset-2">
@@ -106,20 +106,6 @@ export default class RaceQuickSettings extends Component {
                       {raceDistance} {raceDistanceUnits}
                     </div>
                   )}
-                </div>
-                <div className="col-xs-4 form-group">
-                  <div>{'\u00A0'}</div>
-                  <div
-                    className={styles['race-setting-value']}
-                    onClick={() => {
-                      this.setState({ saveResults: !saveResults });
-                    }}
-                  >
-                    <i className="material-icons">
-                      {saveResults ? 'check_circle' : 'radio_button_unchecked'}
-                    </i>
-                    Saving Results
-                  </div>
                 </div>
               </div>
             </div>
