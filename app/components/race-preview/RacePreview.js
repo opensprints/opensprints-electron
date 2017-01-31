@@ -10,8 +10,12 @@ export default class RacePreview extends Component {
     bikes: PropTypes.array.isRequired,
     defaultRaceSettings: PropTypes.object.isRequired,
     updateRace: PropTypes.func.isRequired,
-    push: PropTypes.func.isRequired
+    push: PropTypes.func.isRequired,
+    racerAttributes: PropTypes.object.isRequired,
+    addNewRacer: PropTypes.func.isRequired,
+    editRacer: PropTypes.func.isRequired
   }
+
   constructor(props, context) {
     super(props, context);
     const { races, params, defaultRaceSettings } = props;
@@ -21,6 +25,25 @@ export default class RacePreview extends Component {
     };
     this.updateRaceSettings = this.updateRaceSettings.bind(this);
     this.loadRaceClicked = this.loadRaceClicked.bind(this);
+    this.swapRacersLeft = this.swapRacersLeft.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { races, params } = nextProps;
+    this.setState({
+      activeRace: races.find((race) => race.id === parseInt(params.race, 10))
+    });
+  }
+
+  swapRacersLeft(rightBikeIndex) {
+    const { activeRace } = this.state;
+    const { updateRace } = this.props;
+    updateRace(Object.assign({}, activeRace, {
+      bikeRacerMap: Object.assign({}, activeRace.bikeRacerMap, {
+        [rightBikeIndex - 1]: activeRace.bikeRacerMap[rightBikeIndex],
+        [rightBikeIndex]: activeRace.bikeRacerMap[rightBikeIndex - 1]
+      })
+    }));
   }
 
   updateRaceSettings(updatedSettings) {
@@ -54,7 +77,7 @@ export default class RacePreview extends Component {
     const racers = Object.keys(activeRace.bikeRacerMap).map((key) =>
       this.props.racers.find((racer) => racer.id === activeRace.bikeRacerMap[key])
     );
-    const { bikes } = this.props;
+    const { racerAttributes, bikes, updateRace, addNewRacer, editRacer } = this.props;
     return (
       <div className="container">
         <RaceQuickSettings
@@ -64,10 +87,23 @@ export default class RacePreview extends Component {
         <div className="row">
           {bikes.map((bike, i) => (
             <RacerEdit
+              racerAttributes={racerAttributes}
               key={`QuickRacerDisplay-${i}`}
               bikeIndex={i}
+              bikesLength={bikes.length}
               bike={bike}
               racer={racers[i]}
+              onSwap={this.swapRacersLeft}
+              onDelete={() => {
+                const newRace = Object.assign({}, activeRace, {
+                  bikeRacerMap: Object.assign({}, activeRace.bikeRacerMap, {
+                    [i]: -1
+                  })
+                });
+                updateRace(newRace);
+              }}
+              onAdd={(racer) => addNewRacer(racer, activeRace, i)}
+              onEdit={editRacer}
             />
           ))}
         </div>

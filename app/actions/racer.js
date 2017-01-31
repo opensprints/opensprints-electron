@@ -24,8 +24,9 @@ export function removeRacers(ids) {
   };
 }
 
-export function editRacer() {
+export function editRacer(racer) {
   return {
-    type: EDIT_RACER
+    type: EDIT_RACER,
+    racer
   };
 }

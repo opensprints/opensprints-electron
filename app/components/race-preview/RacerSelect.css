@@ -40,3 +40,14 @@
   color: #6FDCFF;
   font-size: 20px;
 }
+
+.action {
+  cursor: pointer;
+}
+
+.addRacerIcon {
+  padding: 4px 1px;
+}
+.addRacerIcon:hover {
+  font-weight: bold;
+}
