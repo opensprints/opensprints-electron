@@ -109,8 +109,8 @@ export default class Race extends Component {
     bikes: PropTypes.array.isRequired,
     startRace: PropTypes.func.isRequired
   }
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.state = {
       showModal: true,
       activeRace: props.races.find((race) => race.id === parseInt(props.params.race, 10))
@@ -152,7 +152,7 @@ export default class Race extends Component {
             style={{ marginBottom: '6px' }}
             className="col-xs-6"
           >
-            <Clock startTime={activeRace.startTime} />
+            <Clock startTime={activeRace.startTime} race={activeRace} {...this.props} />
             <div className="col-xs-6">
               <button
                 style={{

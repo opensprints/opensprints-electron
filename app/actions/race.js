@@ -6,6 +6,7 @@ export const REMOVE_RACE = 'REMOVE_RACE';
 export const CHANGE_RACE_ORDER = 'CHANGE_RACE_ORDER';
 export const START_RACE = 'START_RACE';
 export const UPDATE_RACE = 'UPDATE_RACE';
+export const INCREMENT_RACER = 'INCREMENT_RACER';
 
 let staticId = 0;
 
@@ -22,6 +23,7 @@ export function addEmptyRace() {
     race: {
       id: staticId++,
       bikeRacerMap: {},
+      bikeTicks: {},
       createdDate: moment()
     }
   };
@@ -38,6 +40,7 @@ export function addRaces(bikes, racerIds) {
     races.push({
       id: staticId++,
       bikeRacerMap,
+      bikeTicks: {},
       createdDate: moment()
     });
   }
@@ -66,5 +69,14 @@ export function startRace(id) {
   return {
     type: START_RACE,
     id
+  };
+}
+
+export function incrementRacer(raceId, bikeId) {
+  return {
+    type: INCREMENT_RACER,
+    raceId,
+    bikeId,
+    timestamp: moment()
   };
 }

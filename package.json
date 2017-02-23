@@ -14,7 +14,7 @@
     "build": "npm run build-main && npm run build-renderer",
     "package-mac": "electron-packager . opensprints --overwrite --platform=darwin --arch=x64 --icon=images/icon.icns --prune=true --out=release-builds",
     "package-win": "electron-packager . opensprints --overwrite --asar=true --platform=win32 --arch=ia32 --icon=images/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"OpenSprints Electron\"",
-    "package-linux" : "electron-packager . opensprints --overwrite --platform=linux --arch=x64 --icon=images/icon.png --prune=true --out=release-builds",
+    "package-linux": "electron-packager . opensprints --overwrite --platform=linux --arch=x64 --icon=images/icon.png --prune=true --out=release-builds",
     "create-installer-mac": "electron-installer-dmg ./release-builds/opensprints-darwin-x64/OpenSprints.app opensprints-electron --out=release-builds --overwrite --icon=images/icon.icns",
     "start": "cross-env NODE_ENV=production electron ./",
     "start-hot": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./main.development",
@@ -119,6 +119,7 @@
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "redux-undo": "^0.6.1",
+    "reselect": "^2.5.4",
     "source-map-support": "^0.4.2"
   },
   "devEngines": {

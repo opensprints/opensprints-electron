@@ -1,11 +1,37 @@
 import React, { Component, PropTypes } from 'react';
+import { createSelector } from 'reselect';
 import racerStyles from '../race-preview/RacerSelect.css';
+
+const getRace = (state, props) =>
+  state.races.find((race) => race.id === parseInt(props.params.race, 10));
+
+const getBikeIndex = (_, props) => props.bikeIndex;
+
+const getRacer = createSelector(
+  [getRace, getBikeIndex],
+  (race, bikeIndex) => state.racers.find((racer) => racer.id === race.bikeRacerMap[bikeIndex])
+);
+
+const getBike = (state, props) => state.bikes[props.bikeIndex];
+
+// TODO: Do I handle Imperial/Metric conversions here or later...
+const getDistance = createSelector(
+  [getRace, getBikeIndex, getBike],
+  (race, bikeIndex, bike) => race.bikeTicks[bikeIndex] * (bike.rollerDiameter.value * Math.PI)
+);
+
+// TODO
+const getSpeed = createSelector(
+  [getRace, getDistance],
+  (race, distance) => race.startTime
+);
 
 export default class RacerStats extends Component {
   static propTypes = {
     bikeIndex: PropTypes.number.isRequired,
     bike: PropTypes.object.isRequired,
-    racer: PropTypes.object.isRequired
+    racer: PropTypes.object.isRequired,
+    race: PropTypes.object
   }
 
   render() {

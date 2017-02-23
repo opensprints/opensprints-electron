@@ -20,6 +20,8 @@ const renderTimer = (clock) => {
 
 export default class Clock extends Component {
   static propTypes = {
+    race: PropTypes.object,
+    bikes: PropTypes.array,
     startTime: PropTypes.object
   }
 
@@ -52,6 +54,7 @@ export default class Clock extends Component {
 
   render() {
     const { clock } = this.state;
+    const { bikes, race } = this.props;
     return (
       <div className={styles['clock-frame']}>
         <div className={styles['clock-face']}>
@@ -82,7 +85,12 @@ export default class Clock extends Component {
             listening={false}
           >
             <Layer listening={false}>
-              <Indicator />
+              {Object.keys(race.bikeRacerMap)
+                .filter((bikeIndex) => (typeof race.bikeRacerMap[bikeIndex] !== 'undefined'))
+                .map((bikeIndex) => (
+                  <Indicator color={bikes[bikeIndex].color} {...this.props} />
+                ))
+              }
             </Layer>
           </Stage>
         </div>
