@@ -4,7 +4,9 @@ import { Arrow } from 'react-konva';
 export default class Indicator extends Component {
   static propTypes = {
     color: PropTypes.string,
-    rotation: PropTypes.number
+    rotation: PropTypes.number,
+    index: PropTypes.number,
+    incrementRacer: PropTypes.func
   }
 
   constructor(...args) {
@@ -14,7 +16,7 @@ export default class Indicator extends Component {
       rotation: 0
     };
     this.updateRotation = this.updateRotation.bind(this);
-    johnnyFiveAdapter([this.updateRotation]); // eslint-disable-line
+    // johnnyFiveAdapter([this.updateRotation]); // eslint-disable-line
   }
 
   componentDidMount() {}
@@ -22,6 +24,7 @@ export default class Indicator extends Component {
   componentWillUnmount() {}
 
   updateRotation() {
+    const { incrementRacer, index } = this.props;
     const { ticks } = this.state;
 
     // total distance / distance per tick = number of ticks in a race

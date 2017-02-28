@@ -107,7 +107,8 @@ export default class Race extends Component {
     races: PropTypes.array.isRequired,
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
-    startRace: PropTypes.func.isRequired
+    startRace: PropTypes.func.isRequired,
+    goBack: PropTypes.func.isRequired
   }
   constructor(props) {
     super(props);
@@ -115,7 +116,9 @@ export default class Race extends Component {
       showModal: true,
       activeRace: props.races.find((race) => race.id === parseInt(props.params.race, 10))
     };
-    this.open = this.open.bind(this);
+    // TODO setup tick-listeners & pass correct props to clock & indicators
+    this.restartRace = this.restartRace.bind(this);
+    this.finishRace = this.finishRace.bind(this);
     this.close = this.close.bind(this);
   }
 
@@ -130,13 +133,18 @@ export default class Race extends Component {
     this.setState({ showModal: false });
   }
 
-  open() {
+  restartRace() {
+    // todo reset raceStart
     this.setState({ showModal: true });
+  }
+
+  finishRace() {
+    // TODO
   }
 
   render() {
     const { activeRace } = this.state;
-    const { bikes } = this.props;
+    const { bikes, goBack } = this.props;
     const racers = [
       { id: 0, name: 'Speed Racer' },
       { id: 1, name: 'Racer X' },
@@ -175,8 +183,7 @@ export default class Race extends Component {
             <RacerStats
               key={i}
               bikeIndex={i}
-              bike={bikes[i]}
-              racer={racer}
+              raceId={activeRace.id}
             />
           ))}
         </div>
@@ -193,7 +200,7 @@ export default class Race extends Component {
           <Modal.Footer>
             <button
               className="btn btn-default"
-              onClick={this.close}
+              onClick={() => goBack()}
             >
               Go Back
             </button>

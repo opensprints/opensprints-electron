@@ -88,7 +88,11 @@ export default class Clock extends Component {
               {Object.keys(race.bikeRacerMap)
                 .filter((bikeIndex) => (typeof race.bikeRacerMap[bikeIndex] !== 'undefined'))
                 .map((bikeIndex) => (
-                  <Indicator color={bikes[bikeIndex].color} {...this.props} />
+                  <Indicator
+                    key={`Indicator-${bikeIndex}`}
+                    color={bikes[bikeIndex].color}
+                    {...this.props}
+                  />
                 ))
               }
             </Layer>

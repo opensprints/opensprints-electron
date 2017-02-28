@@ -1,41 +1,65 @@
 import React, { Component, PropTypes } from 'react';
 import { createSelector } from 'reselect';
+import moment from 'moment';
+import { connect } from 'react-redux';
 import racerStyles from '../race-preview/RacerSelect.css';
 
 const getRace = (state, props) =>
-  state.races.find((race) => race.id === parseInt(props.params.race, 10));
+  state.races.find((race) => race.id === parseInt(props.raceId, 10));
 
 const getBikeIndex = (_, props) => props.bikeIndex;
 
-const getRacer = createSelector(
-  [getRace, getBikeIndex],
-  (race, bikeIndex) => state.racers.find((racer) => racer.id === race.bikeRacerMap[bikeIndex])
-);
+const getRacer = (state, props) =>
+    state.racers.present.find(
+      (racer) => racer.id === getRace(state, props).bikeRacerMap[props.bikeIndex]
+    );
 
 const getBike = (state, props) => state.bikes[props.bikeIndex];
 
-// TODO: Do I handle Imperial/Metric conversions here or later...
 const getDistance = createSelector(
   [getRace, getBikeIndex, getBike],
-  (race, bikeIndex, bike) => race.bikeTicks[bikeIndex] * (bike.rollerDiameter.value * Math.PI)
+  (race, bikeIndex, bike) => {
+    let coEf = 0;
+    if (bike.rollerDiameter.unit === 'centimeter') {
+      if (race.measurementSystem === 'metric') {
+        coEf = 100000; // 100000 cm === 1 km
+      } else {
+        coEf = 160934; // 160934 cm === 1 mile
+      }
+    } else if (race.measurementSystem === 'imperial') {
+      coEf = 63360; // 63360 in === 1 mile
+    } else {
+      coEf = 39370.1; // 39370.1 in === 1 km
+    }
+    // coefficient turns roller circumferences (computed in inches or centimeters) into
+    // desired output of miles or kilometers
+    return (race.bikeTicks[bikeIndex] * (bike.rollerDiameter.value * Math.PI)) / coEf;
+  }
 );
 
-// TODO
-const getSpeed = createSelector(
-  [getRace, getDistance],
-  (race, distance) => race.startTime
+const getRaceDuration = createSelector(
+  [getRace],
+  (race) => moment.duration(moment().diff(race.startTime, 'milliseconds'))
 );
 
-export default class RacerStats extends Component {
+// milliseconds in an hour multiplied by the milliseconds in race
+// (mi or km) / hr
+const getSpeed = (distance, duration) => distance / (3600000 * duration.asMilliseconds());
+
+class RacerStats extends Component {
   static propTypes = {
     bikeIndex: PropTypes.number.isRequired,
+    raceId: PropTypes.number.isRequired,
     bike: PropTypes.object.isRequired,
     racer: PropTypes.object.isRequired,
-    race: PropTypes.object
+    measurementSystem: PropTypes.string,
+    distance: PropTypes.number,
+    speed: PropTypes.number
   }
 
   render() {
-    const { bikeIndex, bike, racer } = this.props;
+    const { bikeIndex, bike, racer, measurementSystem, distance, speed } = this.props;
+
     return (
       <div className={`col-xs-3 ${racerStyles['racer-select']}`}>
         <div
@@ -52,7 +76,8 @@ export default class RacerStats extends Component {
             {racer.name}
           </span>
           <div>
-            00.0 m
+            {measurementSystem === 'metric' ?
+              `${(distance * 1000).toFixed(1)} m` : `${(distance * 5280).toFixed(1)} ft`}
             <div
               style={{
                 marginRight: '20px',
@@ -60,7 +85,8 @@ export default class RacerStats extends Component {
               }}
               className="pull-right"
             >
-              00.0 km/hr
+              {measurementSystem === 'metric' ?
+                `${speed.toFixed(1)} KPH` : `${speed.toFixed(1)} MPH`}
             </div>
           </div>
         </div>
@@ -75,9 +101,23 @@ export default class RacerStats extends Component {
           >
             FIN
           </span>
-          00:00:00.0
+          00:00:00.0 (Not Implemented)
         </div>
       </div>
     );
   }
 }
+
+function mapStateToProps(state, props) {
+  return {
+    ...props,
+    bikeIndex: getBikeIndex(state, props),
+    bike: getBike(state, props),
+    racer: getRacer(state, props),
+    measurementSystem: getRace(state, props).measurementSystem,
+    distance: getDistance(state, props),
+    speed: getSpeed(getDistance(state, props), getRaceDuration(state, props))
+  };
+}
+
+export default connect(mapStateToProps)(RacerStats);
