@@ -145,12 +145,6 @@ export default class Race extends Component {
   render() {
     const { activeRace } = this.state;
     const { bikes, goBack } = this.props;
-    const racers = [
-      { id: 0, name: 'Speed Racer' },
-      { id: 1, name: 'Racer X' },
-      { id: 2, name: 'Chim Chim' },
-      { id: 3, name: 'Snake Oiler' }
-    ];
 
     return (
       <div className="container">
@@ -179,7 +173,7 @@ export default class Race extends Component {
           <MessageQueue />
         </div>
         <div className="row">
-          {racers.map((racer, i) => (
+          {bikes.map((_, i) => (
             <RacerStats
               key={i}
               bikeIndex={i}
