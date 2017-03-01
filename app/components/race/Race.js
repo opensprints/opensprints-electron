@@ -108,14 +108,18 @@ export default class Race extends Component {
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
     startRace: PropTypes.func.isRequired,
-    goBack: PropTypes.func.isRequired
+    goBack: PropTypes.func.isRequired,
+    incrementRacer: PropTypes.func.isRequired
   }
   constructor(props) {
     super(props);
+    const raceId = parseInt(props.params.race, 10);
     this.state = {
       showModal: true,
-      activeRace: props.races.find((race) => race.id === parseInt(props.params.race, 10))
+      activeRace: props.races.find((race) => race.id === raceId)
     };
+    johnnyFiveAdapter(props.bikes.map((_, i) => () => props.incrementRacer(raceId, i))); // eslint-disable-line
+
     // TODO setup tick-listeners & pass correct props to clock & indicators
     this.restartRace = this.restartRace.bind(this);
     this.finishRace = this.finishRace.bind(this);

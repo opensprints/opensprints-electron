@@ -33,7 +33,8 @@ const getDistance = createSelector(
     }
     // coefficient turns roller circumferences (computed in inches or centimeters) into
     // desired output of miles or kilometers
-    return (race.bikeTicks[bikeIndex] * (bike.rollerDiameter.value * Math.PI)) / coEf;
+    return race.bikeTicks[bikeIndex] > 0 ?
+      (race.bikeTicks[bikeIndex] * (bike.rollerDiameter.value * Math.PI)) / coEf : 0;
   }
 );
 
@@ -44,14 +45,17 @@ const getRaceDuration = createSelector(
 
 // milliseconds in an hour multiplied by the milliseconds in race
 // (mi or km) / hr
-const getSpeed = (distance, duration) => distance / (3600000 * duration.asMilliseconds());
+const getSpeed = (distance, duration) => (
+  distance > 0 ? (distance * 3600000) / duration.asMilliseconds() : 0
+);
 
 class RacerStats extends Component {
   static propTypes = {
     bikeIndex: PropTypes.number.isRequired,
     raceId: PropTypes.number.isRequired,
-    bike: PropTypes.object.isRequired,
-    racer: PropTypes.object.isRequired,
+
+    bike: PropTypes.object,
+    racer: PropTypes.object,
     measurementSystem: PropTypes.string,
     distance: PropTypes.number,
     speed: PropTypes.number

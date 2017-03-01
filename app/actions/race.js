@@ -33,14 +33,16 @@ export function addRaces(bikes, racerIds) {
   const races = [];
   for (let i = 0; i < Math.ceil(racerIds.length / bikes.length); i++) {
     const bikeRacerMap = {};
+    const bikeTicks = {};
     racerIds.slice(i * 4, Math.min((i + 1) * 4, racerIds.length))
       .forEach((racerId, index) => {
         bikeRacerMap[index] = racerId;
+        bikeTicks[index] = 0;
       });
     races.push({
       id: staticId++,
       bikeRacerMap,
-      bikeTicks: {},
+      bikeTicks,
       createdDate: moment()
     });
   }
@@ -72,11 +74,11 @@ export function startRace(id) {
   };
 }
 
-export function incrementRacer(raceId, bikeId) {
+export function incrementRacer(raceId, bikeIndex) {
   return {
     type: INCREMENT_RACER,
     raceId,
-    bikeId,
+    bikeIndex,
     timestamp: moment()
   };
 }
