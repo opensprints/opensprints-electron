@@ -42,6 +42,18 @@ export default class Clock extends Component {
         });
       };
       intervalId = setInterval(fn, 100);
+    } else if (intervalId) {
+      clearInterval(intervalId);
+      const { startTime } = nextProps;
+      this.setState({ clock: moment.duration(moment().valueOf() - startTime.valueOf()) });
+      const fn = () => {
+        if (this.setState) {
+          this.setState({
+            clock: moment.duration(moment().valueOf() - startTime.valueOf())
+          });
+        }
+      };
+      intervalId = setInterval(fn, 100);
     }
   }
 
