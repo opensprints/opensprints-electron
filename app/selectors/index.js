@@ -52,3 +52,8 @@ export const getSpeed = (distance, duration) => (
  * @param props needs props.bikeIndex
  */
 export const getBikeColor = (state, props) => state.bikes[props.bikeIndex].color;
+
+// 360 degrees * ticks / (number of ticks in a race) = current needle rotation
+export const getIndicatorRotation = (distance, race) => (distance * 360) / (
+  race.raceDistance / (race.measurementSystem === 'metric' ? 1000 : 5280)
+);

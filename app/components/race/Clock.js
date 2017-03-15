@@ -66,7 +66,7 @@ export default class Clock extends Component {
 
   render() {
     const { clock } = this.state;
-    const { bikes, race } = this.props;
+    const { race } = this.props;
     return (
       <div className={styles['clock-frame']}>
         <div className={styles['clock-face']}>
@@ -98,12 +98,12 @@ export default class Clock extends Component {
           >
             <Layer listening={false}>
               {Object.keys(race.bikeRacerMap)
-                .filter((bikeIndex) => (typeof race.bikeRacerMap[bikeIndex] !== 'undefined'))
-                .map((bikeIndex) => (
+                .filter(bikeIndex => (typeof race.bikeRacerMap[bikeIndex] !== 'undefined'))
+                .map(bikeIndex => (
                   <Indicator
                     key={`Indicator-${bikeIndex}`}
-                    color={bikes[bikeIndex].color}
-                    {...this.props}
+                    bikeIndex={parseInt(bikeIndex, 10)}
+                    raceId={race.id}
                   />
                 ))
               }

@@ -1,47 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { Arrow } from 'react-konva';
+import { connect } from 'react-redux';
+import { getBikeColor, getDistance, getRace, getIndicatorRotation } from '../../selectors';
 
-export default class Indicator extends Component {
+class Indicator extends Component {
   static propTypes = {
+    bikeIndex: PropTypes.number.isRequired,
+    raceId: PropTypes.number.isRequired,
+
     color: PropTypes.string,
-    rotation: PropTypes.number,
-    index: PropTypes.number,
-    incrementRacer: PropTypes.func
-  }
-
-  constructor(...args) {
-    super(...args);
-    this.state = {
-      ticks: 0,
-      rotation: 0
-    };
-    this.updateRotation = this.updateRotation.bind(this);
-    // johnnyFiveAdapter([this.updateRotation]); // eslint-disable-line
-  }
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  updateRotation() {
-    const { incrementRacer, index } = this.props;
-    const { ticks } = this.state;
-
-    // total distance / distance per tick = number of ticks in a race
-    // 100 m / 3.9 in (99.06 mm) = 1009.4892
-
-    // 360 deg / (number of ticks in a race) = degrees per tick
-    // 360 * ticks / (number of ticks in a race) = current needle rotation
-
-    this.setState({
-      rotation: (360 * (ticks + 1)) / 1009,
-      ticks: ticks + 1
-    });
+    rotation: PropTypes.number
   }
 
   render() {
-    const { color = 'white' } = this.props;
-    const { rotation = 0 } = this.state;
+    const { color = 'white', rotation = 0 } = this.props;
     return (
       <Arrow
         x={190}
@@ -62,3 +34,13 @@ export default class Indicator extends Component {
     );
   }
 }
+
+function mapStateToProps(state, props) {
+  return {
+    ...props,
+    color: getBikeColor(state, props),
+    rotation: getIndicatorRotation(getDistance(state, props), getRace(state, props))
+  };
+}
+
+export default connect(mapStateToProps)(Indicator);
