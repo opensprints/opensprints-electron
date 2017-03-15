@@ -21,7 +21,7 @@ export function addEmptyRace() {
   return {
     type: ADD_AD_HOC_RACE,
     race: {
-      id: staticId++,
+      id: (staticId += 1),
       bikeRacerMap: {},
       bikeTicks: {},
       createdDate: moment()
@@ -31,7 +31,7 @@ export function addEmptyRace() {
 
 export function addRaces(bikes, racerIds) {
   const races = [];
-  for (let i = 0; i < Math.ceil(racerIds.length / bikes.length); i++) {
+  for (let i = 0; i < Math.ceil(racerIds.length / bikes.length); i += 1) {
     const bikeRacerMap = {};
     const bikeTicks = {};
     racerIds.slice(i * 4, Math.min((i + 1) * 4, racerIds.length))
@@ -40,7 +40,7 @@ export function addRaces(bikes, racerIds) {
         bikeTicks[index] = 0;
       });
     races.push({
-      id: staticId++,
+      id: staticId += 1,
       bikeRacerMap,
       bikeTicks,
       createdDate: moment()

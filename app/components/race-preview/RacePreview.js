@@ -20,7 +20,7 @@ export default class RacePreview extends Component {
     super(props, context);
     const { races, params, defaultRaceSettings } = props;
     this.state = {
-      activeRace: races.find((race) => race.id === parseInt(params.race, 10)),
+      activeRace: races.find(race => race.id === parseInt(params.race, 10)),
       raceSettings: Object.assign({}, defaultRaceSettings, { raceType: 'distance' })
     };
     this.updateRaceSettings = this.updateRaceSettings.bind(this);
@@ -31,7 +31,7 @@ export default class RacePreview extends Component {
   componentWillReceiveProps(nextProps) {
     const { races, params } = nextProps;
     this.setState({
-      activeRace: races.find((race) => race.id === parseInt(params.race, 10))
+      activeRace: races.find(race => race.id === parseInt(params.race, 10))
     });
   }
 
@@ -59,7 +59,6 @@ export default class RacePreview extends Component {
     {
       raceType: 'distance',
       raceDistance: raceSettings.raceDistance,
-      raceDistanceUnits: raceSettings.raceDistanceUnits,
       measurementSystem: raceSettings.measurementSystem
     } :
     {
@@ -102,7 +101,7 @@ export default class RacePreview extends Component {
                 });
                 updateRace(newRace);
               }}
-              onAdd={(racer) => addNewRacer(racer, activeRace, i)}
+              onAdd={racer => addNewRacer(racer, activeRace, i)}
               onEdit={editRacer}
             />
           ))}

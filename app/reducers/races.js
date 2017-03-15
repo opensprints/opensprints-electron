@@ -40,8 +40,8 @@ export default function races(state = [], action) {
       });
 
     case CHANGE_RACE_ORDER: {
-      const raceOne = state.filter((race) => race.id === action.id)[0];
-      const raceTwo = state.filter((race) => race.id === action.secondId)[0];
+      const raceOne = state.filter(race => race.id === action.id)[0];
+      const raceTwo = state.filter(race => race.id === action.secondId)[0];
       return state.map((race) => {
         if (race.id === action.id) {
           return raceTwo;
@@ -62,7 +62,7 @@ export default function races(state = [], action) {
       });
 
     case INCREMENT_RACER:
-      return state.map(race => {
+      return state.map((race) => {
         if (race.id === action.raceId) {
           return Object.assign({}, race, {
             bikeTicks: Object.assign({}, race.bikeTicks, {

@@ -179,7 +179,7 @@ export default class Race extends Component {
         <div className="row">
           {bikes.map((_, i) => (
             <RacerStats
-              key={i}
+              key={`RacerStats-${i}`}
               bikeIndex={i}
               raceId={activeRace.id}
             />
