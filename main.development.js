@@ -25,8 +25,7 @@ const installExtensions = async () => {
 
     const extensions = [
       'REACT_DEVELOPER_TOOLS',
-      'REDUX_DEVTOOLS',
-      'bomhdjeadceaggdgfoefmpeafkjhegbo' // DevTools Theme: Zero Dark Matrix
+      'REDUX_DEVTOOLS'
     ];
     const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
     for (const name of extensions) {
@@ -49,9 +48,15 @@ app.on('ready', async () => {
     // something
   }
   const windowConfig = (data && data.bounds) ? data.bounds :
-  { width: 800, height: 600, x: 0, y: 0 };
+    {
+      width: 800,
+      height: 600,
+      x: 0,
+      y: 0
+    };
 
   windowConfig.show = false;
+  windowConfig.icon = path.join(__dirname, 'images/icon.png');
 
   mainWindow = new BrowserWindow(windowConfig);
 
