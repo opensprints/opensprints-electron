@@ -35,3 +35,6 @@ dist
 release
 main.js
 main.js.map
+
+# Jetbrains Ignores
+.idea

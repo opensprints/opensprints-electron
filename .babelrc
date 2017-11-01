@@ -1,5 +1,13 @@
 {
-  "presets": ["es2015", "stage-0", "react"],
+  "presets": [
+	["env", {
+	  "targets": {
+		"chrome": 59
+	  }
+	}],
+	"stage-0",
+	"react"
+  ],
   "plugins": ["add-module-exports"],
   "env": {
     "production": {
