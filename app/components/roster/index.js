@@ -15,7 +15,7 @@ const racerAttributeRadioGroup = (key, options, onChange) => (
     }}
   >
     <span className="label text-uppercase">{key}</span>
-    {options.map((option) => (
+    {options.map(option => (
       <Radio
         key={`${option}-radio-btn`}
         name={key}
@@ -65,16 +65,16 @@ export default class Roster extends Component {
       });
     } else {
       this.setState({
-        selectedRacers: racers.map((racer) => (racer.id))
+        selectedRacers: racers.map(racer => (racer.id))
       });
     }
   }
 
   handleRacerSelect(racer) {
     const { selectedRacers } = this.state;
-    if (~selectedRacers.indexOf(racer.id)) {
+    if (selectedRacers.indexOf(racer.id) !== -1) {
       this.setState({
-        selectedRacers: selectedRacers.filter((id) => id !== racer.id)
+        selectedRacers: selectedRacers.filter(id => id !== racer.id)
       });
     } else {
       this.setState({
@@ -134,7 +134,9 @@ export default class Roster extends Component {
   render() {
     let input;
     const { search, selectedRacers } = this.state;
-    const { racerAttributes, addRaces, racers, bikes, removeRacers } = this.props;
+    const {
+      racerAttributes, addRaces, racers, bikes, removeRacers
+    } = this.props;
 
     return (
       <div className="container">
@@ -176,6 +178,7 @@ export default class Roster extends Component {
                   <i
                     className={`material-icons md-36 unselectable ${style.addRacerBtn}`}
                     tabIndex="0"
+                    role="button"
                     onClick={() => { this.open(); }}
                     onKeyDown={(e) => {
                       if (e.keyCode === 13) {
@@ -218,7 +221,7 @@ export default class Roster extends Component {
                       </i>
                     </th>
                     <th className={`${style.racersHeader} unselectable`}>Name</th>
-                    {Object.keys(racerAttributes).map((key) => (
+                    {Object.keys(racerAttributes).map(key => (
                       <th
                         className={`${style.racersHeader} unselectable`}
                         key={`${key}-roster-header`}
@@ -232,10 +235,10 @@ export default class Roster extends Component {
                 <tbody>
                   {racers.filter((racer) => {
                     if (search && search && search.trim()) {
-                      return ~racer.name.toLowerCase().indexOf(search.trim().toLowerCase());
+                      return racer.name.toLowerCase().indexOf(search.trim().toLowerCase()) !== -1;
                     }
                     return true;
-                  }).map((racer) => (
+                  }).map(racer => (
                     <RosterRacer
                       key={`racer-${racer.id}`}
                       racer={racer}
@@ -314,7 +317,7 @@ export default class Roster extends Component {
             </div>
 
             {
-              Object.keys(racerAttributes).map((key) => (
+              Object.keys(racerAttributes).map(key => (
                 racerAttributeRadioGroup(key, racerAttributes[key], (e) => {
                   const { newRacerAttributes } = this.state;
                   this.setState({
