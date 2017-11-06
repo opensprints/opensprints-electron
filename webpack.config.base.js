@@ -2,17 +2,14 @@ import path from 'path';
 
 export default {
   module: {
-    loaders: [{
+    rules: [{
       test: /\.jsx?$/,
-      loaders: ['babel-loader'],
+      use: [{ loader: 'babel-loader' }],
       exclude: /node_modules/
-    }, {
-      test: /\.json$/,
-      loader: 'json-loader'
     },
     {
       test: /\.(jpg|ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-      loader: 'file-loader'
+      use: [{ loader: 'file-loader' }]
     }]
   },
   output: {
@@ -21,8 +18,7 @@ export default {
     libraryTarget: 'commonjs2'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.json'],
-    packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
+    extensions: ['.js', '.jsx', '.json']
   },
   plugins: [
 
