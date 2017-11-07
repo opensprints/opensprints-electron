@@ -1,6 +1,6 @@
 // import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Intermission from '../components/Intermission';
+import Intermission from '../components/intermission';
 
 function mapStateToProps(state) {
   return {

@@ -1,0 +1,12 @@
+.blue-message {
+  font-size: 20px;
+  color: #6FDCFF;
+}
+
+.add-message {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  vertical-align: super;
+  margin-right: 10px;
+}

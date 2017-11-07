@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import MessagesContainer from '../crowd-messaging/messages-container';
 
 export default class Intermission extends Component {
   static propTypes = {
@@ -9,7 +10,9 @@ export default class Intermission extends Component {
   render() {
     return (
       <div className="container">
-        INTERMISSION SCREEN UNDER CONSTRUCTION
+        <div className="row">
+          <MessagesContainer />
+        </div>
       </div>
     );
   }
