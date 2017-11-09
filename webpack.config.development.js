@@ -42,7 +42,7 @@ export default merge(baseConfig, {
     new webpack.IgnorePlugin(/canvas$/),
     new webpack.IgnorePlugin(/jsdom$/),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
     })
