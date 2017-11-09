@@ -23,7 +23,7 @@
   line-height: 16px !important;
   text-transform: uppercase;
   text-align: right;
-  padding: 0;
+  padding: 0 !important;
   color: white !important;
   box-shadow: none !important;
   border: none !important;
