@@ -10,7 +10,7 @@ const racers = (state = [], action) => {
       ];
 
     case REMOVE_RACERS: {
-      return state.filter((racer) => action.ids.indexOf(racer.id) === -1);
+      return state.filter(racer => action.ids.indexOf(racer.id) === -1);
     }
 
     case EDIT_RACER:
