@@ -11,7 +11,7 @@ export default class Intermission extends Component {
     return (
       <div className="container">
         <div className="row">
-          <MessagesContainer />
+          <MessagesContainer {...this.props} />
         </div>
       </div>
     );

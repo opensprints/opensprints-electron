@@ -1,12 +1,18 @@
-// import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Intermission from '../components/intermission';
+import * as AudienceMessageActions from '../actions/audienceMessage';
 
 function mapStateToProps(state) {
   return {
     racers: state.racers.present,
-    races: state.races
+    races: state.races,
+    audienceMessages: state.audienceMessages
   };
 }
 
-export default connect(mapStateToProps)(Intermission);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ ...AudienceMessageActions }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Intermission);
