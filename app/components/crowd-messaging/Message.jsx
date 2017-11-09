@@ -2,25 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from './messages.css';
 
-/**
- * I'm Blue da ba dee da ba daa...
- */
-const BlueMessage = ({ style, children }) => (
-  <div
-    style={style}
-    className={styles['blue-message']}
-  >
-    {children}
-  </div>
-);
-BlueMessage.propTypes = {
-  style: PropTypes.object,
-  children: PropTypes.node.isRequired
-};
-BlueMessage.defaultProps = {
-  style: null
-};
-
 export default class Message extends Component {
   static propTypes = {
     message: PropTypes.object.isRequired,
@@ -38,15 +19,31 @@ export default class Message extends Component {
       title: props.message.title,
       subtext: props.message.subtext,
       editing: props.isNewMessage,
-      hover: false
+      hover: false,
+      // previousScrollHeight: 50,
+      // textAreaRows: 4
     };
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState({
-      title: newProps.message.title,
-      subtext: newProps.message.subtext
-    });
+    const { title: oldTitle, subtext: oldSubtext } = this.props.message;
+    const { title, subtext } = newProps.message;
+
+    if (oldTitle !== title || oldSubtext !== subtext) {
+      this.setState({
+        title: newProps.message.title,
+        subtext: newProps.message.subtext,
+        // textAreaRows: Math.floor(this.textArea.scrollHeight / 20)
+      });
+    }
+  }
+
+  onHover() {
+    this.setState({ hover: true });
+  }
+
+  onMouseLeave() {
+    this.setState({ hover: false });
   }
 
   handleTitleChange(e) {
@@ -56,8 +53,11 @@ export default class Message extends Component {
   }
 
   handleSubtextChange(e) {
+    // const { previousScrollHeight } = this.state;
     this.setState({
-      subtext: e.target.value
+      subtext: e.target.value,
+      // textAreaRows: (Math.abs(previousScrollHeight - this.textArea.scrollHeight) >= 20 &&
+      // Math.floor(this.textArea.scrollHeight / 20))
     });
   }
 
@@ -79,42 +79,29 @@ export default class Message extends Component {
 
   render() {
     const { isNewMessage } = this.props;
-    const { title, subtext, hover, editing } = this.state;
+    const {
+      title,
+      subtext,
+      hover,
+      editing,
+      // textAreaRows
+    } = this.state;
 
     return (
       <div
-        className="pull-right"
+        className={styles['message-container']}
         style={{
-          clear: 'right',
           background: (hover || editing) && 'rgba(255,255,255,0.1)'
         }}
-        onMouseOver={() => this.setState({ hover: true })}
-        onMouseOut={() => this.setState({ hover: false })}
+        onFocus={this.onHover.bind(this)}
+        onBlur={this.onMouseLeave.bind(this)}
+        onMouseOver={this.onHover.bind(this)}
+        onMouseOut={this.onMouseLeave.bind(this)}
       >
-        <div
-          style={{
-            clear: 'right',
-            marginTop: '20px',
-            width: '100%'
-          }}
-          className="pull-right"
-        >
+        <div>
           <input
-            className="form-control"
+            className={`form-control ${styles['message-title-input']}`}
             type="text"
-            style={{
-              fontSize: '16px',
-              lineHeight: '16px',
-              textTransform: 'uppercase',
-              display: 'inline-block',
-              marginBottom: '5px',
-              fontWeight: 'bold',
-              border: 'none',
-              textAlign: 'right',
-              padding: '0',
-              color: 'white',
-              boxShadow: 'none'
-            }}
             autoFocus={isNewMessage}
             onFocus={() => this.setState({ editing: true })}
             onBlur={this.handleUpdate.bind(this)}
@@ -128,10 +115,21 @@ export default class Message extends Component {
             clear: 'both'
           }}
         />
-        <div style={{ float: 'right' }}>
-          <BlueMessage style={{ textAlign: 'right' }}>
-            {subtext}
-          </BlueMessage>
+        <div
+          style={{
+            textAlign: 'right'
+          }}
+        >
+          <textarea
+            className={styles['message-subtext-textarea']}
+            // ref={(ta => this.textArea = ta)}
+            // rows={textAreaRows}
+            rows={2}
+            onFocus={() => this.setState({ editing: true })}
+            onBlur={this.handleUpdate.bind(this)}
+            onChange={this.handleSubtextChange.bind(this)}
+            value={subtext}
+          />
         </div>
       </div>
     );

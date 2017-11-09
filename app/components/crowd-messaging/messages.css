@@ -7,6 +7,44 @@
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
-  vertical-align: super;
+  vertical-align: text-top;
   margin-right: 10px;
+}
+
+.message-container {
+  clear: both;
+  margin-top: 20px;
+}
+
+.message-title-input {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 16px !important;
+  line-height: 16px !important;
+  text-transform: uppercase;
+  text-align: right;
+  padding: 0;
+  color: white !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.message-subtext-textarea {
+  width: 100%;
+  background: transparent;
+  color: #6FDCFF;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 20px;
+  display: inline-block;
+  border: none;
+  text-align: right;
+  padding: 0;
+  box-shadow: none;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin-top: 10px;
+  resize: none;
+  white-space: pre-wrap;
+  outline: none;
 }

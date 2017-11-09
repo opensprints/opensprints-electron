@@ -47,24 +47,40 @@ export default class MessagesContainer extends Component {
       <div
         className="col-xs-offset-9 col-xs-3"
         style={{
-          height: '650px',
+          height: '85vh',
           backgroundColor: 'rgba(0,0,0,0.6)'
         }}
       >
         <div
-          className="pull-right"
           style={{
-            backgroundColor: newHover && 'rgba(255,255,255,0.1)'
+            minHeight: '30px'
           }}
-          role="button"
-          onMouseOver={() => this.setState({ newHover: true })}
-          onMouseOut={() => this.setState({ newHover: false })}
-          onClick={this.createNewMessage.bind(this)}
         >
-          <span className={styles['add-message']}>
-            Add Message
-          </span>
-          <i className="material-icons md-24">add_circle</i>
+          <div
+            className="pull-right"
+            style={{
+              userSelect: 'none',
+              padding: '6px 0 6px 6px',
+              backgroundColor: newHover && 'rgba(255,255,255,0.1)'
+            }}
+            tabIndex="0"
+            role="button"
+            onMouseOver={() => this.setState({ newHover: true })}
+            onMouseOut={() => this.setState({ newHover: false })}
+            onFocus={() => this.setState({ newHover: true })}
+            onBlur={() => this.setState({ newHover: false })}
+            onClick={this.createNewMessage.bind(this)}
+          >
+            <span className={styles['add-message']}>
+              Add Message
+            </span>
+            <i
+              style={{ verticalAlign: 'text-bottom' }}
+              className="material-icons md-24"
+            >
+              add_circle
+            </i>
+          </div>
         </div>
         {audienceMessages.map(message => (
           <Message
@@ -75,13 +91,6 @@ export default class MessagesContainer extends Component {
             editMessage={this.editMessage.bind(this)}
           />
         ))}
-        <Message
-          message={{
-            title: 'Last Call',
-            subtext: 'head up 2 the bar 4 last drinks'
-          }}
-          {...this.props}
-        />
       </div>
     );
   }
