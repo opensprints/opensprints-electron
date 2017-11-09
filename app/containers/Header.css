@@ -19,7 +19,7 @@
 
 .drop-down {
   position: absolute;
-  right: 6px;
+  right: 0;
   top: 12px;
   background: black;
   z-index: 1000;
