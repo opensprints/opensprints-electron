@@ -6,7 +6,8 @@ export default class Message extends Component {
   static propTypes = {
     message: PropTypes.object.isRequired,
     isNewMessage: PropTypes.bool,
-    editMessage: PropTypes.func.isRequired
+    editMessage: PropTypes.func.isRequired,
+    removeMessage: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -20,6 +21,7 @@ export default class Message extends Component {
       subtext: props.message.subtext,
       editing: props.isNewMessage,
       hover: false,
+      hoverDelete: false,
       // previousScrollHeight: 50,
       // textAreaRows: 4
     };
@@ -44,6 +46,19 @@ export default class Message extends Component {
 
   onMouseLeave() {
     this.setState({ hover: false });
+  }
+
+  onHoverDelete() {
+    this.setState({ hoverDelete: true });
+  }
+
+  onMouseLeaveDelete() {
+    this.setState({ hoverDelete: false });
+  }
+
+  onDelete() {
+    const { message, removeMessage } = this.props;
+    removeMessage(message.id);
   }
 
   handleTitleChange(e) {
@@ -83,6 +98,7 @@ export default class Message extends Component {
       title,
       subtext,
       hover,
+      hoverDelete,
       editing,
       // textAreaRows
     } = this.state;
@@ -115,6 +131,24 @@ export default class Message extends Component {
             clear: 'both'
           }}
         />
+        <i
+          style={{
+            position: 'absolute',
+            right: '-25px',
+            top: '30px',
+            cursor: 'pointer',
+            color: hoverDelete ? 'white' : '#666666',
+            display: !(hover || editing) && 'none'
+          }}
+          onFocus={this.onHoverDelete.bind(this)}
+          onBlur={this.onMouseLeaveDelete.bind(this)}
+          onMouseOver={this.onHoverDelete.bind(this)}
+          onMouseOut={this.onMouseLeaveDelete.bind(this)}
+          onClick={this.onDelete.bind(this)}
+          className="material-icons md-24"
+        >
+          delete
+        </i>
         <div
           style={{
             textAlign: 'right'
