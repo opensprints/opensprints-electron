@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-/**
- * Code from bobinette/react-dropdown
- */
 class Dropdown extends Component {
   static propTypes = {
-    value: PropTypes.any,
-    placeholder: PropTypes.string,
-    options: PropTypes.array,
-    onChange: PropTypes.func,
+    value: PropTypes.any.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    options: PropTypes.array.isRequired,
+    onChange: PropTypes.func.isRequired,
     baseClassName: PropTypes.string
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -23,14 +20,7 @@ class Dropdown extends Component {
       },
       isOpen: false
     };
-    this.mounted = true;
-    this.handleDocumentClick = this.handleDocumentClick.bind(this);
     this.fireChangeEvent = this.fireChangeEvent.bind(this);
-  }
-
-  componentDidMount() {
-    document.addEventListener('click', this.handleDocumentClick, false);
-    document.addEventListener('touchend', this.handleDocumentClick, false);
   }
 
   componentWillReceiveProps(newProps) {
@@ -39,12 +29,6 @@ class Dropdown extends Component {
     } else if (!newProps.value && newProps.placeholder) {
       this.setState({ selected: { label: newProps.placeholder, value: '' } });
     }
-  }
-
-  componentWillUnmount() {
-    this.mounted = false;
-    document.removeEventListener('click', this.handleDocumentClick, false);
-    document.removeEventListener('touchend', this.handleDocumentClick, false);
   }
 
   setValue(option) {
@@ -66,6 +50,24 @@ class Dropdown extends Component {
     });
   }
 
+  handleDropdownClose(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    const { isOpen } = this.state;
+    if (isOpen && !this.timeOut) {
+      this.timeOut = setTimeout(() => this.setState({ isOpen: false }), 250);
+    }
+  }
+
+  handleKeepDropdownOpen(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    if (this.timeOut) {
+      clearTimeout(this.timeOut);
+      this.timeOut = null;
+    }
+  }
+
   fireChangeEvent(option) {
     if (option !== this.state.selected && this.props.onChange) {
       this.props.onChange(option);
@@ -81,7 +83,7 @@ class Dropdown extends Component {
         return (
           <div className={`${baseClassName}-group`} key={option.name}>
             {groupTitle}
-            {option.items.map((item) => this.renderOption(item))}
+            {option.items.map(item => this.renderOption(item))}
           </div>
         );
       }
@@ -89,14 +91,6 @@ class Dropdown extends Component {
     });
 
     return ops.length ? ops : <div className={`${baseClassName}-noresults`}>No options found</div>;
-  }
-
-  handleDocumentClick(event) {
-    if (this.mounted) {
-      if (!ReactDOM.findDOMNode(this).contains(event.target)) { // eslint-disable-line
-        this.setState({ isOpen: false });
-      }
-    }
   }
 
   renderOption(option) {
@@ -125,8 +119,6 @@ class Dropdown extends Component {
     const placeHolderValue = typeof this.state.selected === 'string' ?
       this.state.selected : this.state.selected.label;
     const value = (<div className={`${baseClassName}-placeholder`}>{placeHolderValue}</div>);
-    const menu = this.state.isOpen ?
-      <div className={`${baseClassName}-menu`}>{this.buildMenu()}</div> : null;
 
     const dropdownClass = classNames({
       [`${baseClassName}-root`]: true,
@@ -134,16 +126,28 @@ class Dropdown extends Component {
     });
 
     return (
-      <div className={dropdownClass}>
+      <div
+        className={dropdownClass}
+        onMouseLeave={this.handleDropdownClose.bind(this)}
+      >
         <div
           className={`${baseClassName}-control`}
           onMouseDown={this.handleMouseDown.bind(this)}
           onTouchEnd={this.handleMouseDown.bind(this)}
+          onMouseEnter={this.handleKeepDropdownOpen.bind(this)}
         >
           {value}
           <span className={`${baseClassName}-arrow`} />
         </div>
-        {menu}
+        {this.state.isOpen ? (
+          <div
+            className={`${baseClassName}-menu`}
+            onMouseEnter={this.handleKeepDropdownOpen.bind(this)}
+            onMouseLeave={this.handleDropdownClose.bind(this)}
+          >
+            {this.buildMenu()}
+          </div>
+        ) : null}
       </div>
     );
   }

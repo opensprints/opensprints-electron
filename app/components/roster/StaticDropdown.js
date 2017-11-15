@@ -3,32 +3,32 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
+/* FIXME: refactor class to use same mechanics as Dropdown */
 class StaticDropdown extends Component {
   static propTypes = {
     baseClassName: PropTypes.string,
     label: PropTypes.element,
     options: PropTypes.array,
     onOptionClicked: PropTypes.func
-  }
+  };
 
   constructor(props, state) {
     super(props, state);
     this.state = {
       isOpen: false
     };
-    this.mounted = true;
-    this.handleDocumentClick = this.handleDocumentClick.bind(this);
+    // this.handleDocumentClick = this.handleDocumentClick.bind(this);
   }
 
   componentDidMount() {
-    document.addEventListener('click', this.handleDocumentClick, false);
-    document.addEventListener('touchend', this.handleDocumentClick, false);
+    // document.addEventListener('click', this.handleDocumentClick, false);
+    // document.addEventListener('touchend', this.handleDocumentClick, false);
   }
 
   componentWillUnmount() {
     this.mounted = false;
-    document.removeEventListener('click', this.handleDocumentClick, false);
-    document.removeEventListener('touchend', this.handleDocumentClick, false);
+    // document.removeEventListener('click', this.handleDocumentClick, false);
+    // document.removeEventListener('touchend', this.handleDocumentClick, false);
   }
 
   handleOptionClick(option) {
@@ -54,7 +54,7 @@ class StaticDropdown extends Component {
 
   buildMenu() {
     const { options, baseClassName } = this.props;
-    return options.map((option) => (
+    return options.map(option => (
       <div
         key={option.value}
         className={`${baseClassName}-option`}
