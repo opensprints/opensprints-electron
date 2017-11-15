@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 import styles from './Race.css';
 import Clock from './Clock';
@@ -110,13 +111,13 @@ export default class Race extends Component {
     startRace: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,
     incrementRacer: PropTypes.func.isRequired
-  }
+  };
   constructor(props) {
     super(props);
-    const raceId = parseInt(props.params.race, 10);
+    const raceId = parseInt(props.params.raceId, 10);
     this.state = {
       showModal: true,
-      activeRace: props.races.find((race) => race.id === raceId)
+      activeRace: props.races.find(race => race.id === raceId)
     };
     johnnyFiveAdapter(props.bikes.map((_, i) => () => props.incrementRacer(raceId, i))); // eslint-disable-line
 
@@ -128,7 +129,7 @@ export default class Race extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      activeRace: nextProps.races.find((race) => race.id === parseInt(nextProps.params.race, 10))
+      activeRace: nextProps.races.find(race => race.id === parseInt(nextProps.params.race, 10))
     });
   }
 

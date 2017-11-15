@@ -1,25 +1,21 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, IndexLink, withRouter } from 'react-router';
-import { push } from 'react-router-redux';
+import { Link } from 'react-router-dom';
 import styles from './Header.css';
 
 const logoSrc = '../images/logo.png';
 
-const NavLink = ({ isIndex, to, children }) => (isIndex ?
-  (<IndexLink to={to} className={styles.link} activeClassName="active">{children}</IndexLink>) :
-  (<Link to={to} className={styles.link} activeClassName="active">{children}</Link>)
+const NavLink = ({ to, children }) => (
+  <Link to={to} className={styles.link} activeClassName="active">{children}</Link>
 );
 NavLink.propTypes = {
-  isIndex: PropTypes.bool,
   to: PropTypes.string.isRequired,
   children: PropTypes.string
 };
 
 class Header extends Component {
   static propTypes = {
-    dispatch: PropTypes.func,
-    router: PropTypes.object
   };
 
   constructor(props, context) {
@@ -30,14 +26,14 @@ class Header extends Component {
   }
 
   navigateToIntermission() {
-    const { dispatch } = this.props;
-    dispatch(push('/intermission'));
+    const { history } = this.props;
+    history.push('/intermission');
     return false;
   }
 
   navigateBack() {
-    const { router } = this.props;
-    router.goBack();
+    const { history } = this.props;
+    history.goBack();
     return false;
   }
 
@@ -52,8 +48,8 @@ class Header extends Component {
 
   render() {
     const { navigationVisible } = this.state;
-    const { router } = this.props;
-    const intermission = router.isActive('/intermission');
+    const { location } = this.props;
+    const intermission = location.pathname === '/intermission';
     return (
       <div className={`container ${styles.container}`}>
         <img className={styles.logo} alt="Open Sprints Logo" src={logoSrc} />
@@ -82,7 +78,7 @@ class Header extends Component {
             {navigationVisible ? (
               <div className={styles['drop-down']} onMouseLeave={() => this.closeNav()}>
                 <div className={styles.list}>
-                  <NavLink isIndex to="/">Home</NavLink>
+                  <NavLink to="/">Home</NavLink>
                   <NavLink to="/roster">Roster</NavLink>
                   <NavLink to="/default-settings">Default Settings</NavLink>
                   <NavLink to="/race-preview/0">Race Preview</NavLink>
@@ -98,4 +94,4 @@ class Header extends Component {
   }
 }
 
-export default connect()(withRouter(Header));
+export default connect()(Header);

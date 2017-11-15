@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import RacerEdit from './RacerEdit';
 import RaceQuickSettings from './RaceQuickSettings';
 
 export default class RacePreview extends Component {
   static propTypes = {
-    params: PropTypes.object.isRequired,
-    races: PropTypes.array.isRequired,
+    race: PropTypes.object.isRequired,
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
     defaultRaceSettings: PropTypes.object.isRequired,
@@ -14,13 +14,12 @@ export default class RacePreview extends Component {
     racerAttributes: PropTypes.object.isRequired,
     addNewRacer: PropTypes.func.isRequired,
     editRacer: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props, context) {
     super(props, context);
-    const { races, params, defaultRaceSettings } = props;
+    const { defaultRaceSettings } = props;
     this.state = {
-      activeRace: races.find(race => race.id === parseInt(params.race, 10)),
       raceSettings: Object.assign({}, defaultRaceSettings, { raceType: 'distance' })
     };
     this.updateRaceSettings = this.updateRaceSettings.bind(this);
@@ -28,20 +27,12 @@ export default class RacePreview extends Component {
     this.swapRacersLeft = this.swapRacersLeft.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { races, params } = nextProps;
-    this.setState({
-      activeRace: races.find(race => race.id === parseInt(params.race, 10))
-    });
-  }
-
   swapRacersLeft(rightBikeIndex) {
-    const { activeRace } = this.state;
-    const { updateRace } = this.props;
-    updateRace(Object.assign({}, activeRace, {
-      bikeRacerMap: Object.assign({}, activeRace.bikeRacerMap, {
-        [rightBikeIndex - 1]: activeRace.bikeRacerMap[rightBikeIndex],
-        [rightBikeIndex]: activeRace.bikeRacerMap[rightBikeIndex - 1]
+    const { updateRace, race } = this.props;
+    updateRace(Object.assign({}, race, {
+      bikeRacerMap: Object.assign({}, race.bikeRacerMap, {
+        [rightBikeIndex - 1]: race.bikeRacerMap[rightBikeIndex],
+        [rightBikeIndex]: race.bikeRacerMap[rightBikeIndex - 1]
       })
     }));
   }
@@ -53,28 +44,28 @@ export default class RacePreview extends Component {
   }
 
   loadRaceClicked() {
-    const { updateRace, push } = this.props;
-    const { activeRace, raceSettings } = this.state;
+    const { updateRace, push, race } = this.props;
+    const { raceSettings } = this.state;
     const newRaceSettings = raceSettings.raceType === 'distance' ?
-    {
-      raceType: 'distance',
-      raceDistance: raceSettings.raceDistance,
-      measurementSystem: raceSettings.measurementSystem
-    } :
-    {
-      raceType: 'time',
-      trialDuration: raceSettings.trialDuration,
-      timerDirection: raceSettings.timerDirection,
-      measurementSystem: raceSettings.measurementSystem
-    };
-    updateRace(Object.assign({}, activeRace, newRaceSettings));
-    push(`/race/${activeRace.id}`);
+      {
+        raceType: 'distance',
+        raceDistance: raceSettings.raceDistance,
+        measurementSystem: raceSettings.measurementSystem
+      } :
+      {
+        raceType: 'time',
+        trialDuration: raceSettings.trialDuration,
+        timerDirection: raceSettings.timerDirection,
+        measurementSystem: raceSettings.measurementSystem
+      };
+    updateRace(Object.assign({}, race, newRaceSettings));
+    push(`/race/${race.id}`);
   }
 
   render() {
     const { activeRace, raceSettings } = this.state;
-    const racers = Object.keys(activeRace.bikeRacerMap).map((key) =>
-      this.props.racers.find((racer) => racer.id === activeRace.bikeRacerMap[key])
+    const racers = Object.keys(activeRace.bikeRacerMap).map(key =>
+      this.props.racers.find(racer => racer.id === activeRace.bikeRacerMap[key])
     );
     const { racerAttributes, bikes, updateRace, addNewRacer, editRacer } = this.props;
     return (

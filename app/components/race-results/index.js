@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import RacerDisplay from './RacerDisplay';
 
 export default class RacePreview extends Component {
@@ -8,7 +9,7 @@ export default class RacePreview extends Component {
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
     onAdHocRaceClick: PropTypes.func.isRequired
-  }
+  };
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -28,7 +29,7 @@ export default class RacePreview extends Component {
 
   render() {
     const { activeRace } = this.state;
-    const racers = Object.keys(activeRace.bikeRacerMap).map((key) =>
+    const racers = Object.keys(activeRace.bikeRacerMap).map(key =>
       [
         { id: 0, name: 'Speed' },
         { id: 1, name: 'Jonathan' },
@@ -36,7 +37,7 @@ export default class RacePreview extends Component {
         { id: 3, name: 'Monk' }
       ]
       /* this.props.racers */
-        .find((racer) => racer.id === activeRace.bikeRacerMap[key])
+        .find(racer => racer.id === activeRace.bikeRacerMap[key])
     );
     const { bikes, onAdHocRaceClick } = this.props;
     return (

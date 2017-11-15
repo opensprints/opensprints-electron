@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { routerReducer as routing } from 'react-router-redux';
+import { routerReducer as router } from 'react-router-redux';
 
 import audienceMessages from './audienceMessages';
 import messages from './messages';
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   races,
   racers,
   racerAttributes,
-  routing
+  router
 });
 
 export default rootReducer;

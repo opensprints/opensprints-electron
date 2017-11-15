@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Dropdown from './Dropdown';
 import StaticDropdown from './StaticDropdown';
 import RosterRace from './Race';

@@ -1,18 +1,24 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
-import { Router, hashHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import routes from './routes';
+import createHistory from 'history/createHashHistory';
+import { ConnectedRouter } from 'react-router-redux';
+import { Route } from 'react-router';
+import App from './containers/App';
 import configureStore from './store/configureStore';
 import './app.global.css';
 
-const store = configureStore();
-const history = syncHistoryWithStore(hashHistory, store);
+const history = createHistory();
+const store = configureStore(history);
 
 render(
-  <Provider store={store}>
-    <Router history={history} routes={routes} />
-  </Provider>,
+  <AppContainer>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <Route path="/" component={App} />
+      </ConnectedRouter>
+    </Provider>
+  </AppContainer>,
   document.getElementById('root')
 );
