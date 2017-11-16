@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
 /* FIXME: refactor class to use same mechanics as Dropdown */
@@ -17,18 +16,24 @@ class StaticDropdown extends Component {
     this.state = {
       isOpen: false
     };
-    // this.handleDocumentClick = this.handleDocumentClick.bind(this);
   }
 
-  componentDidMount() {
-    // document.addEventListener('click', this.handleDocumentClick, false);
-    // document.addEventListener('touchend', this.handleDocumentClick, false);
+  handleDropdownClose(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    const { isOpen } = this.state;
+    if (isOpen && !this.timeOut) {
+      this.timeOut = setTimeout(() => this.setState({ isOpen: false }), 250);
+    }
   }
 
-  componentWillUnmount() {
-    this.mounted = false;
-    // document.removeEventListener('click', this.handleDocumentClick, false);
-    // document.removeEventListener('touchend', this.handleDocumentClick, false);
+  handleKeepDropdownOpen(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    if (this.timeOut) {
+      clearTimeout(this.timeOut);
+      this.timeOut = null;
+    }
   }
 
   handleOptionClick(option) {
@@ -58,20 +63,14 @@ class StaticDropdown extends Component {
       <div
         key={option.value}
         className={`${baseClassName}-option`}
+        onMouseEnter={this.handleKeepDropdownOpen.bind(this)}
+        onMouseLeave={this.handleDropdownClose.bind(this)}
         onMouseDown={this.handleOptionClick.bind(this, option)}
         onClick={this.handleOptionClick.bind(this, option)}
       >
         {option.label}
       </div>
     ));
-  }
-
-  handleDocumentClick(event) {
-    if (this.mounted) {
-      if (!ReactDOM.findDOMNode(this).contains(event.target)) { // eslint-disable-line
-        this.setState({ isOpen: false });
-      }
-    }
   }
 
   render() {
@@ -86,11 +85,15 @@ class StaticDropdown extends Component {
     });
 
     return (
-      <div className={dropdownClass}>
+      <div
+        className={dropdownClass}
+        onMouseLeave={this.handleDropdownClose.bind(this)}
+      >
         <div
           className={`${baseClassName}-control`}
           onMouseDown={this.handleMouseDown.bind(this)}
           onTouchEnd={this.handleMouseDown.bind(this)}
+          onMouseEnter={this.handleKeepDropdownOpen.bind(this)}
         >
           {value}
         </div>
