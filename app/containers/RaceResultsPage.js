@@ -5,7 +5,7 @@ import RaceResults from '../components/race-results';
 
 function mapStateToProps(state, ownProps) {
   return {
-    race: state.races.find(race => race.id === parseInt(ownProps.params.raceId, 10)),
+    race: state.races.find(race => race.id === parseInt(ownProps.match.params.raceId, 10)),
     racers: state.racers.present,
     races: state.races,
     bikes: state.bikes

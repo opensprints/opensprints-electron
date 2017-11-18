@@ -5,19 +5,16 @@ import styles from './Race.css';
 import Clock from './Clock';
 import RacerStats from './RacerStats';
 
-/**
- * I'm Blue da ba dee da ba daa...
- */
-const BlueMessage = ({ swag, children }) => (
+const BlueMessage = ({ style, children }) => (
   <div
-    style={swag}
+    style={style}
     className={styles['blue-message']}
   >
     {children}
   </div>
 );
 BlueMessage.propTypes = {
-  swag: PropTypes.object,
+  style: PropTypes.object,
   children: PropTypes.node.isRequired
 };
 

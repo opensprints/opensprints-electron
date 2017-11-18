@@ -16,9 +16,7 @@ const NavLink = ({ to, location, children }) => (
 );
 NavLink.propTypes = {
   to: PropTypes.string.isRequired,
-  location: PropTypes.objectOf({
-    pathname: PropTypes.string.isRequired
-  }).isRequired,
+  location: PropTypes.object.isRequired,
   children: PropTypes.string.isRequired
 };
 
