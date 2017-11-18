@@ -63,11 +63,12 @@ export default class RacePreview extends Component {
   }
 
   render() {
-    const { activeRace, raceSettings } = this.state;
-    const racers = Object.keys(activeRace.bikeRacerMap).map(key =>
-      this.props.racers.find(racer => racer.id === activeRace.bikeRacerMap[key])
+    const { race, racerAttributes, bikes, updateRace, addNewRacer, editRacer } = this.props;
+    const { raceSettings } = this.state;
+    const racers = Object.keys(race.bikeRacerMap).map(key =>
+      this.props.racers.find(racer => racer.id === race.bikeRacerMap[key])
     );
-    const { racerAttributes, bikes, updateRace, addNewRacer, editRacer } = this.props;
+
     return (
       <div className="container">
         <RaceQuickSettings
@@ -85,14 +86,14 @@ export default class RacePreview extends Component {
               racer={racers[i]}
               onSwap={this.swapRacersLeft}
               onDelete={() => {
-                const newRace = Object.assign({}, activeRace, {
-                  bikeRacerMap: Object.assign({}, activeRace.bikeRacerMap, {
+                const newRace = Object.assign({}, race, {
+                  bikeRacerMap: Object.assign({}, race.bikeRacerMap, {
                     [i]: -1
                   })
                 });
                 updateRace(newRace);
               }}
-              onAdd={racer => addNewRacer(racer, activeRace, i)}
+              onAdd={racer => addNewRacer(racer, race, i)}
               onEdit={editRacer}
             />
           ))}
