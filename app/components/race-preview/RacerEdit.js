@@ -37,7 +37,11 @@ export default class RacerEdit extends Component {
     onAdd: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     onSwap: PropTypes.func.isRequired
-  }
+  };
+
+  static defaultProps = {
+    racer: {}
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -130,7 +134,7 @@ export default class RacerEdit extends Component {
                 </div>
               </div>
               {
-                Object.keys(racerAttributes).map((key) => (
+                Object.keys(racerAttributes).map(key => (
                   racerAttributeSelect(key, racerAttributes[key], this.state.racer[key], (e) => {
                     this.setState({
                       racer: Object.assign({}, racer, { [key]: e.target.value })

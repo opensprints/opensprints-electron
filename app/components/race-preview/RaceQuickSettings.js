@@ -11,7 +11,7 @@ export default class RaceQuickSettings extends Component {
   static propTypes = {
     raceSettings: PropTypes.object.isRequired,
     updateRaceSettings: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -77,7 +77,7 @@ export default class RaceQuickSettings extends Component {
                     ))
                   : (
                     <div className={styles['race-setting-value']}>
-                      {raceTypes.find((type) => type.value === raceType).label}
+                      {raceTypes.find(type => type.value === raceType).label}
                     </div>
                   )}
                 </div>
