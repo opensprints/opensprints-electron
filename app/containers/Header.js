@@ -6,16 +6,26 @@ import styles from './Header.css';
 
 const logoSrc = '../images/logo.png';
 
-const NavLink = ({ to, children }) => (
-  <Link to={to} className={styles.link} activeClassName="active">{children}</Link>
+const NavLink = ({ to, location, children }) => (
+  <Link
+    to={to}
+    className={`${styles.link} ${location.pathname.indexOf(to) >= 0 && 'active'}`}
+  >
+    {children}
+  </Link>
 );
 NavLink.propTypes = {
   to: PropTypes.string.isRequired,
-  children: PropTypes.string
+  location: PropTypes.objectOf({
+    pathname: PropTypes.string.isRequired
+  }).isRequired,
+  children: PropTypes.string.isRequired
 };
 
 class Header extends Component {
   static propTypes = {
+    history: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired
   };
 
   constructor(props, context) {
@@ -71,19 +81,24 @@ class Header extends Component {
               </button>
             )}
           </div>
-          <div className={styles['drop-down-container']} onClick={() => this.toggleNav()}>
+          <div
+            className={styles['drop-down-container']}
+            role="menu"
+            tabIndex="0"
+            onClick={() => this.toggleNav()}
+          >
             <div className={styles['nav-icon']}>
               <i className="material-icons md-36">menu</i>
             </div>
             {navigationVisible ? (
               <div className={styles['drop-down']} onMouseLeave={() => this.closeNav()}>
                 <div className={styles.list}>
-                  <NavLink to="/">Home</NavLink>
-                  <NavLink to="/roster">Roster</NavLink>
-                  <NavLink to="/default-settings">Default Settings</NavLink>
-                  <NavLink to="/race-preview/0">Race Preview</NavLink>
-                  <NavLink to="/race/0">Race Screen</NavLink>
-                  <NavLink to="/race-results/0">Race Results</NavLink>
+                  <NavLink location={location} to="/">Home</NavLink>
+                  <NavLink location={location} to="/roster">Roster</NavLink>
+                  <NavLink location={location} to="/default-settings">Default Settings</NavLink>
+                  <NavLink location={location} to="/race-preview/0">Race Preview</NavLink>
+                  <NavLink location={location} to="/race/0">Race Screen</NavLink>
+                  <NavLink location={location} to="/race-results/0">Race Results</NavLink>
                 </div>
               </div>
             ) : ''}
