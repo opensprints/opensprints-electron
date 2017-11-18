@@ -5,6 +5,7 @@
 }
 
 .nav-icon {
+  outline: none;
   color: #ffffff;
   cursor: pointer;
   padding: 6px;
@@ -15,6 +16,7 @@
 .drop-down-container {
   position: relative;
   display: inline-block;
+  outline: none;
 }
 
 .drop-down {
