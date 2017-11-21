@@ -5,6 +5,7 @@ export const ADD_RACES = 'ADD_RACES';
 export const REMOVE_RACE = 'REMOVE_RACE';
 export const CHANGE_RACE_ORDER = 'CHANGE_RACE_ORDER';
 export const START_RACE = 'START_RACE';
+export const RESTART_RACE = 'RESTART_RACE';
 export const UPDATE_RACE = 'UPDATE_RACE';
 export const INCREMENT_RACER = 'INCREMENT_RACER';
 
@@ -70,6 +71,13 @@ export function changeRaceOrder(id, secondId) {
 export function startRace(id) {
   return {
     type: START_RACE,
+    id
+  };
+}
+
+export function restartRace(id) {
+  return {
+    type: RESTART_RACE,
     id
   };
 }

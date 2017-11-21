@@ -5,6 +5,7 @@ import {
   REMOVE_RACE,
   CHANGE_RACE_ORDER,
   START_RACE,
+  RESTART_RACE,
   UPDATE_RACE,
   INCREMENT_RACER
 } from '../actions/race';
@@ -57,6 +58,16 @@ export default function races(state = [], action) {
       return state.map((race) => {
         if (race.id === action.id) {
           return Object.assign({}, race, { startTime: moment() });
+        }
+        return race;
+      });
+
+    case RESTART_RACE:
+      return state.map((race) => {
+        if (race.id === action.id) {
+          const newRace = Object.assign({}, race);
+          newRace.startTime = undefined;
+          return newRace;
         }
         return race;
       });

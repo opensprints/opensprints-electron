@@ -106,6 +106,7 @@ export default class Race extends Component {
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
     startRace: PropTypes.func.isRequired,
+    restartRace: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,
     incrementRacer: PropTypes.func.isRequired
   };
@@ -125,7 +126,7 @@ export default class Race extends Component {
   }
 
   restartRace() {
-    // todo reset raceStart
+    this.props.restartRace(this.props.race.id);
     this.setState({ showModal: true });
   }
 
