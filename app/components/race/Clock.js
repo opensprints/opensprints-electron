@@ -70,22 +70,22 @@ export default class Clock extends Component {
       <div className={styles['clock-frame']}>
         <div className={styles['clock-face']}>
           <div className={`${styles.poleContainer} ${styles.northContainer}`}>
-            <span>100</span>
+            <span>{race.raceDistance}</span>
           </div>
           <div className={`${styles.poleGuideline} ${styles.northGuideline}`} />
 
           <div className={`${styles.tropicContainer} ${styles.eastContainer}`}>
-            <span>25</span>
+            <span>{race.raceDistance / 4}</span>
           </div>
           <div className={`${styles.tropicGuideline} ${styles.eastGuideline}`} />
 
           <div className={`${styles.poleContainer} ${styles.southContainer}`}>
-            <span>50</span>
+            <span>{race.raceDistance / 2}</span>
           </div>
           <div className={`${styles.poleGuideline} ${styles.southGuideline}`} />
 
           <div className={`${styles.tropicContainer} ${styles.westContainer}`}>
-            <span>75</span>
+            <span>{race.raceDistance * 0.75}</span>
           </div>
           <div className={`${styles.tropicGuideline} ${styles.westGuideline}`} />
 
