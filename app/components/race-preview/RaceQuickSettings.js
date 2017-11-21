@@ -15,39 +15,15 @@ export default class RaceQuickSettings extends Component {
 
   constructor(props) {
     super(props);
-    const { raceSettings } = this.props;
     this.state = {
-      editing: false,
-      raceType: raceSettings.raceType,
-      raceDistance: raceSettings.raceDistance,
-      raceDistanceUnits: raceSettings.raceDistanceUnits,
-      trialDuration: raceSettings.trialDuration
+      editing: false
     };
-    this.saveChanges = this.saveChanges.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { raceSettings } = nextProps;
-    this.setState({
-      raceType: raceSettings.raceType,
-      raceDistance: raceSettings.raceDistance,
-      raceDistanceUnits: raceSettings.raceDistanceUnits,
-      trialDuration: raceSettings.trialDuration
-    });
-  }
-
-  saveChanges() {
-    const { raceType, raceDistance, raceDistanceUnits, trialDuration } = this.state;
-    this.props.updateRaceSettings({
-      raceType,
-      raceDistance,
-      raceDistanceUnits,
-      trialDuration
-    });
   }
 
   render() {
-    const { editing, raceType, raceDistance, raceDistanceUnits } = this.state;
+    const { editing } = this.state;
+    const { raceSettings, updateRaceSettings } = this.props;
+    const { raceType, raceDistance, raceDistanceUnits } = raceSettings;
     return (
       <div className="row">
         <div className="col-xs-8 col-xs-offset-2">
@@ -64,7 +40,9 @@ export default class RaceQuickSettings extends Component {
                         className={styles['race-setting-value']}
                         key={`raceType-${i}`}
                         onClick={() => {
-                          this.setState({ raceType: type.value });
+                          updateRaceSettings(Object.assign({}, raceSettings, {
+                            raceType: type.value
+                          }));
                         }}
                       >
                         <i className="material-icons">
@@ -97,9 +75,13 @@ export default class RaceQuickSettings extends Component {
                       type="text"
                       value={raceDistance}
                       onChange={(e) => {
-                        this.setState({
-                          raceDistance: parseInt(e.target.value.replace(/[^\d]/g, ''), 10)
-                        });
+                        let newDistance = parseInt(e.target.value.replace(/[^\d]/g, ''), 10);
+                        if (Number.isNaN(newDistance)) {
+                          newDistance = 0;
+                        }
+                        updateRaceSettings(Object.assign({}, raceSettings, {
+                          raceDistance: newDistance
+                        }));
                       }}
                     />
                   ) : (
@@ -115,9 +97,7 @@ export default class RaceQuickSettings extends Component {
               <button
                 className="btn btn-default btn-xs pull-right"
                 onClick={() => {
-                  if (editing) {
-                    this.saveChanges();
-                  }
+                  // TODO Need validation for non-zero distance values
                   this.setState({ editing: !editing });
                 }}
               >

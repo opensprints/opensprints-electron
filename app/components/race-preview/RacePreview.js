@@ -22,9 +22,6 @@ export default class RacePreview extends Component {
     this.state = {
       raceSettings: Object.assign({}, defaultRaceSettings, { raceType: 'distance' })
     };
-    this.updateRaceSettings = this.updateRaceSettings.bind(this);
-    this.loadRaceClicked = this.loadRaceClicked.bind(this);
-    this.swapRacersLeft = this.swapRacersLeft.bind(this);
   }
 
   swapRacersLeft(rightBikeIndex) {
@@ -38,12 +35,13 @@ export default class RacePreview extends Component {
   }
 
   updateRaceSettings(updatedSettings) {
+    updatedSettings.raceDistance
     this.setState({
       raceSettings: updatedSettings
     });
   }
 
-  loadRaceClicked() {
+  loadRace() {
     const { updateRace, push, race } = this.props;
     const { raceSettings } = this.state;
     const newRaceSettings = raceSettings.raceType === 'distance' ?
@@ -72,7 +70,7 @@ export default class RacePreview extends Component {
     return (
       <div className="container">
         <RaceQuickSettings
-          updateRaceSettings={this.updateRaceSettings}
+          updateRaceSettings={this.updateRaceSettings.bind(this)}
           raceSettings={raceSettings}
         />
         <div className="row">
@@ -84,7 +82,7 @@ export default class RacePreview extends Component {
               bikesLength={bikes.length}
               bike={bike}
               racer={racers[i]}
-              onSwap={this.swapRacersLeft}
+              onSwap={this.swapRacersLeft.bind(this)}
               onDelete={() => {
                 const newRace = Object.assign({}, race, {
                   bikeRacerMap: Object.assign({}, race.bikeRacerMap, {
@@ -102,7 +100,7 @@ export default class RacePreview extends Component {
           <div className="col-xs-offset-5 col-xs-2">
             <button
               className="btn btn-primary"
-              onClick={this.loadRaceClicked}
+              onClick={this.loadRace.bind(this)}
             >
               Load Race
             </button>
