@@ -24,7 +24,7 @@ export default class Clock extends Component {
     race: PropTypes.object,
     bikes: PropTypes.array,
     startTime: PropTypes.object
-  }
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -36,25 +36,23 @@ export default class Clock extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.startTime && !intervalId) {
       const { startTime } = nextProps;
-      this.setState({ clock: moment.duration(moment().valueOf() - startTime.valueOf()) });
-      const fn = () => {
+      if (startTime) {
         this.setState({
           clock: moment.duration(moment().valueOf() - startTime.valueOf())
         });
-      };
-      intervalId = setInterval(fn, 100);
-    } else if (intervalId) {
-      clearInterval(intervalId);
-      const { startTime } = nextProps;
-      this.setState({ clock: moment.duration(moment().valueOf() - startTime.valueOf()) });
+      }
       const fn = () => {
-        if (this.setState) {
+        if (startTime) {
           this.setState({
             clock: moment.duration(moment().valueOf() - startTime.valueOf())
           });
         }
       };
       intervalId = setInterval(fn, 100);
+    } else if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = undefined;
+      this.setState({ clock: 0 });
     }
   }
 
