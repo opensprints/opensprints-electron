@@ -6,6 +6,7 @@ export default class Intermission extends Component {
     return (
       <div className="container">
         <div className="row">
+          <div className="col-xs-9" />
           <MessagesContainer {...this.props} />
         </div>
       </div>

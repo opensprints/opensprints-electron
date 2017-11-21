@@ -4,6 +4,7 @@ import { Modal } from 'react-bootstrap';
 import styles from './Race.css';
 import Clock from './Clock';
 import RacerStats from './RacerStats';
+import MessagesContainer from '../crowd-messaging/messages-container';
 
 const BlueMessage = ({ style, children }) => (
   <div
@@ -62,42 +63,6 @@ const OnDeck = () => {
     </div>
   );
 };
-
-const MessageQueue = () => (
-  <div className="col-xs-3">
-    <div className="pull-right">
-      <span className={styles['add-message']}>
-        Add Message
-      </span>
-      <i className="material-icons md-24">add_circle</i>
-    </div>
-    <div
-      style={{
-        clear: 'right',
-        marginTop: '20px'
-      }}
-      className="pull-right"
-    >
-      <span
-        style={{
-          textTransform: 'uppercase',
-          display: 'inline-block',
-          maxWidth: '100%',
-          marginBottom: '5px',
-          fontWeight: 'bold'
-        }}
-      >
-        Last Call
-      </span>
-    </div>
-    <BasicHR />
-    <div style={{ float: 'right' }}>
-      <BlueMessage swag={{ textAlign: 'right' }}>
-        head up 2 the bar 4 last drinks
-      </BlueMessage>
-    </div>
-  </div>
-);
 
 export default class Race extends Component {
   static propTypes = {
@@ -161,7 +126,13 @@ export default class Race extends Component {
               <button className="btn btn-xs btn-default">Call It</button>
             </div>
           </div>
-          <MessageQueue />
+          <MessagesContainer
+            style={{
+              height: '50vh',
+              background: 'none'
+            }}
+            {...this.props}
+          />
         </div>
         <div className="row">
           {bikes.map((_, i) => (

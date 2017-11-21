@@ -41,15 +41,15 @@ export default class MessagesContainer extends Component {
   }
 
   render() {
-    const { audienceMessages } = this.props;
+    const { audienceMessages, style } = this.props;
     const { newMessageCreated, newMessageId, newHover } = this.state;
     return (
       <div
-        className="col-xs-offset-9 col-xs-3"
-        style={{
+        className="col-xs-3"
+        style={Object.assign({}, {
           height: '85vh',
           backgroundColor: 'rgba(0,0,0,0.6)'
-        }}
+        }, style)}
       >
         <div
           style={{
