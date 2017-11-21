@@ -18,9 +18,11 @@ export default class RacePreview extends Component {
 
   constructor(props, context) {
     super(props, context);
-    const { defaultRaceSettings } = props;
+    const { defaultRaceSettings, race } = props;
     this.state = {
-      raceSettings: Object.assign({}, defaultRaceSettings, { raceType: 'distance' })
+      raceSettings: Object.assign({}, defaultRaceSettings, {
+        raceType: 'distance'
+      }, race)
     };
   }
 

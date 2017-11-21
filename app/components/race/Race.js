@@ -101,7 +101,7 @@ const MessageQueue = () => (
 
 export default class Race extends Component {
   static propTypes = {
-    params: PropTypes.object.isRequired,
+    race: PropTypes.object.isRequired,
     races: PropTypes.array.isRequired,
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
@@ -111,27 +111,16 @@ export default class Race extends Component {
   };
   constructor(props) {
     super(props);
-    const raceId = parseInt(props.params.raceId, 10);
     this.state = {
-      showModal: true,
-      activeRace: props.races.find(race => race.id === raceId)
+      showModal: true
     };
-    johnnyFiveAdapter(props.bikes.map((_, i) => () => props.incrementRacer(raceId, i))); // eslint-disable-line
+    johnnyFiveAdapter(props.bikes.map((_, i) => () => props.incrementRacer(props.race.id, i))); // eslint-disable-line
 
     // TODO setup tick-listeners & pass correct props to clock & indicators
-    this.restartRace = this.restartRace.bind(this);
-    this.finishRace = this.finishRace.bind(this);
-    this.close = this.close.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      activeRace: nextProps.races.find(race => race.id === parseInt(nextProps.params.race, 10))
-    });
-  }
-
-  close() {
-    this.props.startRace(this.state.activeRace.id);
+  closeModal() {
+    this.props.startRace(this.props.race.id);
     this.setState({ showModal: false });
   }
 
@@ -145,9 +134,7 @@ export default class Race extends Component {
   }
 
   render() {
-    const { activeRace } = this.state;
-    const { bikes, goBack } = this.props;
-
+    const { race, bikes, goBack } = this.props;
     return (
       <div className="container">
         <div className="row">
@@ -156,7 +143,7 @@ export default class Race extends Component {
             style={{ marginBottom: '6px' }}
             className="col-xs-6"
           >
-            <Clock startTime={activeRace.startTime} race={activeRace} {...this.props} />
+            <Clock startTime={race.startTime} {...this.props} />
             <div className="col-xs-6">
               <button
                 style={{
@@ -164,6 +151,7 @@ export default class Race extends Component {
                   marginBottom: '1px'
                 }}
                 className="btn btn-xs btn-default pull-right"
+                onClick={this.restartRace.bind(this)}
               >
                 Start Over
               </button>
@@ -179,14 +167,14 @@ export default class Race extends Component {
             <RacerStats
               key={`RacerStats-${i}`}
               bikeIndex={i}
-              raceId={activeRace.id}
+              raceId={race.id}
             />
           ))}
         </div>
 
         <Modal
           show={this.state.showModal}
-          onHide={this.close}
+          onHide={this.closeModal.bind(this)}
           animation={false}
           dialogClassName="countdown-modal"
         >
@@ -202,7 +190,7 @@ export default class Race extends Component {
             </button>
             <button
               className="btn btn-primary"
-              onClick={this.close}
+              onClick={this.closeModal.bind(this)}
             >
               Start The Countdown!
             </button>
