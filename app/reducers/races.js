@@ -6,6 +6,7 @@ import {
   CHANGE_RACE_ORDER,
   START_RACE,
   RESTART_RACE,
+  END_ONGOING_RACE,
   UPDATE_RACE,
   INCREMENT_RACER
 } from '../actions/race';
@@ -82,6 +83,30 @@ export default function races(state = [], action) {
           });
         }
         return race;
+      });
+
+    case END_ONGOING_RACE:
+      return state.map((race) => {
+        if (race.id === action.race.id) {
+          const results = {};
+          if (!action.race.results) {
+            Object.keys(action.race.bikeRacerMap).forEach((bikeIndex) => {
+              results[bikeIndex] = { place: -1 };
+            });
+          } else {
+            Object.keys(action.race.bikeRacerMap).forEach((bikeIndex) => {
+              if (!action.race.results[bikeIndex]) {
+                results[bikeIndex] = { place: -1 };
+              }
+            });
+          }
+          return {
+            ...action.race,
+            finishedDate: moment(),
+            results: Object.assign({}, action.race.results, results)
+          };
+        }
+        return action.race;
       });
 
     default:

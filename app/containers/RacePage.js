@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { goBack } from 'react-router-redux';
+import { push, goBack } from 'react-router-redux';
 import * as RaceActions from '../actions/race';
 import * as AudienceMessageActions from '../actions/audienceMessage';
 import Race from '../components/race/Race';
@@ -16,11 +16,17 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    ...AudienceMessageActions,
-    ...RaceActions,
-    goBack
-  }, dispatch);
+  return {
+    ...bindActionCreators({
+      ...AudienceMessageActions,
+      ...RaceActions,
+      goBack
+    }, dispatch),
+    callRace: (race) => {
+      dispatch(RaceActions.endOngoingRace(race));
+      dispatch(push(`/race-results/${race.id}`));
+    }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Race);

@@ -6,6 +6,7 @@ export const REMOVE_RACE = 'REMOVE_RACE';
 export const CHANGE_RACE_ORDER = 'CHANGE_RACE_ORDER';
 export const START_RACE = 'START_RACE';
 export const RESTART_RACE = 'RESTART_RACE';
+export const END_ONGOING_RACE = 'END_ONGOING_RACE';
 export const UPDATE_RACE = 'UPDATE_RACE';
 export const INCREMENT_RACER = 'INCREMENT_RACER';
 
@@ -79,6 +80,13 @@ export function restartRace(id) {
   return {
     type: RESTART_RACE,
     id
+  };
+}
+
+export function endOngoingRace(race) {
+  return {
+    type: END_ONGOING_RACE,
+    race
   };
 }
 

@@ -5,7 +5,6 @@ import styles from './Race.css';
 import Clock from './Clock';
 import RacerStats from './RacerStats';
 import MessagesContainer from '../crowd-messaging/messages-container';
-import { getDistance } from '../../selectors';
 
 const BlueMessage = ({ style, children }) => (
   <div
@@ -78,7 +77,8 @@ export default class Race extends Component {
     startRace: PropTypes.func.isRequired,
     restartRace: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,
-    incrementRacer: PropTypes.func.isRequired
+    incrementRacer: PropTypes.func.isRequired,
+    callRace: PropTypes.func.isRequired
   };
   constructor(props) {
     super(props);
@@ -100,12 +100,8 @@ export default class Race extends Component {
     this.setState({ showModal: true });
   }
 
-  finishRace() {
-    // TODO
-  }
-
   render() {
-    const { race, bikes, goBack } = this.props;
+    const { race, bikes, goBack, callRace } = this.props;
     return (
       <div className="container">
         <div className="row">
@@ -128,7 +124,12 @@ export default class Race extends Component {
               </button>
             </div>
             <div className="col-xs-6">
-              <button className="btn btn-xs btn-default">Call It</button>
+              <button
+                className="btn btn-xs btn-default"
+                onClick={() => callRace(race)}
+              >
+                Call It
+              </button>
             </div>
           </div>
           <MessagesContainer
