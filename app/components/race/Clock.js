@@ -128,6 +128,7 @@ export default class Clock extends Component {
                 .filter(bikeIndex => (typeof race.bikeRacerMap[bikeIndex] !== 'undefined'))
                 .map(bikeIndex => (
                   <Indicator
+                    key={`Indicator-${bikeIndex}`}
                     color={bikes[parseInt(bikeIndex, 10)].color}
                     rotation={
                       getRotation(
