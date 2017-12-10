@@ -5,6 +5,7 @@ import styles from './Race.css';
 import Clock from './Clock';
 import RacerStats from './RacerStats';
 import MessagesContainer from '../crowd-messaging/messages-container';
+import { getDistance } from '../../selectors';
 
 const BlueMessage = ({ style, children }) => (
   <div
@@ -17,6 +18,10 @@ const BlueMessage = ({ style, children }) => (
 BlueMessage.propTypes = {
   style: PropTypes.object,
   children: PropTypes.node.isRequired
+};
+
+BlueMessage.defaultProps = {
+  style: {}
 };
 
 const BasicHR = () => (
@@ -55,10 +60,10 @@ const OnDeck = () => {
         <BlueMessage>4. Clark Kent</BlueMessage>
       </div>
       <div style={messageGroupStyle}>
-        <BlueMessage swag={smallerLineupSize}>5. Cheese Ringer</BlueMessage>
-        <BlueMessage swag={smallerLineupSize}>6. Polite Windtalker</BlueMessage>
-        <BlueMessage swag={smallerLineupSize}>7. Lex Lame-or</BlueMessage>
-        <BlueMessage swag={smallerLineupSize}>8. Wunder Woman</BlueMessage>
+        <BlueMessage style={smallerLineupSize}>5. Cheese Ringer</BlueMessage>
+        <BlueMessage style={smallerLineupSize}>6. Polite Windtalker</BlueMessage>
+        <BlueMessage style={smallerLineupSize}>7. Lex Lame-or</BlueMessage>
+        <BlueMessage style={smallerLineupSize}>8. Wunder Woman</BlueMessage>
       </div>
     </div>
   );
@@ -140,6 +145,7 @@ export default class Race extends Component {
               key={`RacerStats-${i}`}
               bikeIndex={i}
               raceId={race.id}
+              {...this.props}
             />
           ))}
         </div>

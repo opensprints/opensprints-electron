@@ -19,11 +19,39 @@ const renderTimer = (clock) => {
   return `${minutes}:${seconds}`;
 };
 
+// Todo: find a better way to not duplicate this code
+const getDistance = (race, bikeIndex, bike) => {
+  let coEf = 0;
+  if (bike.rollerDiameter.unit === 'centimeter') {
+    if (race.measurementSystem === 'metric') {
+      coEf = 100000; // 100000 cm === 1 km
+    } else {
+      coEf = 160934; // 160934 cm === 1 mile
+    }
+  } else if (race.measurementSystem === 'imperial') {
+    coEf = 63360; // 63360 in === 1 mile
+  } else {
+    coEf = 39370.1; // 39370.1 in === 1 km
+  }
+  // coefficient turns roller circumferences (computed in inches or centimeters) into
+  // desired output of miles or kilometers
+  return race.bikeTicks[bikeIndex] > 0 ?
+    (race.bikeTicks[bikeIndex] * (bike.rollerDiameter.value * Math.PI)) / coEf : 0;
+};
+
+const getRotation = (distance, race) => (distance * 360) / (
+  race.raceDistance / (race.measurementSystem === 'metric' ? 1000 : 5280)
+);
+
 export default class Clock extends Component {
   static propTypes = {
-    race: PropTypes.object,
-    bikes: PropTypes.array,
+    race: PropTypes.object.isRequired,
+    bikes: PropTypes.array.isRequired,
     startTime: PropTypes.object
+  };
+
+  static defaultProps = {
+    startTime: undefined
   };
 
   constructor(props, context) {
@@ -65,7 +93,7 @@ export default class Clock extends Component {
 
   render() {
     const { clock } = this.state;
-    const { race } = this.props;
+    const { race, bikes } = this.props;
     return (
       <div className={styles['clock-frame']}>
         <div className={styles['clock-face']}>
@@ -100,9 +128,13 @@ export default class Clock extends Component {
                 .filter(bikeIndex => (typeof race.bikeRacerMap[bikeIndex] !== 'undefined'))
                 .map(bikeIndex => (
                   <Indicator
-                    key={`Indicator-${bikeIndex}`}
-                    bikeIndex={parseInt(bikeIndex, 10)}
-                    raceId={race.id}
+                    color={bikes[parseInt(bikeIndex, 10)].color}
+                    rotation={
+                      getRotation(
+                        getDistance(race, parseInt(bikeIndex, 10), bikes[parseInt(bikeIndex, 10)]),
+                        race
+                      )
+                    }
                   />
                 ))
               }

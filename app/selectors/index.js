@@ -2,9 +2,11 @@ import moment from 'moment';
 import { createSelector } from 'reselect';
 
 export const getRace = (state, props) =>
-  state.races.find(race => race.id === parseInt(props.raceId, 10));
+  state.races.find(race => race.id === parseInt(props.match.params.raceId, 10));
 
 export const getBikeIndex = (_, props) => props.bikeIndex;
+
+export const getRacers = state => state.racers.present;
 
 export const getRacer = (state, props) =>
   state.racers.present.find(

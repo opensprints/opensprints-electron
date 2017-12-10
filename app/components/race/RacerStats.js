@@ -7,14 +7,13 @@ import racerStyles from '../race-preview/RacerSelect.css';
 class RacerStats extends Component {
   static propTypes = {
     bikeIndex: PropTypes.number.isRequired,
-    raceId: PropTypes.number.isRequired,
 
     bike: PropTypes.object,
     racer: PropTypes.object,
     measurementSystem: PropTypes.string,
     distance: PropTypes.number,
     speed: PropTypes.number
-  }
+  };
 
   render() {
     const { bikeIndex, bike, racer, measurementSystem, distance, speed } = this.props;
