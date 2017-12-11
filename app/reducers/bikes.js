@@ -15,20 +15,20 @@ const initialState = [
     },
     color: '#2521C2'
   },
-  // {
-  //   rollerDiameter: {
-  //     value: 3.9,
-  //     unit: 'inch'
-  //   },
-  //   color: '#7C2B9A'
-  // },
-  // {
-  //   rollerDiameter: {
-  //     value: 3.9,
-  //     unit: 'inch'
-  //   },
-  //   color: '#1F7C46'
-  // }
+  {
+    rollerDiameter: {
+      value: 3.9,
+      unit: 'inch'
+    },
+    color: '#7C2B9A'
+  },
+  {
+    rollerDiameter: {
+      value: 3.9,
+      unit: 'inch'
+    },
+    color: '#1F7C46'
+  }
 ];
 
 export default function bikes(state = initialState, action) {

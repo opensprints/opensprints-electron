@@ -11,19 +11,46 @@ import {
   INCREMENT_RACER
 } from '../actions/race';
 
+let staticId = 0;
+
 export default function races(state = [], action) {
   switch (action.type) {
-    case ADD_AD_HOC_RACE:
+    case ADD_AD_HOC_RACE: {
+      const race = {
+        id: (staticId += 1),
+        bikeRacerMap: {},
+        bikeTicks: {},
+        createdDate: moment()
+      };
+
       return [
-        action.race,
+        race,
         ...state
       ];
-
-    case ADD_RACES:
+    }
+    case ADD_RACES: {
+      const newRaces = [];
+      const numOfBikes = action.bikes.length;
+      for (let i = 0; i < Math.ceil(action.racerIds.length / action.bikes.length); i += 1) {
+        const bikeRacerMap = {};
+        const bikeTicks = {};
+        action.racerIds.slice(i * numOfBikes, Math.min((i + 1) * numOfBikes, action.racerIds.length))
+          .forEach((racerId, index) => {
+            bikeRacerMap[index] = racerId;
+            bikeTicks[index] = 0;
+          });
+        newRaces.push({
+          id: staticId += 1,
+          bikeRacerMap,
+          bikeTicks,
+          createdDate: moment()
+        });
+      }
       return [
         ...state,
-        ...action.races
+        ...newRaces
       ];
+    }
 
     case UPDATE_RACE:
       return state.map((race) => {

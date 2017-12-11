@@ -10,8 +10,6 @@ export const END_ONGOING_RACE = 'END_ONGOING_RACE';
 export const UPDATE_RACE = 'UPDATE_RACE';
 export const INCREMENT_RACER = 'INCREMENT_RACER';
 
-let staticId = 0;
-
 export function updateRace(newRace) {
   return {
     type: UPDATE_RACE,
@@ -22,35 +20,15 @@ export function updateRace(newRace) {
 export function addEmptyRace() {
   return {
     type: ADD_AD_HOC_RACE,
-    race: {
-      id: (staticId += 1),
-      bikeRacerMap: {},
-      bikeTicks: {},
-      createdDate: moment()
-    }
+
   };
 }
 
 export function addRaces(bikes, racerIds) {
-  const races = [];
-  for (let i = 0; i < Math.ceil(racerIds.length / bikes.length); i += 1) {
-    const bikeRacerMap = {};
-    const bikeTicks = {};
-    racerIds.slice(i * 4, Math.min((i + 1) * 4, racerIds.length))
-      .forEach((racerId, index) => {
-        bikeRacerMap[index] = racerId;
-        bikeTicks[index] = 0;
-      });
-    races.push({
-      id: staticId += 1,
-      bikeRacerMap,
-      bikeTicks,
-      createdDate: moment()
-    });
-  }
   return {
     type: ADD_RACES,
-    races
+    bikes,
+    racerIds
   };
 }
 
