@@ -11,7 +11,8 @@ function mapStateToProps(state, ownProps) {
     racers: state.racers.present,
     races: state.races,
     bikes: state.bikes,
-    audienceMessages: state.audienceMessages
+    audienceMessages: state.audienceMessages,
+    messages: state.messages
   };
 }
 

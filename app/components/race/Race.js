@@ -67,6 +67,11 @@ const OnDeck = () => {
     </div>
   );
 };
+const initialState = messages => ({
+  showModal: true,
+  countDownText: messages.PRE_COUNTDOWN_MESSAGE,
+  countDown: 4
+});
 
 export default class Race extends Component {
   static propTypes = {
@@ -74,34 +79,52 @@ export default class Race extends Component {
     races: PropTypes.array.isRequired,
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
+    messages: PropTypes.array.isRequired,
     startRace: PropTypes.func.isRequired,
     restartRace: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,
     incrementRacer: PropTypes.func.isRequired,
     callRace: PropTypes.func.isRequired
   };
+
   constructor(props) {
     super(props);
-    this.state = {
-      showModal: true
-    };
+    this.state = initialState(props.messages);
     johnnyFiveAdapter(props.bikes.map((_, i) => () => props.incrementRacer(props.race.id, i))); // eslint-disable-line
 
     // TODO setup tick-listeners & pass correct props to clock & indicators
   }
-
-  closeModal() {
-    this.props.startRace(this.props.race.id);
-    this.setState({ showModal: false });
+  componentWillUnmount() {
+    if (this.interval) { clearInterval(this.interval); }
+  }
+  tick() {
+    const countDown = this.state.countDown - 1;
+    if (countDown === 0) {
+      this.props.startRace(this.props.race.id);
+      this.setState({ countDown, countDownText: this.props.messages.COUNTDOWN_MESSAGE_GO });
+    } else if (countDown === -1) {
+      clearInterval(this.interval);
+      this.interval = null;
+      this.setState({ showModal: false });
+    } else { this.setState({ countDown, countDownText: this.props.messages[`COUNTDOWN_MESSAGE_${countDown}`] }); }
+  }
+  goBack() {
+    clearInterval(this.interval);
+    this.props.goBack();
+  }
+  startCountdown() {
+    this.tick();
+    this.interval = setInterval(this.tick.bind(this), 1000);
+    // this.setState({countDownText = })
   }
 
   restartRace() {
     this.props.restartRace(this.props.race.id);
-    this.setState({ showModal: true });
+    this.setState(initialState(this.props.messages));
   }
 
   render() {
-    const { race, bikes, goBack, callRace } = this.props;
+    const { race, bikes, callRace } = this.props;
     return (
       <div className="container">
         <div className="row">
@@ -153,23 +176,22 @@ export default class Race extends Component {
 
         <Modal
           show={this.state.showModal}
-          onHide={this.closeModal.bind(this)}
           animation={false}
           dialogClassName="countdown-modal"
         >
           <Modal.Body>
-            <h1>Racers Ready?</h1>
+            <h1>{this.state.countDownText}</h1>
           </Modal.Body>
           <Modal.Footer>
             <button
               className="btn btn-default"
-              onClick={() => goBack()}
+              onClick={this.goBack.bind(this)}
             >
               Go Back
             </button>
             <button
               className="btn btn-primary"
-              onClick={this.closeModal.bind(this)}
+              onClick={this.startCountdown.bind(this)}
             >
               Start The Countdown!
             </button>
