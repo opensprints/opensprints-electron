@@ -5,8 +5,6 @@ import moment from 'moment';
 import styles from './Clock.css';
 import Indicator from './Indicator';
 
-let intervalId;
-
 const renderTimer = (clock) => {
   let minutes = Math.floor(clock.asMinutes()).toFixed(0);
   let seconds = (clock.asSeconds() % 60).toFixed(1);
@@ -54,45 +52,10 @@ export default class Clock extends Component {
     startTime: undefined
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      clock: 0
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.startTime && !intervalId) {
-      const { startTime } = nextProps;
-      if (startTime) {
-        this.setState({
-          clock: moment.duration(moment().valueOf() - startTime.valueOf())
-        });
-      }
-      const fn = () => {
-        if (startTime) {
-          this.setState({
-            clock: moment.duration(moment().valueOf() - startTime.valueOf())
-          });
-        }
-      };
-      intervalId = setInterval(fn, 100);
-    } else if (intervalId) {
-      clearInterval(intervalId);
-      intervalId = undefined;
-      this.setState({ clock: 0 });
-    }
-  }
-
-  componentWillUnmount() {
-    if (intervalId) {
-      clearInterval(intervalId);
-      intervalId = undefined;
-    }
-  }
-
   render() {
-    const { clock } = this.state;
+    const clock = this.props.startTime ?
+      moment.duration(moment().valueOf() - this.props.startTime.valueOf()) : 0;
+    // const { clock } = this.state;
     const { race, bikes } = this.props;
     return (
       <div className={styles['clock-frame']}>
