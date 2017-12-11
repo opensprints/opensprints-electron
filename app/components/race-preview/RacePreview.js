@@ -54,6 +54,7 @@ export default class RacePreview extends Component {
       } :
       {
         raceType: 'time',
+        //todo: trialDuration will probably need to be stored as an int and converted to a moment using moment.duration(x*10) at the right time 
         trialDuration: raceSettings.trialDuration,
         timerDirection: raceSettings.timerDirection,
         measurementSystem: raceSettings.measurementSystem

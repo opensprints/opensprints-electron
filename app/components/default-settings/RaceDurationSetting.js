@@ -13,6 +13,8 @@ export default class RaceDurationSetting extends Component {
 
   render() {
     const { trialDuration, changeDefaultRaceSetting } = this.props;
+    // const { trialDurationSeconds, changeDefaultRaceSetting } = this.props;
+    // const trialDuration = moment.duration(trialDurationSeconds*10);
     return (
       <div className="row">
         <div className="input-group inline">
