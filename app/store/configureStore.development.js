@@ -36,7 +36,7 @@ function reviver (key, value) {
 };
 
 const engine = createEngine('opensprints-state', null, reviver);
-  const storageMW = storage.createMiddleware(engine,['@@router/LOCATION_CHANGE']);
+  const storageMW = storage.createMiddleware(engine, ['@@router/LOCATION_CHANGE', 'INCREMENT_RACER']);
 
   const enhancer = composeEnhancers(applyMiddleware(storageMW, router, logger));
   const store = createStore(reducer, {},enhancer);
@@ -47,7 +47,7 @@ const engine = createEngine('opensprints-state', null, reviver);
     );
   }
 
-  //if you want to reset the state just comment the below two calls run the app.  
+  //if you want to reset the state just comment the below two calls run the app.
   const load = storage.createLoader(engine);
   load(store)
       .then((newState) =>

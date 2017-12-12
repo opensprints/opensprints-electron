@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import RacerEdit from './RacerEdit';
 import RaceQuickSettings from './RaceQuickSettings';
+import { getCircumfrence, getTicksToComplete } from '../../selectors';
 
 export default class RacePreview extends Component {
   static propTypes = {
@@ -37,29 +38,40 @@ export default class RacePreview extends Component {
   }
 
   updateRaceSettings(updatedSettings) {
-    updatedSettings.raceDistance
+    updatedSettings.raceDistance;
     this.setState({
       raceSettings: updatedSettings
     });
   }
 
   loadRace() {
-    const { updateRace, push, race } = this.props;
+    const { updateRace, push, race, bikes } = this.props;
     const { raceSettings } = this.state;
     const newRaceSettings = raceSettings.raceType === 'distance' ?
       {
         raceType: 'distance',
         raceDistance: raceSettings.raceDistance,
-        measurementSystem: raceSettings.measurementSystem
+        measurementSystem: raceSettings.measurementSystem,
+        // todo move static values in to selector
+
       } :
       {
         raceType: 'time',
-        //todo: trialDuration will probably need to be stored as an int and converted to a moment using moment.duration(x*10) at the right time 
+        // todo: trialDuration will probably need to be stored as an int and converted to a moment using moment.duration(x*10) at the right time
         trialDuration: raceSettings.trialDuration,
         timerDirection: raceSettings.timerDirection,
         measurementSystem: raceSettings.measurementSystem
       };
-    updateRace(Object.assign({}, race, newRaceSettings));
+
+    const newRace = Object.assign({}, race, newRaceSettings);
+    newRace.ticksToCompleteByBike = [];
+    newRace.results = [];
+    bikes.map((bike) => {
+      newRace.ticksToCompleteByBike.push(getTicksToComplete(newRace, bike));
+      newRace.results.push(null);
+    });
+    updateRace(newRace);
+
     push(`/race/${race.id}`);
   }
 

@@ -10,6 +10,7 @@ import {
   UPDATE_RACE,
   INCREMENT_RACER
 } from '../actions/race';
+import _ from 'lodash';
 
 let staticId = 0;
 
@@ -103,11 +104,18 @@ export default function races(state = [], action) {
     case INCREMENT_RACER:
       return state.map((race) => {
         if (race.id === action.raceId) {
-          return Object.assign({}, race, {
+          const nextTick = race.bikeTicks[action.bikeIndex] + 1;
+          if (nextTick > race.ticksToCompleteByBike[action.bikeIndex]) return state;
+
+          const nextState = Object.assign({}, race, {
             bikeTicks: Object.assign({}, race.bikeTicks, {
-              [action.bikeIndex]: race.bikeTicks[action.bikeIndex] + 1
+              [action.bikeIndex]: nextTick
             })
           });
+          if (nextTick === race.ticksToCompleteByBike[action.bikeIndex]) {
+            nextState.results[action.bikeIndex] = getPlace(nextState)
+          }
+          return nextState
         }
         return race;
       });
@@ -139,4 +147,11 @@ export default function races(state = [], action) {
     default:
       return state;
   }
+}
+
+function getPlace(state) {
+  let place = { finishTime: moment() }
+  //what place are they?
+  place.place = _.filter(state.results, x => x !== undefined).length + 1;
+  return place
 }

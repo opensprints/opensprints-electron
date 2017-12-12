@@ -37,6 +37,29 @@ export const getDistance = createSelector(
   }
 );
 
+export const getCircumfrence = (race, bike) => {
+  let coEf = 0;
+  if (bike.rollerDiameter.unit === 'centimeter') {
+    if (race.measurementSystem === 'metric') {
+      coEf = 100000; // 100000 cm === 1 km
+    } else {
+      coEf = 160934; // 160934 cm === 1 mile
+    }
+  } else if (race.measurementSystem === 'imperial') {
+    coEf = 63360; // 63360 in === 1 mile
+  } else {
+    coEf = 39370.1; // 39370.1 in === 1 km
+  }
+  // coefficient turns roller circumferences (computed in inches or centimeters) into
+  // desired output of miles or kilometers
+
+  return (bike.rollerDiameter.value * Math.PI) / coEf;
+};
+
+export const getTicksToComplete = (race, bike) =>
+  Math.ceil(race.raceDistance /
+     (race.measurementSystem === 'metric' ? 1000 : 5280) / getCircumfrence(race, bike));
+
 export const getRaceDuration = createSelector(
   [getRace],
   race => moment.duration(moment().diff(race.startTime, 'milliseconds'))
