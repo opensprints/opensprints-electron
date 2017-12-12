@@ -1,4 +1,5 @@
 import moment from 'moment';
+import _ from 'lodash';
 import {
   ADD_AD_HOC_RACE,
   ADD_RACES,
@@ -10,7 +11,6 @@ import {
   UPDATE_RACE,
   INCREMENT_RACER
 } from '../actions/race';
-import _ from 'lodash';
 
 let staticId = 0;
 
@@ -20,7 +20,7 @@ export default function races(state = [], action) {
       const race = {
         id: (staticId += 1),
         bikeRacerMap: {},
-        bikeTicks: {},
+        bikeTicks: [],
         createdDate: moment()
       };
 
@@ -34,8 +34,10 @@ export default function races(state = [], action) {
       const numOfBikes = action.bikes.length;
       for (let i = 0; i < Math.ceil(action.racerIds.length / action.bikes.length); i += 1) {
         const bikeRacerMap = {};
-        const bikeTicks = {};
-        action.racerIds.slice(i * numOfBikes, Math.min((i + 1) * numOfBikes, action.racerIds.length))
+        const bikeTicks = [];
+        action.racerIds.slice(i * numOfBikes,
+          Math.min((i + 1) * numOfBikes, action.racerIds.length)
+        )
           .forEach((racerId, index) => {
             bikeRacerMap[index] = racerId;
             bikeTicks[index] = 0;
@@ -96,6 +98,7 @@ export default function races(state = [], action) {
         if (race.id === action.id) {
           const newRace = Object.assign({}, race);
           newRace.startTime = undefined;
+          newRace.bikeTicks = [];
           return newRace;
         }
         return race;
@@ -105,17 +108,18 @@ export default function races(state = [], action) {
       return state.map((race) => {
         if (race.id === action.raceId) {
           const nextTick = race.bikeTicks[action.bikeIndex] + 1;
-          if (nextTick > race.ticksToCompleteByBike[action.bikeIndex]) return state;
-
-          const nextState = Object.assign({}, race, {
+          if (nextTick > race.ticksToCompleteByBike[action.bikeIndex]) {
+            return race;
+          }
+          const nextRace = Object.assign({}, race, {
             bikeTicks: Object.assign({}, race.bikeTicks, {
               [action.bikeIndex]: nextTick
             })
           });
           if (nextTick === race.ticksToCompleteByBike[action.bikeIndex]) {
-            nextState.results[action.bikeIndex] = getPlace(nextState)
+            nextRace.results[action.bikeIndex] = getPlace(nextRace);
           }
-          return nextState
+          return nextRace;
         }
         return race;
       });
@@ -123,7 +127,7 @@ export default function races(state = [], action) {
     case END_ONGOING_RACE:
       return state.map((race) => {
         if (race.id === action.race.id) {
-          const results = {};
+          const results = Object.keys(action.race.bikeRacerMap).map(() => null);
           if (!action.race.results) {
             Object.keys(action.race.bikeRacerMap).forEach((bikeIndex) => {
               results[bikeIndex] = { place: -1 };
@@ -150,8 +154,8 @@ export default function races(state = [], action) {
 }
 
 function getPlace(state) {
-  let place = { finishTime: moment() }
-  //what place are they?
-  place.place = _.filter(state.results, x => x !== undefined).length + 1;
-  return place
+  const place = { finishTime: moment() };
+  // what place are they?
+  place.place = _.filter(state.results, x => x !== null).length + 1;
+  return place;
 }

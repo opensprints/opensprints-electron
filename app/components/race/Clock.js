@@ -37,9 +37,12 @@ const getDistance = (race, bikeIndex, bike) => {
     (race.bikeTicks[bikeIndex] * (bike.rollerDiameter.value * Math.PI)) / coEf : 0;
 };
 
-const getRotation = (distance, race) => (distance * 360) / (
-  race.raceDistance / (race.measurementSystem === 'metric' ? 1000 : 5280)
-);
+const getRotation = (distance, race) => {
+  const rotation = (distance * 360) / (
+    race.raceDistance / (race.measurementSystem === 'metric' ? 1000 : 5280)
+  );
+  return rotation < 360 ? rotation : 0;
+};
 
 export default class Clock extends Component {
   static propTypes = {
@@ -52,10 +55,30 @@ export default class Clock extends Component {
     startTime: undefined
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      clock: 0
+    };
+  }
+
+  componentDidMount() {
+    this.state = {
+      clock: this.props.startTime ?
+        moment.duration(moment().valueOf() - this.props.startTime.valueOf()) : 0,
+      intervalId: setInterval((() => this.setState({
+        clock: this.props.startTime ?
+          moment.duration(moment().valueOf() - this.props.startTime.valueOf()) : 0
+      })), 100)
+    };
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
+  }
+
   render() {
-    const clock = this.props.startTime ?
-      moment.duration(moment().valueOf() - this.props.startTime.valueOf()) : 0;
-    // const { clock } = this.state;
+    const clock = this.state.clock || 0;
     const { race, bikes } = this.props;
     return (
       <div className={styles['clock-frame']}>

@@ -37,7 +37,7 @@ export const getDistance = createSelector(
   }
 );
 
-export const getCircumfrence = (race, bike) => {
+export const getCircumference = (race, bike) => {
   let coEf = 0;
   if (bike.rollerDiameter.unit === 'centimeter') {
     if (race.measurementSystem === 'metric') {
@@ -58,7 +58,7 @@ export const getCircumfrence = (race, bike) => {
 
 export const getTicksToComplete = (race, bike) =>
   Math.ceil(race.raceDistance /
-     (race.measurementSystem === 'metric' ? 1000 : 5280) / getCircumfrence(race, bike));
+     (race.measurementSystem === 'metric' ? 1000 : 5280) / getCircumference(race, bike));
 
 export const getRaceDuration = createSelector(
   [getRace],

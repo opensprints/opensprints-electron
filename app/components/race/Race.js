@@ -79,7 +79,7 @@ export default class Race extends Component {
     races: PropTypes.array.isRequired,
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
-    messages: PropTypes.array.isRequired,
+    messages: PropTypes.object.isRequired,
     startRace: PropTypes.func.isRequired,
     restartRace: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,
@@ -110,6 +110,7 @@ export default class Race extends Component {
   }
   goBack() {
     clearInterval(this.interval);
+    this.props.restartRace(this.props.race.id);
     this.props.goBack();
   }
   startCountdown() {
