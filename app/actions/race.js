@@ -68,10 +68,9 @@ export function endOngoingRace(race) {
   };
 }
 
-export function incrementRacer(raceId, bikeIndex) {
+export function incrementRacer( bikeIndex) {
   return {
     type: INCREMENT_RACER,
-    raceId,
     bikeIndex,
     timestamp: moment()
   };

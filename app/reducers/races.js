@@ -88,7 +88,7 @@ export default function races(state = [], action) {
     case START_RACE:
       return state.map((race) => {
         if (race.id === action.id) {
-          return Object.assign({}, race, { startTime: moment() });
+          return Object.assign({}, race, { startTime: moment(), current: true });
         }
         return race;
       });
@@ -106,7 +106,7 @@ export default function races(state = [], action) {
 
     case INCREMENT_RACER:
       return state.map((race) => {
-        if (race.id === action.raceId) {
+        if (race.current) {
           const nextTick = race.bikeTicks[action.bikeIndex] + 1;
           if (nextTick > race.ticksToCompleteByBike[action.bikeIndex]) {
             return race;
@@ -142,6 +142,7 @@ export default function races(state = [], action) {
           return {
             ...action.race,
             finishedDate: moment(),
+            current: false,
             results: Object.assign({}, action.race.results, results)
           };
         }

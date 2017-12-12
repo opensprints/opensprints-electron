@@ -8,9 +8,12 @@ import { Route } from 'react-router';
 import App from './containers/App';
 import configureStore from './store/configureStore';
 import './app.global.css';
+import {incrementRacer} from './actions/race'
 
 const history = createHistory();
 const store = configureStore(history);
+
+johnnyFiveAdapter((i)=>store.dispatch(incrementRacer(i))); // eslint-disable-line
 
 render(
   <AppContainer>

@@ -38,7 +38,7 @@ module.exports = function johnnyFiveAdapter(senseFunctions) {
 
       button.on('down', () => {
         led.on();
-        senseFunctions[i]();
+        senseFunctions(i);
       });
 
       button.on('up', () => {
@@ -46,7 +46,7 @@ module.exports = function johnnyFiveAdapter(senseFunctions) {
       });
     }
 
-    for (let i = 0; i < senseFunctions.length; i++) {
+    for (let i = 0; i < 4; i++) {
       setupButton(i);
     }
   });

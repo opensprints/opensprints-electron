@@ -11,6 +11,7 @@ import IntermissionPage from './IntermissionPage';
 import RaceResultsPage from './RaceResultsPage';
 
 export default class App extends Component {
+
   render() {
     return (
       <div className="container-fluid">

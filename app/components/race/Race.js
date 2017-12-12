@@ -90,8 +90,6 @@ export default class Race extends Component {
   constructor(props) {
     super(props);
     this.state = initialState(props.messages);
-    johnnyFiveAdapter(props.bikes.map((_, i) => () => props.incrementRacer(props.race.id, i))); // eslint-disable-line
-
     // TODO setup tick-listeners & pass correct props to clock & indicators
   }
   componentWillUnmount() {
