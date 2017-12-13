@@ -1,5 +1,6 @@
 import moment from 'moment';
 import _ from 'lodash';
+import { LOAD } from 'redux-storage';
 import {
   ADD_AD_HOC_RACE,
   ADD_RACES,
@@ -9,13 +10,17 @@ import {
   RESTART_RACE,
   END_ONGOING_RACE,
   UPDATE_RACE,
-  INCREMENT_RACER
+  INCREMENT_RACER,
+  FINISH_ONGOING_RACE
 } from '../actions/race';
 
 let staticId = 0;
 
 export default function races(state = [], action) {
   switch (action.type) {
+    case LOAD:
+      //update all races to not be current
+      return state.map(race => ({ ...race, current: false }));
     case ADD_AD_HOC_RACE: {
       const race = {
         id: (staticId += 1),
@@ -97,8 +102,10 @@ export default function races(state = [], action) {
       return state.map((race) => {
         if (race.id === action.id) {
           const newRace = Object.assign({}, race);
-          newRace.startTime = undefined;
-          newRace.bikeTicks = [];
+          delete newRace.startTime;
+          delete newRace.finishTime;
+          newRace.bikeTicks = new Array(newRace.results.length).fill(0);
+          newRace.results = new Array(newRace.results.length).fill(0);
           return newRace;
         }
         return race;
@@ -123,7 +130,16 @@ export default function races(state = [], action) {
         }
         return race;
       });
-
+    case FINISH_ONGOING_RACE:
+      return state.map((race) => {
+        if (race.current) {
+          return { ...race,
+            current: false,
+            finishedDate: moment(),
+          };
+        }
+        return race;
+      });
     case END_ONGOING_RACE:
       return state.map((race) => {
         if (race.id === action.race.id) {
@@ -157,6 +173,6 @@ export default function races(state = [], action) {
 function getPlace(state) {
   const place = { finishTime: moment() };
   // what place are they?
-  place.place = _.filter(state.results, x => x !== null).length + 1;
+  place.place = _.filter(state.results, 'place').length + 1;
   return place;
 }

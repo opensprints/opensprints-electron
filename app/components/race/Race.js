@@ -5,6 +5,7 @@ import styles from './Race.css';
 import Clock from './Clock';
 import RacerStats from './RacerStats';
 import MessagesContainer from '../crowd-messaging/messages-container';
+import _ from 'lodash';
 
 const BlueMessage = ({ style, children }) => (
   <div
@@ -83,6 +84,7 @@ export default class Race extends Component {
     startRace: PropTypes.func.isRequired,
     restartRace: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,
+    finishRace: PropTypes.func.isRequired,
     incrementRacer: PropTypes.func.isRequired,
     callRace: PropTypes.func.isRequired
   };
@@ -91,6 +93,11 @@ export default class Race extends Component {
     super(props);
     this.state = initialState(props.messages);
     // TODO setup tick-listeners & pass correct props to clock & indicators
+  }
+  componentWillReceiveProps(props) {
+    if (_.every(props.race.results, x => _.has(x, 'place'))) {
+      props.finishRace(props.race);
+    }
   }
   componentWillUnmount() {
     if (this.interval) { clearInterval(this.interval); }
@@ -116,7 +123,6 @@ export default class Race extends Component {
     this.interval = setInterval(this.tick.bind(this), 1000);
     // this.setState({countDownText = })
   }
-
   restartRace() {
     this.props.restartRace(this.props.race.id);
     this.setState(initialState(this.props.messages));
