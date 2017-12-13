@@ -63,14 +63,14 @@ export default class Clock extends Component {
   }
 
   componentDidMount() {
-    this.state = {
+    this.setState({
       clock: this.props.startTime ?
         moment.duration(moment().valueOf() - this.props.startTime.valueOf()) : 0,
       intervalId: setInterval((() => this.setState({
         clock: this.props.startTime ?
           moment.duration(moment().valueOf() - this.props.startTime.valueOf()) : 0
       })), 100)
-    };
+    });
   }
 
   componentWillUnmount() {

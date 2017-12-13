@@ -8,12 +8,20 @@ import { Route } from 'react-router';
 import App from './containers/App';
 import configureStore from './store/configureStore';
 import './app.global.css';
-import {incrementRacer} from './actions/race'
+import { incrementRacer } from './actions/race';
+import _ from 'lodash';
 
 const history = createHistory();
 const store = configureStore(history);
 
-johnnyFiveAdapter((i)=>store.dispatch(incrementRacer(i))); // eslint-disable-line
+ johnnyFiveAdapter()
+ .bufferTime(333)
+ .subscribe((arr)=>{
+   if (arr.length){
+     _(arr).groupBy().each(x=>store.dispatch(incrementRacer(x[0],x.length)))
+   }
+ });
+ //); // eslint-disable-line
 
 render(
   <AppContainer>

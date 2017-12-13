@@ -1,15 +1,22 @@
 // Connecting to the arduino and configuring its gpio pin.
 // Each 'up' on a sensor is a 'tick'.
 
+const Rx = require('rxjs');
+
 const five = require('johnny-five');
 
 // const DEFAULT_NUM_BIKES = 4;
 const LED_PINS = [9, 10, 11, 12, 13];
 const SENSOR_PINS = [2, 3, 4, 5, 6];
 
-module.exports = function johnnyFiveAdapter(senseFunctions) {
+module.exports = function johnnyFiveAdapter() {
   this.board = new five.Board({
     repl: false
+  });
+
+  this._tickObserver$ = null;
+  this.tick$ = Rx.Observable.create((observer) => {
+    this._tickObserver$ = observer;
   });
 
   this.board.on('connected', () => {
@@ -38,7 +45,8 @@ module.exports = function johnnyFiveAdapter(senseFunctions) {
 
       button.on('down', () => {
         led.on();
-        senseFunctions(i);
+        this._tickObserver$.next(i);
+        // senseFunctions(i);
       });
 
       button.on('up', () => {
@@ -61,4 +69,6 @@ module.exports = function johnnyFiveAdapter(senseFunctions) {
       event.type, event.class, event.message
     );
   });
+
+  return this.tick$;
 };
