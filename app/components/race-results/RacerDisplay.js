@@ -35,9 +35,7 @@ export default class RacerDisplay extends Component {
 
   render() {
     const { bikeIndex, bike, racer = {}, race, classNames } = this.props;
-    debugger;
     const place = styles[placementClass(race.results[bikeIndex].place)];
-    debugger;
     return (
       <div className={`${styles.container} ${place} col-xs-3 ${classNames}`}>
         <div

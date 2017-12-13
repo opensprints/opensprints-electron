@@ -10,17 +10,20 @@ function mapStateToProps(state, ownProps) {
     racers: state.racers.present,
     races: state.races,
     bikes: state.bikes,
-    nextRace: _.head(state.races, race => (!race.delete && !race.finished))
+    nextRace: _(state.races)
+      .filter(race => (!race.deleted && !race.finished))
+      .head()
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    goToRoster: () => dispatch(push('/roster')),
     goToNextRace: race => dispatch(push(`/race-preview/${race.id}`)),
     onAdHocRaceClick: () => {
       const newRace = RaceActions.addEmptyRace();
       dispatch(newRace);
-      dispatch(push(`/race-preview/${newRace.race.id}`));
+      dispatch(push(`/race-preview/${newRace.race.id} `));
     }
   };
 }
