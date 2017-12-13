@@ -76,10 +76,11 @@ export function finishRace(race) {
   };
 }
 
-export function incrementRacer( bikeIndex) {
+export function incrementRacer( bikeIndex,ticks) {
   return {
     type: INCREMENT_RACER,
     bikeIndex,
+    ticks,
     timestamp: moment()
   };
 }

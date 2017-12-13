@@ -114,16 +114,16 @@ export default function races(state = [], action) {
     case INCREMENT_RACER:
       return state.map((race) => {
         if (race.current) {
-          const nextTick = race.bikeTicks[action.bikeIndex] + 1;
-          if (nextTick > race.ticksToCompleteByBike[action.bikeIndex]) {
+          if (race.results[action.bikeIndex] !== null) {
             return race;
           }
+          const nextTick = race.bikeTicks[action.bikeIndex] + action.ticks;
           const nextRace = Object.assign({}, race, {
             bikeTicks: Object.assign({}, race.bikeTicks, {
               [action.bikeIndex]: nextTick
             })
           });
-          if (nextTick === race.ticksToCompleteByBike[action.bikeIndex]) {
+          if (nextTick >= race.ticksToCompleteByBike[action.bikeIndex]) {
             nextRace.results[action.bikeIndex] = getPlace(nextRace);
           }
           return nextRace;
