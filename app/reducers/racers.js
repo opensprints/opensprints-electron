@@ -25,5 +25,5 @@ const racers = (state = [], action) => {
       return state;
   }
 };
-const undoableRacers = racers;//undoable(racers);
+const undoableRacers = undoable(racers);
 export default undoableRacers;

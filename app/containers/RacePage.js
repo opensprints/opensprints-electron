@@ -23,6 +23,7 @@ function mapDispatchToProps(dispatch) {
       ...RaceActions,
       goBack
     }, dispatch),
+    finsihRacer: (i)=> dispatch(Race.finishRacer(i)),
     finishRace: (race) => {
       dispatch(RaceActions.finishRace(race));
       dispatch(push(`/race-results/${race.id}`));

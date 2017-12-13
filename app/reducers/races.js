@@ -10,7 +10,7 @@ import {
   RESTART_RACE,
   END_ONGOING_RACE,
   UPDATE_RACE,
-  INCREMENT_RACER,
+  FINISH_RACER,
   FINISH_ONGOING_RACE
 } from '../actions/race';
 
@@ -19,7 +19,7 @@ let staticId = 0;
 export default function races(state = [], action) {
   switch (action.type) {
     case LOAD:
-      //update all races to not be current
+      // update all races to not be current
       return state.map(race => ({ ...race, current: false }));
     case ADD_AD_HOC_RACE: {
       const race = {
@@ -111,21 +111,15 @@ export default function races(state = [], action) {
         return race;
       });
 
-    case INCREMENT_RACER:
+    case FINISH_RACER:
       return state.map((race) => {
         if (race.current) {
           if (race.results[action.bikeIndex] !== null) {
             return race;
           }
-          const nextTick = race.bikeTicks[action.bikeIndex] + action.ticks;
-          const nextRace = Object.assign({}, race, {
-            bikeTicks: Object.assign({}, race.bikeTicks, {
-              [action.bikeIndex]: nextTick
-            })
-          });
-          if (nextTick >= race.ticksToCompleteByBike[action.bikeIndex]) {
-            nextRace.results[action.bikeIndex] = getPlace(nextRace);
-          }
+          const nextRace = { ...race };
+          nextRace.results[action.bikeIndex] = getPlace(nextRace);
+
           return nextRace;
         }
         return race;

@@ -94,21 +94,19 @@ export default class Race extends Component {
     super(props);
     this.state = initialState(props);
     // TODO setup tick-listeners & pass correct props to clock & indicators
+  }
 
-  }
-  componentWillReceiveProps(props) {
-    if (_.every(props.race.results, x => _.has(x, 'place'))) {
-      props.finishRace(props.race);
-    }
-  }
-  componentDidMount(){
-    let _this = this;
+  componentDidMount() {
+    const _this = this;
     global.j5$
-    .subscribe( x => {
-      let nextBikeTicks = [..._this.state.bikeTicks]
-         nextBikeTicks[x] += 1;
-         _this.setState({bikeTicks:nextBikeTicks})
-    })
+      .subscribe((x) => {
+        const tick2complete = _this.props.race.ticksToCompleteByBike[x];
+        if (tick2complete < _this.state.bikeTicks[x] + 1) { return; }
+        const nextBikeTicks = [..._this.state.bikeTicks];
+        const next = nextBikeTicks[x] += 1;
+        _this.setState({ bikeTicks: nextBikeTicks });
+        if (tick2complete === next) { _this.props.finishRacer(x); }
+      });
   //  .bufferTime(50)
     // .subscribe((arr)=>{
     //   if (arr.length){
@@ -117,6 +115,12 @@ export default class Race extends Component {
     //     _this.setState({bikeTicks:nextBikeTicks})
     //   }
     // });
+  }
+  componentWillUpdate(nextP, nextS) {
+    // is the race complete?
+    if (_.every(nextP.race.results, x => _.has(x, 'place'))) {
+      nextP.finishRace(nextP.race);
+    }
   }
   componentWillUnmount() {
     if (this.interval) { clearInterval(this.interval); }
@@ -138,7 +142,6 @@ export default class Race extends Component {
     this.props.goBack();
   }
   startCountdown() {
-
     this.tick();
     this.interval = setInterval(this.tick.bind(this), 1000);
     // this.setState({countDownText = })
@@ -148,7 +151,7 @@ export default class Race extends Component {
     this.setState(initialState(this.props.messages));
   }
 
-  startRace(){}
+  startRace() {}
   render() {
     const { race, bikes, callRace } = this.props;
     return (
@@ -159,7 +162,7 @@ export default class Race extends Component {
             style={{ marginBottom: '6px' }}
             className="col-xs-6"
           >
-            <Clock startTime={race.startTime} race={race} bikes={bikes} bikeTicks={this.state.bikeTicks}/>
+            <Clock startTime={race.startTime} race={race} bikes={bikes} bikeTicks={this.state.bikeTicks} />
             <div className="col-xs-6">
               <button
                 style={{

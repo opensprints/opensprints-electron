@@ -21,25 +21,25 @@ export default function configureStore(history) {
 
   const reducer = storage.reducer(rootReducer);
 
-  function replacer (key, value) {
-  if (typeof value === 'moment') {
-    return 'foo';
+  function replacer(key, value) {
+    if (typeof value === 'moment') {
+      return 'foo';
+    }
+    return value;
   }
-  return value;
-}
 
-function reviver (key, value) {
-  if (key === 'trialDuration') {
-    return moment.duration(value);
+  function reviver(key, value) {
+    if (key === 'trialDuration') {
+      return moment.duration(value);
+    }
+    return value;
   }
-  return value;
-};
 
-const engine = createEngine('opensprints-state', null, reviver);
+  const engine = createEngine('opensprints-state', null, reviver);
   const storageMW = storage.createMiddleware(engine, ['@@router/LOCATION_CHANGE', 'INCREMENT_RACER']);
 
   const enhancer = composeEnhancers(applyMiddleware(storageMW, router, logger));
-  const store = createStore(reducer, {},enhancer);
+  const store = createStore(reducer, {}, enhancer);
 
   if (module.hot) {
     module.hot.accept('../reducers', () =>
@@ -47,11 +47,11 @@ const engine = createEngine('opensprints-state', null, reviver);
     );
   }
 
-  //if you want to reset the state just comment the below two calls run the app.
+  // if you want to reset the state just comment the below two calls run the app.
   const load = storage.createLoader(engine);
   load(store)
-      .then((newState) =>
+    .then(newState =>
       console.log('Loaded state:', newState))
-      .catch(() => console.log('Failed to load previous state'));
+    .catch(() => console.log('Failed to load previous state'));
   return store;
 }

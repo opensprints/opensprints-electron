@@ -8,7 +8,7 @@ export const START_RACE = 'START_RACE';
 export const RESTART_RACE = 'RESTART_RACE';
 export const END_ONGOING_RACE = 'END_ONGOING_RACE';
 export const UPDATE_RACE = 'UPDATE_RACE';
-export const INCREMENT_RACER = 'INCREMENT_RACER';
+export const FINISH_RACER = 'FINISH_RACER';
 export const FINISH_ONGOING_RACE = 'FINISH_ONGOING_RACE';
 
 export function updateRace(newRace) {
@@ -76,11 +76,10 @@ export function finishRace(race) {
   };
 }
 
-export function incrementRacer( bikeIndex,ticks) {
+export function finishRacer(bikeIndex) {
   return {
-    type: INCREMENT_RACER,
+    type: FINISH_RACER,
     bikeIndex,
-    ticks,
     timestamp: moment()
   };
 }

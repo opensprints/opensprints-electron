@@ -94,9 +94,6 @@ class Header extends Component {
                   <NavLink location={location} to="/">Home</NavLink>
                   <NavLink location={location} to="/roster">Roster</NavLink>
                   <NavLink location={location} to="/default-settings">Default Settings</NavLink>
-                  <NavLink location={location} to="/race-preview/0">Race Preview</NavLink>
-                  <NavLink location={location} to="/race/0">Race Screen</NavLink>
-                  <NavLink location={location} to="/race-results/0">Race Results</NavLink>
                 </div>
               </div>
             ) : ''}
