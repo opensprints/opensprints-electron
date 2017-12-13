@@ -11,7 +11,7 @@ export default class RacePreview extends Component {
   };
 
   render() {
-    const { race, racers, bikes, onAdHocRaceClick } = this.props;
+    const { race, racers, bikes, onAdHocRaceClick, nextRace, goToNextRace } = this.props;
     return (
       <div className="container">
         <div className="row">
@@ -35,7 +35,12 @@ export default class RacePreview extends Component {
             >
               Ad Hoc Race
             </button>
-            <button className="btn btn-primary">Next Race</button>
+            <button
+              className="btn btn-primary"
+              onClick={() => goToNextRace(nextRace)}
+            >
+            Next Race
+            </button>
           </div>
         </div>
         <div className="row">

@@ -20,16 +20,7 @@ class Dropdown extends Component {
       },
       isOpen: false
     };
-    this.fireChangeEvent = this.fireChangeEvent.bind(this);
   }
-  //
-  // componentWillReceiveProps(newProps) {
-  //   if (newProps.value && newProps.value !== this.state.selected) {
-  //     this.setState({ selected: newProps.value });
-  //   } else if (!newProps.value && newProps.placeholder) {
-  //     this.setState({ selected: { label: newProps.placeholder, value: '' } });
-  //   }
-  // }
 
   setValue(option) {
     if (option !== this.state.selected && this.props.onChange) {

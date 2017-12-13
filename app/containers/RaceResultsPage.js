@@ -2,18 +2,21 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import * as RaceActions from '../actions/race';
 import RaceResults from '../components/race-results';
+import _ from 'lodash';
 
 function mapStateToProps(state, ownProps) {
   return {
     race: state.races.find(race => race.id === parseInt(ownProps.match.params.raceId, 10)),
     racers: state.racers.present,
     races: state.races,
-    bikes: state.bikes
+    bikes: state.bikes,
+    nextRace: _.head(state.races, race => (!race.delete && !race.finished))
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    goToNextRace: race => dispatch(push(`/race-preview/${race.id}`)),
     onAdHocRaceClick: () => {
       const newRace = RaceActions.addEmptyRace();
       dispatch(newRace);
