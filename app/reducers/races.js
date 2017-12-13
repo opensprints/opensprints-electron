@@ -157,7 +157,7 @@ export default function races(state = [], action) {
             results: Object.assign({}, action.race.results, results)
           };
         }
-        return action.race;
+        return race;
       });
 
     default:
