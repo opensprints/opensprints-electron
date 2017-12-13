@@ -129,6 +129,7 @@ export default function races(state = [], action) {
         if (race.current) {
           return { ...race,
             current: false,
+            finished: true,
             finishedDate: moment(),
           };
         }
