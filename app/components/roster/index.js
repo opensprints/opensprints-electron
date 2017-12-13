@@ -132,6 +132,12 @@ export default class Roster extends Component {
     }
   }
 
+  checkForEnterKey(e) {
+    if (e.keyCode === 13) {
+      this.open();
+    }
+  }
+
   render() {
     let input;
     const { search, selectedRacers } = this.state;
@@ -175,17 +181,14 @@ export default class Roster extends Component {
                     autoFocus="true"
                     value={this.state.search}
                     onChange={this.handleSearch.bind(this)}
+                    onKeyUp={this.checkForEnterKey.bind(this)}
                   />
                   <i
                     className={`material-icons md-36 unselectable ${style.addRacerBtn}`}
                     tabIndex="0"
                     role="button"
                     onClick={() => { this.open(); }}
-                    onKeyDown={(e) => {
-                      if (e.keyCode === 13) {
-                        this.open();
-                      }
-                    }}
+                    onKeyDown={this.checkForEnterKey.bind(this)}
                   >
                     add_box
                   </i>
