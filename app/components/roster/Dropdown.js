@@ -22,22 +22,24 @@ class Dropdown extends Component {
     };
     this.fireChangeEvent = this.fireChangeEvent.bind(this);
   }
-
-  componentWillReceiveProps(newProps) {
-    if (newProps.value && newProps.value !== this.state.selected) {
-      this.setState({ selected: newProps.value });
-    } else if (!newProps.value && newProps.placeholder) {
-      this.setState({ selected: { label: newProps.placeholder, value: '' } });
-    }
-  }
+  //
+  // componentWillReceiveProps(newProps) {
+  //   if (newProps.value && newProps.value !== this.state.selected) {
+  //     this.setState({ selected: newProps.value });
+  //   } else if (!newProps.value && newProps.placeholder) {
+  //     this.setState({ selected: { label: newProps.placeholder, value: '' } });
+  //   }
+  // }
 
   setValue(option) {
-    const newState = {
-      selected: option,
-      isOpen: false
-    };
-    this.fireChangeEvent(option);
-    this.setState(newState);
+    if (option !== this.state.selected && this.props.onChange) {
+      const newState = {
+        selected: option,
+        isOpen: false
+      };
+      this.props.onChange(option);
+      this.setState(newState);
+    }
   }
 
   handleMouseDown(event) {
@@ -68,11 +70,6 @@ class Dropdown extends Component {
     }
   }
 
-  fireChangeEvent(option) {
-    if (option !== this.state.selected && this.props.onChange) {
-      this.props.onChange(option);
-    }
-  }
 
   buildMenu() {
     const { options, baseClassName } = this.props;
