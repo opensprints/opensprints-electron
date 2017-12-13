@@ -18,9 +18,11 @@ const gearOptions = [
 ];
 
 const raceFilters = {
-  unfinished: (race) => (!race.finished && !race.deleted),
-  finished: (race) => (race.finished && !race.deleted),
-  deleted: (race) => (race.deleted),
+  unfinished: race =>
+    // leave this here because it is failing when a one liner.
+    !race.finished && !race.deleted,
+  finished: race => (race.finished && !race.deleted),
+  deleted: race => (race.deleted),
   all: () => (true)
 };
 
@@ -122,7 +124,7 @@ export default class RaceSetup extends Component {
               overflowY: races.length > 4 ? 'scroll' : undefined
             }}
           >
-            {races.map((race) => (
+            {races.map(race => (
               <RosterRace
                 {...this.props}
                 key={`race-${race.id}`}
@@ -130,8 +132,8 @@ export default class RaceSetup extends Component {
                 bikes={bikes}
                 races={races}
                 startSpecificRace={startSpecificRace}
-                racers={Object.keys(race.bikeRacerMap).map((key) =>
-                  racers.find((racer) => racer.id === race.bikeRacerMap[key])
+                racers={Object.keys(race.bikeRacerMap).map(key =>
+                  racers.find(racer => racer.id === race.bikeRacerMap[key])
                 )}
               />
             ))}
