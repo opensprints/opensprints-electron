@@ -14,16 +14,23 @@ import {
   FINISH_ONGOING_RACE
 } from '../actions/race';
 
-let staticId = 0;
+window.newRaceId = null;
 
 export default function races(state = [], action) {
   switch (action.type) {
-    case LOAD:
+    case LOAD: {
       // update all races to not be current
+      const savedRaces = action.payload.races;
+      if (window.newRaceId === null) {
+        window.newRaceId = savedRaces.length > 0 ? (savedRaces.map(race => race.id).reduce(
+          (idA, idB) => (idA > idB ? idA : idB)
+        ) + 1) : 0;
+      }
       return state.map(race => ({ ...race, current: false }));
+    }
     case ADD_AD_HOC_RACE: {
       const race = {
-        id: (staticId += 1),
+        id: (window.newRaceId += 1),
         bikeRacerMap: {},
         bikeTicks: [],
         createdDate: moment()
@@ -48,7 +55,7 @@ export default function races(state = [], action) {
             bikeTicks[index] = 0;
           });
         newRaces.push({
-          id: staticId += 1,
+          id: window.newRaceId += 1,
           bikeRacerMap,
           bikeTicks,
           createdDate: moment()
