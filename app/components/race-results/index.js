@@ -4,52 +4,26 @@ import RacerDisplay from './RacerDisplay';
 
 export default class RacePreview extends Component {
   static propTypes = {
-    params: PropTypes.object.isRequired,
-    races: PropTypes.array.isRequired,
+    race: PropTypes.object.isRequired,
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
     onAdHocRaceClick: PropTypes.func.isRequired
   };
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      activeRace: {
-        id: 0,
-        bikeRacerMap: { 0: 0, 1: 1, 2: 2, 3: 3 },
-        results: [
-          { place: 3 },
-          { place: 2 },
-          { place: 1 },
-          { place: 4 }
-        ]
-      }
-      // props.races.find((race) => race.id === parseInt(props.params.race, 10))
-    };
-  }
 
   render() {
-    const { activeRace } = this.state;
-    const racers = Object.keys(activeRace.bikeRacerMap).map(key =>
-      [
-        { id: 0, name: 'Speed' },
-        { id: 1, name: 'Jonathan' },
-        { id: 2, name: 'Nick' },
-        { id: 3, name: 'Monk' }
-      ]
-      /* this.props.racers */
-        .find(racer => racer.id === activeRace.bikeRacerMap[key])
-    );
-    const { bikes, onAdHocRaceClick } = this.props;
+    const { race, racers, bikes, onAdHocRaceClick } = this.props;
     return (
       <div className="container">
         <div className="row">
-          {bikes.map((bike, i) => (
+          {Object.keys(race.bikeRacerMap).map((_, i) => (
             <RacerDisplay
               key={`RacerDisplay-${i}`}
               bikeIndex={i}
-              bike={bike}
-              racer={racers[i]}
-              race={activeRace}
+              bike={bikes[i]}
+              racer={racers.find(racer => racer.id === race.bikeRacerMap[i])}
+              race={race}
+              classNames={
+                Object.keys(race.bikeRacerMap).length < 4 && i === 0 ? 'col-xs-offset-3' : ''}
             />
           ))}
         </div>

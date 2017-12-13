@@ -24,11 +24,15 @@
   top: -56px;
 }
 
-.fourth {
+.fourth, .dnf {
   font-size: 40px;
   font-weight: bold;
   left: 42px;
   top: -48px;
+}
+
+.dnf {
+  font-style: italic;
 }
 
 .suffix-first {
@@ -46,7 +50,7 @@
   font-size: 26px;
 }
 
-.suffix-fourth {
+.suffix-fourth, .suffix-dnf {
   margin-left: -1px;
   font-size: 24px;
 }

@@ -5,7 +5,7 @@ import styles from './OrdinalNumber.css';
 export default class OrdinalNumber extends Component {
   static propTypes = {
     place: PropTypes.number.isRequired
-  }
+  };
 
   static placementClass(place) {
     switch (place) {
@@ -17,12 +17,17 @@ export default class OrdinalNumber extends Component {
         return 'third';
       case 4:
         return 'fourth';
+      case -1:
+        return 'dnf';
       default:
         return '';
     }
   }
 
   static suffix(place) {
+    if (place === -1) {
+      return '';
+    }
     const ones = place % 10;
     const tens = place % 100;
     if (ones === 1 && tens !== 11) {
@@ -37,23 +42,16 @@ export default class OrdinalNumber extends Component {
     return 'th';
   }
 
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      suffix: OrdinalNumber.suffix(props.place)
-    };
-  }
-
   render() {
     const { place } = this.props;
-    const { suffix } = this.state;
-    const name = OrdinalNumber.placementClass(place);
+    const suffix = OrdinalNumber.suffix(place);
+    const placeClass = OrdinalNumber.placementClass(place);
     return (
       <div
-        className={`${styles.container} ${styles[name]}`}
+        className={`${styles.container} ${styles[placeClass]}`}
       >
-        {place}
-        <span className={`${styles.suffix} ${styles[`suffix-${name}`]}`}>
+        {place === -1 ? 'DNF' : place}
+        <span className={`${styles.suffix} ${styles[`suffix-${placeClass}`]}`}>
           {suffix}
         </span>
       </div>
