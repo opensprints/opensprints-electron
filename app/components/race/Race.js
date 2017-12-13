@@ -68,10 +68,11 @@ const OnDeck = () => {
     </div>
   );
 };
-const initialState = messages => ({
+const initialState = props => ({
   showModal: true,
-  countDownText: messages.PRE_COUNTDOWN_MESSAGE,
-  countDown: 4
+  countDownText: props.messages.PRE_COUNTDOWN_MESSAGE,
+  countDown: 4,
+  bikeTicks: new Array(props.race.results.length).fill(0)
 });
 
 export default class Race extends Component {
@@ -91,13 +92,31 @@ export default class Race extends Component {
 
   constructor(props) {
     super(props);
-    this.state = initialState(props.messages);
+    this.state = initialState(props);
     // TODO setup tick-listeners & pass correct props to clock & indicators
+
   }
   componentWillReceiveProps(props) {
     if (_.every(props.race.results, x => _.has(x, 'place'))) {
       props.finishRace(props.race);
     }
+  }
+  componentDidMount(){
+    let _this = this;
+    global.j5$
+    .subscribe( x => {
+      let nextBikeTicks = [..._this.state.bikeTicks]
+         nextBikeTicks[x] += 1;
+         _this.setState({bikeTicks:nextBikeTicks})
+    })
+  //  .bufferTime(50)
+    // .subscribe((arr)=>{
+    //   if (arr.length){
+    //     let nextBikeTicks = [..._this.state.bikeTicks]
+    //     _(arr).groupBy().each(x=> nextBikeTicks[x[0]] += x.length)
+    //     _this.setState({bikeTicks:nextBikeTicks})
+    //   }
+    // });
   }
   componentWillUnmount() {
     if (this.interval) { clearInterval(this.interval); }
@@ -119,6 +138,7 @@ export default class Race extends Component {
     this.props.goBack();
   }
   startCountdown() {
+
     this.tick();
     this.interval = setInterval(this.tick.bind(this), 1000);
     // this.setState({countDownText = })
@@ -128,6 +148,7 @@ export default class Race extends Component {
     this.setState(initialState(this.props.messages));
   }
 
+  startRace(){}
   render() {
     const { race, bikes, callRace } = this.props;
     return (
@@ -138,7 +159,7 @@ export default class Race extends Component {
             style={{ marginBottom: '6px' }}
             className="col-xs-6"
           >
-            <Clock startTime={race.startTime} {...this.props} />
+            <Clock startTime={race.startTime} race={race} bikes={bikes} bikeTicks={this.state.bikeTicks}/>
             <div className="col-xs-6">
               <button
                 style={{

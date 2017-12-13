@@ -14,13 +14,7 @@ import _ from 'lodash';
 const history = createHistory();
 const store = configureStore(history);
 
- johnnyFiveAdapter()
- .bufferTime(333)
- .subscribe((arr)=>{
-   if (arr.length){
-     _(arr).groupBy().each(x=>store.dispatch(incrementRacer(x[0],x.length)))
-   }
- });
+ global.j5$ = johnnyFiveAdapter();
  //); // eslint-disable-line
 
 render(
