@@ -18,9 +18,11 @@ const gearOptions = [
 ];
 
 const raceFilters = {
-  unfinished: race =>
+  unfinished: (race) => {
     // leave this here because it is failing when a one liner.
-    !race.finished && !race.deleted,
+    console.log('ignore this');
+    return !race.finished && !race.deleted;
+  },
   finished: race => (race.finished && !race.deleted),
   deleted: race => (race.deleted),
   all: () => (true)
