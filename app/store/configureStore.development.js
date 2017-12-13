@@ -29,9 +29,10 @@ export default function configureStore(history) {
   }
 
   function reviver(key, value) {
-    if (key === 'trialDuration') {
+    if (key.toLowerCase().includes('duration')) {
       return moment.duration(value);
     }
+    if (key.toLowerCase().includes('date')) { return moment(value); }
     return value;
   }
 
