@@ -18,7 +18,7 @@ const renderTimer = (clock) => {
 };
 
 // Todo: find a better way to not duplicate this code
-const getDistance = (race, bikeIndex, bike) => {
+const getDistance = (race, bikeIndex, bike,bikeTicks) => {
   let coEf = 0;
   if (bike.rollerDiameter.unit === 'centimeter') {
     if (race.measurementSystem === 'metric') {
@@ -33,8 +33,8 @@ const getDistance = (race, bikeIndex, bike) => {
   }
   // coefficient turns roller circumferences (computed in inches or centimeters) into
   // desired output of miles or kilometers
-  return race.bikeTicks[bikeIndex] > 0 ?
-    (race.bikeTicks[bikeIndex] * (bike.rollerDiameter.value * Math.PI)) / coEf : 0;
+  return bikeTicks[bikeIndex] > 0 ?
+    (bikeTicks[bikeIndex] * (bike.rollerDiameter.value * Math.PI)) / coEf : 0;
 };
 
 const getRotation = (distance, race) => {
@@ -79,7 +79,7 @@ export default class Clock extends Component {
 
   render() {
     const clock = this.state.clock || 0;
-    const { race, bikes } = this.props;
+    const { race, bikes, bikeTicks} = this.props;
     return (
       <div className={styles['clock-frame']}>
         <div className={styles['clock-face']}>
@@ -118,7 +118,7 @@ export default class Clock extends Component {
                     color={bikes[parseInt(bikeIndex, 10)].color}
                     rotation={
                       getRotation(
-                        getDistance(race, parseInt(bikeIndex, 10), bikes[parseInt(bikeIndex, 10)]),
+                        getDistance(race, parseInt(bikeIndex, 10), bikes[parseInt(bikeIndex, 10)],bikeTicks),
                         race
                       )
                     }
