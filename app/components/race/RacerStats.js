@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { getRace, getBike, getRacer, getDistance, getRaceDuration, getSpeed } from '../../selectors';
 import racerStyles from '../race-preview/RacerSelect.css';
+
+const renderFinishTime = (clock) => {
+  let minutes = Math.floor(clock.asMinutes()).toFixed(0);
+  let seconds = (clock.asSeconds() % 60).toFixed(2);
+  if (minutes.length < 2) {
+    minutes = `0${minutes}`;
+  }
+  if (seconds.length < 4) {
+    seconds = `0${seconds}`;
+  }
+  return `${minutes}:${seconds}`;
+};
 
 class RacerStats extends Component {
   static propTypes = {
@@ -12,11 +25,16 @@ class RacerStats extends Component {
     racer: PropTypes.object,
     measurementSystem: PropTypes.string,
     distance: PropTypes.number,
-    speed: PropTypes.number
+    speed: PropTypes.number,
+    race: PropTypes.objectOf({
+      results: PropTypes.arrayOf({
+        finishTime: PropTypes.object // import moment-propTypes for proper type checking
+      })
+    })
   };
 
   render() {
-    const { bikeIndex, bike, racer, measurementSystem, distance, speed } = this.props;
+    const { bikeIndex, bike, racer, measurementSystem, distance, speed, race } = this.props;
 
     return (
       <div className={`col-xs-3 ${racerStyles['racer-select']}`}>
@@ -59,7 +77,11 @@ class RacerStats extends Component {
           >
             FIN
           </span>
-          00:00:00.0 (Not Implemented)
+          {
+            race.results[bikeIndex] !== null ?
+              renderFinishTime(moment.duration(race.results[bikeIndex].finishTime.valueOf() - race.startTime.valueOf()))
+              : '_ _ : _ _ . _ _'
+          }
         </div>
       </div>
     );
@@ -69,6 +91,7 @@ class RacerStats extends Component {
 function mapStateToProps(state, props) {
   return {
     ...props,
+    race: getRace(state, props),
     bike: getBike(state, props),
     racer: getRacer(state, props),
     measurementSystem: getRace(state, props).measurementSystem,
