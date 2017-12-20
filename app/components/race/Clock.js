@@ -18,7 +18,7 @@ const renderTimer = (clock) => {
 };
 
 // Todo: find a better way to not duplicate this code
-const getDistance = (race, bikeIndex, bike,bikeTicks) => {
+const getDistance = (race, bikeIndex, bike, bikeTicks) => {
   let coEf = 0;
   if (bike.rollerDiameter.unit === 'centimeter') {
     if (race.measurementSystem === 'metric') {
@@ -48,10 +48,12 @@ export default class Clock extends Component {
   static propTypes = {
     race: PropTypes.object.isRequired,
     bikes: PropTypes.array.isRequired,
+    bikeTicks: PropTypes.number,
     startTime: PropTypes.object
   };
 
   static defaultProps = {
+    bikeTicks: 0,
     startTime: undefined
   };
 
@@ -79,7 +81,7 @@ export default class Clock extends Component {
 
   render() {
     const clock = this.state.clock || 0;
-    const { race, bikes, bikeTicks} = this.props;
+    const { race, bikes, bikeTicks } = this.props;
     return (
       <div className={styles['clock-frame']}>
         <div className={styles['clock-face']}>
@@ -111,16 +113,14 @@ export default class Clock extends Component {
           >
             <Layer listening={false}>
               {Object.keys(race.bikeRacerMap)
+                .map(strIndex => parseInt(strIndex, 10))
                 .filter(bikeIndex => (typeof race.bikeRacerMap[bikeIndex] !== 'undefined'))
                 .map(bikeIndex => (
                   <Indicator
                     key={`Indicator-${bikeIndex}`}
-                    color={bikes[parseInt(bikeIndex, 10)].color}
+                    color={bikes[bikeIndex].color}
                     rotation={
-                      getRotation(
-                        getDistance(race, parseInt(bikeIndex, 10), bikes[parseInt(bikeIndex, 10)],bikeTicks),
-                        race
-                      )
+                      getRotation(getDistance(race, bikeIndex, bikes[bikeIndex], bikeTicks), race)
                     }
                   />
                 ))
