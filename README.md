@@ -4,34 +4,19 @@ This project was forked (with love) from [electron-react-boilerplate](https://gi
 
 ## Install
 
-First, clone the repo via git:
+*Note: requires a node version >= 4 and an npm version >= 2.*
 
 ```bash
-git clone https://github.com/opensprints/opensprints-electron.git
-```
-
-And install [yarn](https://yarnpkg.com/en/docs/install) package manager.
-
-```bash
-$ cd opensprints-electron && yarn  
+$ git clone https://github.com/opensprints/opensprints-electron.git
+$ cd opensprints-electron
+$ rm -rf node_modules && npm cache clean && npm i && npm rb
 ```
 
 ## Run
 
-Run two servers with one command
-
 ```bash
-$ yarn run dev
+$ npm run dev
 ```
-
-If there are issues, this sequence of commands worked:
-
-```bash
-rm -rf node_modules && npm cache clean && npm i && npm rb && yarn run dev
-```
-
-*Note: requires a node version >= 4 and an npm version >= 2.*
-
 
 ## DevTools
 
