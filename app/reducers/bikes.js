@@ -3,28 +3,28 @@ import {LOAD} from 'redux-storage';
 const initialState = [
   {
     rollerDiameter: {
-      value: 3.9,
+      value: 4.5,
       unit: 'inch'
     },
     color: '#881212'
   },
   {
     rollerDiameter: {
-      value: 3.9,
+      value: 4.5,
       unit: 'inch'
     },
     color: '#2521C2'
   },
   {
     rollerDiameter: {
-      value: 3.9,
+      value: 4.5,
       unit: 'inch'
     },
     color: '#7C2B9A'
   },
   {
     rollerDiameter: {
-      value: 3.9,
+      value: 4.5,
       unit: 'inch'
     },
     color: '#1F7C46'
