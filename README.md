@@ -4,7 +4,7 @@ This project was forked (with love) from [electron-react-boilerplate](https://gi
 
 ## Install
 
-*Note: requires a node version >= 4 and an npm version >= 2.*
+*Note: requires a [node](https://nodejs.org/en/download/) version >= 4 and an [npm](https://docs.npmjs.com/getting-started/installing-node) version >= 2.*
 
 ```bash
 $ git clone https://github.com/opensprints/opensprints-electron.git
