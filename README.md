@@ -1,50 +1,59 @@
 # OpenSprints Electron [![Build Status](https://travis-ci.org/opensprints/opensprints-electron.svg?branch=master)](https://travis-ci.org/opensprints/opensprints-electron)
 
-This project was forked (with love) from [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate)
+## Install for Development or Building Locally
 
-## Install
+### Install NVM
 
-*Note: requires a [node](https://nodejs.org/en/download/) version >= 4 and an [npm](https://docs.npmjs.com/getting-started/installing-node) version >= 2.*
+To install or update nvm, you can use the install script using cURL:
+
+```sh
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+```
+
+or Wget:
+
+```sh
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+```
+
+<sub>The script clones the nvm repository to `~/.nvm` and adds the source line to your profile (`~/.bash_profile`, `~/.zshrc`, `~/.profile`, or `~/.bashrc`).</sub>
+
+```sh
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+```
+
+Any issues with NVM install can be solved by reading their [README](https://github.com/creationix/nvm).
+
+Install `node` version 8 using `nvm`:
+
+```bash
+nvm install 8
+```
+
+### Install Electron Dependencies
+
+Electron has certain dependencies on each system and those need to be installed for Electron to build correctly.
+
+[Linux Build Instructions](https://electronjs.org/docs/development/build-instructions-linux)
+
+[macOS Build Instructions](https://electronjs.org/docs/development/build-instructions-osx)
+
+[Windows Build Instructions](https://electronjs.org/docs/development/build-instructions-windows)
+
+After those dependencies are taken care of,
+we can finally grab the source code for this project and have it grab it's dependencies:
 
 ```bash
 $ git clone https://github.com/opensprints/opensprints-electron.git
 $ cd opensprints-electron
-$ rm -rf node_modules && npm cache clean && npm i && npm rb
+$ npm install
 ```
 
 ## Run
 
 ```bash
 $ npm run dev
-```
-
-## DevTools
-
-#### Toggle Chrome DevTools
-
-- OS X: <kbd>Cmd</kbd> <kbd>Alt</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
-- Linux: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
-- Windows: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
-
-*See [electron-debug](https://github.com/sindresorhus/electron-debug) for more information.*
-
-#### DevTools extension
-
-This boilerplate is included following DevTools extensions:
-
-* [Devtron](https://github.com/electron/devtron) - Install via [electron-debug](https://github.com/sindresorhus/electron-debug).
-* [React Developer Tools](https://github.com/facebook/react-devtools) - Install via [electron-devtools-installer](https://github.com/GPMDP/electron-devtools-installer).
-* [Redux DevTools](https://github.com/zalmoxisus/redux-devtools-extension) - Install via [electron-devtools-installer](https://github.com/GPMDP/electron-devtools-installer).
-
-You can find the tabs on Chrome DevTools.
-
-If you want to update extensions version, please set `UPGRADE_EXTENSIONS` env, just run:
-
-```bash
-$ UPGRADE_EXTENSIONS=1 npm run dev
-
-# For Windows
-$ set UPGRADE_EXTENSIONS=1 && npm run dev
 ```
 
 ## Externals
@@ -68,7 +77,6 @@ All `.css` file extensions will use css-modules unless it has `.global.css`.
 
 If you need global styles, stylesheets with `.global.css` will not go through the
 css-modules loader. e.g. `app.global.css`
-
 
 ## Package
 
@@ -123,7 +131,7 @@ We use [webpack-target-electron-renderer](https://github.com/chentsulin/webpack-
 
 > Note: webpack >= 1.12.15 has built-in support for `electron-main` and `electron-renderer` targets.
 
-## How to keep the boilerplate updated
+## How to keep your fork of this code updated
 
 If your application is a fork from this repo, you can add this repo to another git remote:
 
@@ -140,7 +148,6 @@ git pull upstream master
 ## Native-like UI
 
 If you want to have native-like User Interface (OS X El Capitan and Windows 10), [react-desktop](https://github.com/gabrielbull/react-desktop) may perfect suit for you.
-
 
 ## Maintainers
 
