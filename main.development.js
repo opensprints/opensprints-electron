@@ -198,22 +198,17 @@ app.on('ready', async () => {
       submenu: [{
         label: 'Learn More',
         click() {
-          shell.openExternal('http://electron.atom.io');
+          shell.openExternal('https://github.com/opensprints/opensprints-electron');
         }
       }, {
         label: 'Documentation',
         click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
-        }
-      }, {
-        label: 'Community Discussions',
-        click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
+          shell.openExternal('https://github.com/opensprints/opensprints-electron/tree/master/docs#readme');
         }
       }, {
         label: 'Search Issues',
         click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
+          shell.openExternal('https://github.com/opensprints/opensprints-electron/issues');
         }
       }]
     }];
@@ -265,22 +260,17 @@ app.on('ready', async () => {
       submenu: [{
         label: 'Learn More',
         click() {
-          shell.openExternal('http://electron.atom.io');
+          shell.openExternal('https://github.com/opensprints/opensprints-electron');
         }
       }, {
         label: 'Documentation',
         click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
-        }
-      }, {
-        label: 'Community Discussions',
-        click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
+          shell.openExternal('https://github.com/opensprints/opensprints-electron/tree/master/docs#readme');
         }
       }, {
         label: 'Search Issues',
         click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
+          shell.openExternal('https://github.com/opensprints/opensprints-electron/issues');
         }
       }]
     }];
@@ -289,43 +279,106 @@ app.on('ready', async () => {
   }
 });
 
-// var remote = require('remote');
-// var ipc = require('electron').ipcRenderer;
-// var Menu = remote.require('menu');
+const defaults = {
+  raceScreen: '../images/open-sprints-bg.jpg',
+  raceClock: '../images/open-sprints-bg.jpg',
+  intermissionScreen: '../images/open-sprints-bg.jpg'
+};
 
-// serial.findArduino(function(serialPort) {
-//  serialPort.on('data', function(data) {
-//    console.log(data);
-//  });
-//  serialPort.open(function(){
-//    serialPort.write('g\n', function(err, result) {
-//      console.log(result);
-//      serialPort.drain(function() {
-//        console.log('hello!');
-//      });
-//    });
-//  });
+const wallpaperTemplates = {
+  raceScreen: 'images/open-sprints-background.psd',
+  raceClock: 'images/open-sprints-clock.psd',
+  intermissionScreen: 'images/open-sprints-intermission.psd'
+};
 
-// TODO: notify that a new Arduino device has been detected.
-// We have the arduino port!
-// console.log('MEGA-GIGA-BYTE SON!');
-// TODO: What do we do with it?
-// });
+const fileTypes = {
+  'png': 'image/png',
+  'jpg': 'image/jpeg',
+  'jpeg': 'image/jpeg',
+  'jpe': 'image/jpeg',
+  'gif': 'image/gif',
+  'webp': 'image/webp'
+};
 
-// var menu = Menu.buildFromTemplate([
-//  {
-//    // first menu element's label doesn't matter on OSX, it's the name of your application
-//    // for consistency, use your application name as the label
-//    label: 'Something',
-//    submenu: [
-//      {
-//        label: 'Preferences',
-//        click: function() {
-//          ipc.send('toggle-preferences');
-//        }
-//      }
-//    ]
-//  }
-// ]);
+class Store {
+  constructor(opts) {
+    // Renderer process has to get `app` module via `remote`, whereas the main process can get it directly
+    // app.getPath('userData') will return a string of the user's app data directory path.
+    const userDataPath = app.getPath('userData');
+    // We'll use the `configName` property to set the file name and path.join to bring it all together as a string
+    this.path = path.join(userDataPath, opts.configName + '.json');
 
-// Menu.setApplicationMenu(menu);
+    this.data = parseDataFile(this.path, opts.defaults);
+  }
+
+  // This will just return the property on the `data` object
+  get(key) {
+    return this.data[key];
+  }
+
+  set(key, val) {
+    this.data[key] = val;
+    // Wait, I thought using the node.js' synchronous APIs was bad form?
+    // We're not writing a server so there's not nearly the same IO demand on the process
+    // Also if we used an async API and our app was quit before the asynchronous write had a chance to complete,
+    // we might lose that data. Note that in a real app, we would try/catch this.
+    fs.writeFileSync(this.path, JSON.stringify(this.data));
+  }
+
+  getBackground(key, fn) {
+    const filePath = this.get(key);
+
+    if (filePath === defaults[key]) {
+      fn(null, this.get(key));
+      return;
+    }
+
+    const fileExt = filePath.substring(filePath.lastIndexOf('.') + 1);
+    const fileType = fileTypes[fileExt];
+
+    fs.readFile(filePath, (err, buffer) => {
+      if (err) {
+        fn(err);
+        return;
+      }
+      fn(null, `data:${fileType};base64,` + buffer.toString('base64'));
+    });
+  }
+
+  setNewBackground(key, filePath, fileName, fn) {
+    this.set(key, path.join(app.getPath('userData'), fileName));
+    const writeFileStream = fs.createWriteStream(path.join(app.getPath('userData'), fileName));
+    writeFileStream.on('close', () => fn(null));
+    writeFileStream.on('error', (err) => fn(err));
+    fs.createReadStream(filePath).pipe(writeFileStream);
+  }
+
+  downloadTemplate(bKey, fn) {
+    const writeFileStream = fs.createWriteStream(path.join(app.getPath('downloads'),
+      wallpaperTemplates[bKey].substring(wallpaperTemplates[bKey].lastIndexOf('/') + 1))
+    );
+    writeFileStream.on('close', () => fn(null));
+    writeFileStream.on('error', (err) => fn(err));
+    fs.createReadStream(path.join(__dirname, wallpaperTemplates[bKey])).pipe(writeFileStream)
+  }
+}
+
+function parseDataFile(filePath, defaults) {
+  // We'll try/catch it in case the file doesn't exist yet, which will be the case on the first application run.
+  // `fs.readFileSync` will return a JSON string which we then parse into a Javascript object
+  try {
+    return JSON.parse(fs.readFileSync(filePath));
+  } catch(error) {
+    // if there was some kind of error, return the passed in defaults instead.
+    return defaults;
+  }
+}
+
+global.wallpaperStore = new Store({
+  configName: 'wallpaper-config',
+  defaults: {
+    raceScreen: '../images/open-sprints-bg.jpg',
+    raceClock: '../images/open-sprints-bg.jpg',
+    intermissionScreen: '../images/open-sprints-bg.jpg'
+  }
+});

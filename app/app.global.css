@@ -3,11 +3,17 @@
 body {
   font-size: 16px;
   font-family: 'Lato', sans-serif;
-  background: url("../images/open-sprints-bg.jpg") no-repeat center center fixed;
+  background: black;
   background-size: cover;
   -webkit-font-smoothing: antialiased;
   text-shadow: rgba(0,0,0,.01) 0 0 1px;
   color: white;
+}
+
+.background {
+  background-size: cover;
+  min-height: 100vh;
+  width: auto;
 }
 
 /* Material Design Icon Spec */

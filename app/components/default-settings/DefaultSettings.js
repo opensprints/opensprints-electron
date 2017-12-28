@@ -16,7 +16,7 @@ const RaceScreenSettings = () => (
         <span className="label text-uppercase">
           Race Screen Background
         </span>
-        <Background />
+        <Background bKey="raceScreen" />
       </div>
     </div>
     <div className="col-xs-6">
@@ -24,7 +24,7 @@ const RaceScreenSettings = () => (
         <span className="label text-uppercase">
           Race Clock Background
         </span>
-        <Background />
+        <Background bKey="raceClock" />
       </div>
     </div>
   </div>
@@ -37,7 +37,7 @@ const IntermissionScreenSettings = () => (
         <span className="label text-uppercase">
           Intermission Screen Background
         </span>
-        <Background />
+        <Background bKey="intermissionScreen" />
       </div>
       <i className="material-icons">add_circle</i>
       Add an Intermission Screen Background
