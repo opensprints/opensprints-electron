@@ -48,6 +48,9 @@
     "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --compilers js:babel-register --require ./test/setup.js ./test/e2e.js",
     "test-watch": "npm test -- --watch"
   },
+  "devDependencies": {
+    "electron-packager": "^10.1.0"
+  },
   "dependencies": {
     "asar": "^0.14.0",
     "babel-core": "^6.26.0",
@@ -75,7 +78,6 @@
     "electron": "^1.7.9",
     "electron-debug": "^1.4.0",
     "electron-devtools-installer": "^2.2.1",
-    "electron-packager": "^10.1.0",
     "electron-rebuild": "^1.6.0",
     "eslint": "^4.13.0",
     "eslint-config-airbnb": "^16.1.0",
@@ -130,7 +132,7 @@
     "webpack-merge": "^4.1.1"
   },
   "devEngines": {
-    "node": "4.x || 5.x || 6.x || 8.x",
-    "npm": "2.x || 3.x || 4.x || 5.x"
+    "node": ">8.5",
+    "npm": "5.x"
   }
 }
