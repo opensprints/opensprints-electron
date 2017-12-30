@@ -21,16 +21,20 @@ class RacerStats extends Component {
   static propTypes = {
     bikeIndex: PropTypes.number.isRequired,
 
-    bike: PropTypes.object,
-    racer: PropTypes.object,
-    measurementSystem: PropTypes.string,
-    distance: PropTypes.number,
-    speed: PropTypes.number,
+    bike: PropTypes.object.isRequired,
+    measurementSystem: PropTypes.string.isRequired,
+    distance: PropTypes.number.isRequired,
+    speed: PropTypes.number.isRequired,
     race: PropTypes.objectOf({
       results: PropTypes.arrayOf({
         finishTime: PropTypes.object // import moment-propTypes for proper type checking
       })
-    })
+    }).isRequired,
+    racer: PropTypes.object
+  };
+
+  static defaultProps = {
+    racer: undefined
   };
 
   render() {
@@ -49,7 +53,7 @@ class RacerStats extends Component {
           className={racerStyles['racer-edit-container']}
         >
           <span className={racerStyles.name}>
-            {racer.name}
+            {racer ? racer.name : ''}
           </span>
           <div>
             {measurementSystem === 'metric' ?
@@ -79,8 +83,9 @@ class RacerStats extends Component {
           </span>
           {
             race.results[bikeIndex] !== null ?
-              renderFinishTime(moment.duration(race.results[bikeIndex].finishTime.valueOf() - race.startTime.valueOf()))
-              : '_ _ : _ _ . _ _'
+              renderFinishTime(moment.duration(
+                race.results[bikeIndex].finishTime.valueOf() - race.startTime.valueOf()
+              )) : '_ _ : _ _ . _ _'
           }
         </div>
       </div>

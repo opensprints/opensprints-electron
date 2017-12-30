@@ -8,6 +8,9 @@ export const getBikeIndex = (_, props) => props.bikeIndex;
 
 export const getRacers = state => state.racers.present;
 
+/**
+ * @returns {Object|undefined}
+ */
 export const getRacer = (state, props) =>
   state.racers.present.find(
     racer => racer.id === getRace(state, props).bikeRacerMap[props.bikeIndex]
