@@ -1,5 +1,5 @@
 import { UPDATE_BIKES_AVAILABLE, UPDATE_BIKE_CONFIGURATION } from '../actions/bike';
-import {LOAD} from 'redux-storage';
+
 const initialState = [
   {
     rollerDiameter: {
@@ -32,10 +32,7 @@ const initialState = [
 ];
 
 export default function bikes(state = initialState, action) {
-  console.log(state,action);
   switch (action.type) {
-    // case LOAD:
-    //   return action.payload.bikes;
     case UPDATE_BIKES_AVAILABLE:
       if (action.n > state.length) {
         return [

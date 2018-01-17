@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import PlainContext from './PlainContext';
 
-const appendZero = (val) => (val < 10 ? `0${val}` : val);
+const appendZero = val => (val < 10 ? `0${val}` : val);
 
 export default class RaceDurationSetting extends Component {
   static propTypes = {

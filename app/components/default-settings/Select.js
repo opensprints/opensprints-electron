@@ -5,7 +5,13 @@ export default class Select extends Component {
   static propTypes = {
     selectProps: PropTypes.object,
     children: PropTypes.array
-  }
+  };
+
+  static defaultProps = {
+    selectProps: {},
+    children: []
+  };
+
   render() {
     const { selectProps = {}, children } = this.props;
     const { style } = selectProps;

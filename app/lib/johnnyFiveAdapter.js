@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 // Connecting to the arduino and configuring its gpio pin.
 // Each 'up' on a sensor is a 'tick'.
 

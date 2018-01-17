@@ -5,7 +5,11 @@ export default class Checkbox extends Component {
   static propTypes = {
     checked: PropTypes.bool,
     children: PropTypes.string.isRequired
-  }
+  };
+
+  static defaultProps = {
+    checked: false
+  };
 
   render() {
     const { checked, children, ...props } = this.props;

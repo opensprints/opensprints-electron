@@ -5,7 +5,11 @@ import styles from './settings.css';
 export default class PlainContext extends Component {
   static propTypes = {
     children: PropTypes.string
-  }
+  };
+
+  static defaultProps = {
+    children: ''
+  };
 
   render() {
     const { children } = this.props;

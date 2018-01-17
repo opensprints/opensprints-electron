@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
+import every from 'lodash/every';
+import has from 'lodash/has';
 import styles from './Race.css';
 import Clock from './Clock';
 import RacerStats from './RacerStats';
 import MessagesContainer from '../crowd-messaging/messages-container';
-import _ from 'lodash';
 
 const BlueMessage = ({ style, children }) => (
   <div
@@ -87,7 +88,8 @@ export default class Race extends Component {
     goBack: PropTypes.func.isRequired,
     finishRace: PropTypes.func.isRequired,
     incrementRacer: PropTypes.func.isRequired,
-    callRace: PropTypes.func.isRequired
+    callRace: PropTypes.func.isRequired,
+    finishRacer: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -97,28 +99,19 @@ export default class Race extends Component {
   }
 
   componentDidMount() {
-    const _this = this;
     global.j5$
       .subscribe((x) => {
-        const tick2complete = _this.props.race.ticksToCompleteByBike[x];
-        if (tick2complete < _this.state.bikeTicks[x] + 1) { return; }
-        const nextBikeTicks = [..._this.state.bikeTicks];
+        const tick2complete = this.props.race.ticksToCompleteByBike[x];
+        if (tick2complete < this.state.bikeTicks[x] + 1) { return; }
+        const nextBikeTicks = [...this.state.bikeTicks];
         const next = nextBikeTicks[x] += 1;
-        _this.setState({ bikeTicks: nextBikeTicks });
-        if (tick2complete === next) { _this.props.finishRacer(x); }
+        this.setState({ bikeTicks: nextBikeTicks });
+        if (tick2complete === next) { this.props.finishRacer(x); }
       });
-  //  .bufferTime(50)
-    // .subscribe((arr)=>{
-    //   if (arr.length){
-    //     let nextBikeTicks = [..._this.state.bikeTicks]
-    //     _(arr).groupBy().each(x=> nextBikeTicks[x[0]] += x.length)
-    //     _this.setState({bikeTicks:nextBikeTicks})
-    //   }
-    // });
   }
-  componentWillUpdate(nextP, nextS) {
+  componentWillUpdate(nextP) {
     // is the race complete?
-    if (_.every(nextP.race.results, x => _.has(x, 'place'))) {
+    if (every(nextP.race.results, x => has(x, 'place'))) {
       nextP.finishRace(nextP.race);
     }
   }
@@ -151,7 +144,6 @@ export default class Race extends Component {
     this.setState(initialState(this.props.messages));
   }
 
-  startRace() {}
   render() {
     const { race, bikes, callRace } = this.props;
     return (
@@ -162,7 +154,12 @@ export default class Race extends Component {
             style={{ marginBottom: '6px' }}
             className="col-xs-6"
           >
-            <Clock startTime={race.startTime} race={race} bikes={bikes} bikeTicks={this.state.bikeTicks} />
+            <Clock
+              startTime={race.startTime}
+              race={race}
+              bikes={bikes}
+              bikeTicks={this.state.bikeTicks}
+            />
             <div className="col-xs-6">
               <button
                 style={{

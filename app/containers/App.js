@@ -12,7 +12,6 @@ import IntermissionPage from './IntermissionPage';
 import RaceResultsPage from './RaceResultsPage';
 
 const store = remote.getGlobal('wallpaperStore');
-const defaultBackground = '../images/open-sprints-bg.jpg';
 
 export default class App extends Component {
   constructor(props) {
@@ -23,6 +22,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    // eslint-disable-next-line react/prop-types
     this.currentPageWallpaper(this.props.location.pathname);
   }
 

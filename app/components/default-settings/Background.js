@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { remote } from 'electron';
 
 const store = remote.getGlobal('wallpaperStore');
@@ -10,6 +11,10 @@ const wallpaperTemplatePreviews = {
 };
 
 export default class Background extends Component {
+  static propTypes = {
+    bKey: PropTypes.string.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {

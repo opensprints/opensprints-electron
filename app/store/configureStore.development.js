@@ -2,10 +2,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { createLogger } from 'redux-logger';
 import { routerMiddleware } from 'react-router-redux';
 import moment from 'moment';
-import rootReducer from '../reducers';
 import * as storage from 'redux-storage';
 import createEngine from 'redux-storage-engine-localstorage';
-
+import rootReducer from '../reducers';
 
 const logger = createLogger({
   level: 'info',
@@ -21,12 +20,12 @@ export default function configureStore(history) {
 
   const reducer = storage.reducer(rootReducer);
 
-  function replacer(key, value) {
-    if (typeof value === 'moment') {
-      return 'foo';
-    }
-    return value;
-  }
+  // function replacer(key, value) {
+  //   if (typeof value === 'moment') {
+  //     return 'foo';
+  //   }
+  //   return value;
+  // }
 
   function reviver(key, value) {
     if (key.toLowerCase().includes('duration')) {

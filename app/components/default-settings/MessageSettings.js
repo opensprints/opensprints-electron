@@ -6,7 +6,7 @@ export default class MessageSettings extends Component {
   static propTypes = {
     messages: PropTypes.object.isRequired,
     updateMessageText: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);

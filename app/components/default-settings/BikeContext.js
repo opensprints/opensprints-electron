@@ -4,8 +4,8 @@ import styles from './settings.css';
 
 export default class BikeContext extends Component {
   static propTypes = {
-    children: PropTypes.number
-  }
+    children: PropTypes.number.isRequired
+  };
 
   render() {
     const { children } = this.props;

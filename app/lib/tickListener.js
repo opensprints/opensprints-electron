@@ -4,7 +4,7 @@ const NUM_RACERS = 4;
 const counts = [];
 const tickFunctions = [];
 
-const sensorFunctionFactory = (i) => () => {
+const sensorFunctionFactory = i => () => {
   counts[i] += 1;
   console.log('Racer %s has %s ticks', i, counts[i]);
 };

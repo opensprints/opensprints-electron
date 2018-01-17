@@ -7,7 +7,12 @@ export default class MessagesContainer extends Component {
   static propTypes = {
     audienceMessages: PropTypes.array.isRequired,
     addMessage: PropTypes.func.isRequired,
-    editMessage: PropTypes.func.isRequired
+    editMessage: PropTypes.func.isRequired,
+    style: PropTypes.object
+  };
+
+  static defaultProps = {
+    style: undefined
   };
 
   constructor(props, context) {

@@ -11,6 +11,12 @@ class StaticDropdown extends Component {
     onOptionClicked: PropTypes.func
   };
 
+  static defaultProps = {
+    label: '',
+    options: [],
+    onOptionClicked: undefined
+  };
+
   constructor(props, state) {
     super(props, state);
     this.state = {
@@ -90,6 +96,8 @@ class StaticDropdown extends Component {
         onMouseLeave={this.handleDropdownClose.bind(this)}
       >
         <div
+          tabIndex="-1"
+          role="menu"
           className={`${baseClassName}-control`}
           onMouseDown={this.handleMouseDown.bind(this)}
           onTouchEnd={this.handleMouseDown.bind(this)}

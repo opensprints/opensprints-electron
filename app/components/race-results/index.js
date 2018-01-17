@@ -7,11 +7,26 @@ export default class RacePreview extends Component {
     race: PropTypes.object.isRequired,
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
-    onAdHocRaceClick: PropTypes.func.isRequired
+    onAdHocRaceClick: PropTypes.func.isRequired,
+    goToNextRace: PropTypes.func.isRequired,
+    goToRoster: PropTypes.func.isRequired,
+    nextRace: PropTypes.object
+  };
+
+  static defaultProps = {
+    nextRace: null
   };
 
   render() {
-    const { race, racers, bikes, onAdHocRaceClick, nextRace, goToNextRace, goToRoster } = this.props;
+    const {
+      race,
+      racers,
+      bikes,
+      onAdHocRaceClick,
+      nextRace,
+      goToNextRace,
+      goToRoster
+    } = this.props;
     return (
       <div className="container">
         <div className="row">
@@ -37,7 +52,13 @@ export default class RacePreview extends Component {
             </button>
             <button
               className="btn btn-primary"
-              onClick={() => { nextRace ? goToNextRace(nextRace) : goToRoster(); }}
+              onClick={() => {
+                if (nextRace) {
+                  goToNextRace(nextRace);
+                } else {
+                  goToRoster();
+                }
+              }}
             >
               {nextRace !== undefined ? 'Next Race' : 'All Races Finished'}
             </button>

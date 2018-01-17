@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import _ from 'lodash';
 import * as RaceActions from '../actions/race';
 import RaceResults from '../components/race-results';
-import _ from 'lodash';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -23,7 +23,7 @@ function mapDispatchToProps(dispatch) {
     onAdHocRaceClick: () => {
       const newRace = RaceActions.addEmptyRace();
       dispatch(newRace);
-      dispatch(push(`/race-preview/${newRace.race.id} `));
+      dispatch(push(`/race-preview/${newRace.race.id}`));
     }
   };
 }

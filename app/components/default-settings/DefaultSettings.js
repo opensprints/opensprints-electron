@@ -83,7 +83,7 @@ const BikeCount = ({ bikes, updateBikesAvailable }) => (
           value: bikes.length
         }}
       >
-        {[2, 4].map((num) => (
+        {[2, 4].map(num => (
           <option key={`bikeNum-option-${num}`} value={num}>{num}</option>
         ))}
       </Select>
@@ -158,7 +158,7 @@ BikeRollerDimensions.propTypes = {
 export default class DefaultSettings extends Component {
   static propTypes = {
     bikes: PropTypes.array.isRequired,
-    messages: PropTypes.object,
+    messages: PropTypes.object.isRequired,
     updateBikesAvailable: PropTypes.func.isRequired,
     updateBikeConfiguration: PropTypes.func.isRequired,
     updateMessageText: PropTypes.func.isRequired,
@@ -166,7 +166,7 @@ export default class DefaultSettings extends Component {
     toggleAttribute: PropTypes.func.isRequired,
     changeDefaultRaceSetting: PropTypes.func.isRequired,
     defaultRaceSettings: PropTypes.object.isRequired
-  }
+  };
 
   render() {
     const {
