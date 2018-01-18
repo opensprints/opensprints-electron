@@ -29,6 +29,7 @@ const racerAttributeSelect = (key, options, value, onChange) => (
 
 export default class RacerEdit extends Component {
   static propTypes = {
+    classNames: PropTypes.string,
     bikeIndex: PropTypes.number.isRequired,
     bike: PropTypes.object.isRequired,
     racer: PropTypes.object,
@@ -40,6 +41,7 @@ export default class RacerEdit extends Component {
   };
 
   static defaultProps = {
+    classNames: '',
     racer: {}
   };
 
@@ -58,12 +60,21 @@ export default class RacerEdit extends Component {
   }
 
   render() {
-    const { racerAttributes, bikeIndex, bike, onDelete, onAdd, onEdit, onSwap } = this.props;
+    const {
+      classNames,
+      racerAttributes,
+      bikeIndex,
+      bike,
+      onDelete,
+      onAdd,
+      onEdit,
+      onSwap
+    } = this.props;
     const { editing, racer } = this.state;
     const canAdd = !editing && !racer.createdDate;
 
     return (
-      <div className={`${styles['racer-select']} col-xs-3`}>
+      <div className={`${styles['racer-select']} col-xs-3 ${classNames}`}>
         <div
           className={`${styles['bike-indicator']} unselectable ${canAdd ? styles.action : ''}`}
           style={{ backgroundColor: bike.color }}

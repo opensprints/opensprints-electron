@@ -90,6 +90,8 @@ export default class RacePreview extends Component {
         <div className="row">
           {bikes.map((bike, i) => (
             <RacerEdit
+              classNames={
+                Object.keys(race.bikeRacerMap).length < 4 && i === 0 ? 'col-xs-offset-3' : ''}
               racerAttributes={racerAttributes}
               key={`QuickRacerDisplay-${i}`}
               bikeIndex={i}
