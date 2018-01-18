@@ -46,7 +46,7 @@ export default class RacePreview extends Component {
           <div className="col-xs-offset-4 col-xs-4">
             <button
               className="btn btn-default"
-              onClick={onAdHocRaceClick}
+              onClick={() => onAdHocRaceClick(bikes)}
             >
               Ad Hoc Race
             </button>

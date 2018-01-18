@@ -18,10 +18,10 @@ export function updateRace(newRace) {
   };
 }
 
-export function addEmptyRace() {
+export function addEmptyRace(bikes) {
   return {
     type: ADD_AD_HOC_RACE,
-
+    bikes
   };
 }
 

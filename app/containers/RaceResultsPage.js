@@ -20,8 +20,8 @@ function mapDispatchToProps(dispatch) {
   return {
     goToRoster: () => dispatch(push('/roster')),
     goToNextRace: race => dispatch(push(`/race-preview/${race.id}`)),
-    onAdHocRaceClick: () => {
-      const newRace = RaceActions.addEmptyRace();
+    onAdHocRaceClick: (bikes) => {
+      const newRace = RaceActions.addEmptyRace(bikes);
       dispatch(newRace);
       dispatch(push(`/race-preview/${newRace.race.id}`));
     }

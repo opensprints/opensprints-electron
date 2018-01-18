@@ -35,6 +35,9 @@ export default function races(state = [], action) {
         bikeTicks: [],
         createdDate: moment()
       };
+      action.bikes.forEach((_, i) => {
+        race.bikeRacerMap[i] = -1;
+      });
 
       return [
         race,
