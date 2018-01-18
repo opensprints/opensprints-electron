@@ -34,7 +34,7 @@ export default class RaceSetup extends Component {
     startSpecificRace: PropTypes.func.isRequired,
     removeRace: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
