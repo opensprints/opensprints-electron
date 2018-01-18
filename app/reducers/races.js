@@ -1,5 +1,5 @@
 import moment from 'moment';
-import _ from 'lodash';
+import filter from 'lodash/filter';
 import { LOAD } from 'redux-storage';
 import {
   ADD_AD_HOC_RACE,
@@ -178,6 +178,6 @@ export default function races(state = [], action) {
 function getPlace(state) {
   const place = { finishTime: moment() };
   // what place are they?
-  place.place = _.filter(state.results, 'place').length + 1;
+  place.place = filter(state.results, 'place').length + 1;
   return place;
 }
