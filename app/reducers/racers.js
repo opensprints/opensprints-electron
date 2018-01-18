@@ -6,6 +6,7 @@ window.newRacerId = null;
 
 const racers = (state = [], action) => {
   switch (action.type) {
+    // FIXME: Not working!!!
     case 'REDUX_STORAGE_LOAD': {
       const savedRacers = action.payload.racers.present;
       if (window.newRacerId === null) {
