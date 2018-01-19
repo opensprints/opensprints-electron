@@ -148,17 +148,17 @@ export default function races(state = [], action) {
     case END_ONGOING_RACE:
       return state.map((race) => {
         if (race.id === action.race.id) {
-          const results = Object.keys(action.race.bikeRacerMap).map(() => null);
-          Object.keys(action.race.bikeRacerMap).forEach((bikeIndex) => {
-            if (!action.race.results[bikeIndex]) {
-              results[bikeIndex] = { place: -1 };
+          const results = [...action.race.results];
+          results.forEach((_, i) => {
+            if (!action.race.results[i]) {
+              results[i] = { place: -1 };
             }
           });
           return {
             ...action.race,
             finishedDate: moment(),
             current: false,
-            results: Object.assign({}, action.race.results, results)
+            results
           };
         }
         return race;

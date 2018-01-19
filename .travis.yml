@@ -28,6 +28,4 @@ before_script:
   - sleep 3
 
 script:
-- npm run lint
-- npm run test
-- npm run package-linux
+- npm run lint && npm run test && npm run package-linux
