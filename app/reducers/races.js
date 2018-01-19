@@ -149,17 +149,11 @@ export default function races(state = [], action) {
       return state.map((race) => {
         if (race.id === action.race.id) {
           const results = Object.keys(action.race.bikeRacerMap).map(() => null);
-          if (!action.race.results) {
-            Object.keys(action.race.bikeRacerMap).forEach((bikeIndex) => {
+          Object.keys(action.race.bikeRacerMap).forEach((bikeIndex) => {
+            if (!action.race.results[bikeIndex]) {
               results[bikeIndex] = { place: -1 };
-            });
-          } else {
-            Object.keys(action.race.bikeRacerMap).forEach((bikeIndex) => {
-              if (!action.race.results[bikeIndex]) {
-                results[bikeIndex] = { place: -1 };
-              }
-            });
-          }
+            }
+          });
           return {
             ...action.race,
             finishedDate: moment(),

@@ -2,8 +2,7 @@
 import { expect } from 'chai';
 import * as actions from '../../app/actions/bike';
 
-
-describe('actions', () => {
+describe('Bike actions', () => {
   it('updateBikeConfiguration should create updateBikeConfiguration action', () => {
     const index = 0;
     const bike = {};
