@@ -35,12 +35,46 @@ const BasicHR = () => (
   />
 );
 
-const OnDeck = () => {
+const OnDeckRace = ({ queuePosition, race, racers, style, className, childStyle }) => (
+  <div style={style} className={className}>
+    {Object.keys(race.bikeRacerMap).map((key) => {
+      const modifier = Object.keys(race.bikeRacerMap).length * (queuePosition - 1);
+      const r = racers.find(racer => racer.id === race.bikeRacerMap[key]);
+      return (
+        <BlueMessage style={childStyle}>
+          {parseInt(key, 10) + 1 + modifier}. {r && r.name}
+        </BlueMessage>
+      );
+    })}
+  </div>
+);
+
+OnDeckRace.propTypes = {
+  queuePosition: PropTypes.number.isRequired,
+  race: PropTypes.object.isRequired,
+  racers: PropTypes.array.isRequired,
+  style: PropTypes.object,
+  childStyle: PropTypes.object,
+  className: PropTypes.string
+};
+
+OnDeckRace.defaultProps = {
+  style: undefined,
+  childStyle: undefined,
+  className: ''
+};
+
+
+const OnDeck = ({ currentRace, races, racers }) => {
+  const nextRaces = races.filter(race => (
+    !race.deleted && !race.finished && currentRace.id !== race.id
+  ));
   const messageGroupStyle = {
     marginTop: '5px',
     marginBottom: '20px'
   };
   const smallerLineupSize = { fontSize: '16px' };
+
   return (
     <div className="col-xs-3">
       <span
@@ -55,21 +89,33 @@ const OnDeck = () => {
         On Deck
       </span>
       <BasicHR />
-      <div style={messageGroupStyle}>
-        <BlueMessage>1. Monk Dude</BlueMessage>
-        <BlueMessage>2. Nick Stew</BlueMessage>
-        <BlueMessage>3. Yanni Boy</BlueMessage>
-        <BlueMessage>4. Clark Kent</BlueMessage>
-      </div>
-      <div style={messageGroupStyle}>
-        <BlueMessage style={smallerLineupSize}>5. Cheese Ringer</BlueMessage>
-        <BlueMessage style={smallerLineupSize}>6. Polite Windtalker</BlueMessage>
-        <BlueMessage style={smallerLineupSize}>7. Lex Lame-or</BlueMessage>
-        <BlueMessage style={smallerLineupSize}>8. Wunder Woman</BlueMessage>
-      </div>
+      {nextRaces.length > 0 ? (
+        <OnDeckRace
+          queuePosition={1}
+          race={nextRaces[0]}
+          racers={racers}
+          style={messageGroupStyle}
+        />
+      ) : ''}
+      {nextRaces.length > 1 ? (
+        <OnDeckRace
+          queuePosition={2}
+          race={nextRaces[1]}
+          racers={racers}
+          style={messageGroupStyle}
+          childStyle={smallerLineupSize}
+        />
+      ) : ''}
     </div>
   );
 };
+
+OnDeck.propTypes = {
+  currentRace: PropTypes.object.isRequired,
+  races: PropTypes.array.isRequired,
+  racers: PropTypes.array.isRequired
+};
+
 const initialState = props => ({
   showModal: true,
   countDownText: props.messages.PRE_COUNTDOWN_MESSAGE,
@@ -146,11 +192,11 @@ export default class Race extends Component {
   }
 
   render() {
-    const { race, bikes, callRace } = this.props;
+    const { race, races, racers, bikes, callRace } = this.props;
     return (
       <div className="container">
         <div className="row">
-          <OnDeck />
+          <OnDeck currentRace={race} races={races} racers={racers} />
           <div
             style={{ marginBottom: '6px' }}
             className="col-xs-6"
