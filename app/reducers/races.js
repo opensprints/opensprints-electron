@@ -35,6 +35,7 @@ export default function races(state = [], action) {
         createdDate: moment(),
         results: new Array(action.bikes.length).fill(null),
       };
+
       action.bikes.forEach((_, i) => {
         race.bikeRacerMap[i] = -1;
       });
@@ -134,10 +135,11 @@ export default function races(state = [], action) {
     case FINISH_ONGOING_RACE:
       return state.map((race) => {
         if (race.current) {
-          return { ...race,
+          return {
+            ...race,
             current: false,
             finished: true,
-            finishedDate: moment(),
+            finishedDate: moment()
           };
         }
         return race;
