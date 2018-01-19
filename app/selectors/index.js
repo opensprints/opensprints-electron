@@ -18,6 +18,7 @@ export const getRacer = (state, props) =>
 
 export const getBike = (state, props) => state.bikes[props.bikeIndex];
 
+// FIXME: bikeTicks was moved from race object in redux to the race component
 export const getDistance = createSelector(
   [getRace, getBikeIndex, getBike],
   (race, bikeIndex, bike) => {
