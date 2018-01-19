@@ -32,7 +32,6 @@ export default function races(state = [], action) {
       const race = {
         id: (window.newRaceId += 1),
         bikeRacerMap: {},
-        bikeTicks: [],
         createdDate: moment()
       };
       action.bikes.forEach((_, i) => {
@@ -49,18 +48,15 @@ export default function races(state = [], action) {
       const numOfBikes = action.bikes.length;
       for (let i = 0; i < Math.ceil(action.racerIds.length / action.bikes.length); i += 1) {
         const bikeRacerMap = {};
-        const bikeTicks = [];
         action.racerIds.slice(i * numOfBikes,
           Math.min((i + 1) * numOfBikes, action.racerIds.length)
         )
           .forEach((racerId, index) => {
             bikeRacerMap[index] = racerId;
-            bikeTicks[index] = 0;
           });
         newRaces.push({
           id: window.newRaceId += 1,
           bikeRacerMap,
-          bikeTicks,
           createdDate: moment()
         });
       }
@@ -114,7 +110,6 @@ export default function races(state = [], action) {
           const newRace = Object.assign({}, race);
           delete newRace.startTime;
           delete newRace.finishTime;
-          newRace.bikeTicks = new Array(newRace.results.length).fill(0);
           newRace.results = new Array(newRace.results.length).fill(0);
           return newRace;
         }
