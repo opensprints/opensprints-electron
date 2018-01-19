@@ -7,6 +7,7 @@ import styles from './Race.css';
 import Clock from './Clock';
 import RacerStats from './RacerStats';
 import MessagesContainer from '../crowd-messaging/messages-container';
+import { getTicksToComplete } from '../../selectors';
 
 const BlueMessage = ({ style, children }) => (
   <div
@@ -73,7 +74,8 @@ const initialState = props => ({
   showModal: true,
   countDownText: props.messages.PRE_COUNTDOWN_MESSAGE,
   countDown: 4,
-  bikeTicks: new Array(props.race.results.length).fill(0)
+  bikeTicks: new Array(props.race.results.length).fill(0),
+  ticksToCompleteByBike: props.bikes.map(bike => getTicksToComplete(props.race, bike))
 });
 
 export default class Race extends Component {
@@ -95,13 +97,12 @@ export default class Race extends Component {
   constructor(props) {
     super(props);
     this.state = initialState(props);
-    // TODO setup tick-listeners & pass correct props to clock & indicators
   }
 
   componentDidMount() {
     global.j5$
       .subscribe((x) => {
-        const tick2complete = this.props.race.ticksToCompleteByBike[x];
+        const tick2complete = this.state.ticksToCompleteByBike[x];
         if (tick2complete < this.state.bikeTicks[x] + 1) { return; }
         const nextBikeTicks = [...this.state.bikeTicks];
         const next = nextBikeTicks[x] += 1;
