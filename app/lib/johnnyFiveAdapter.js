@@ -6,7 +6,6 @@ const Rx = require('rxjs');
 
 const five = require('johnny-five');
 
-// const DEFAULT_NUM_BIKES = 4;
 const LED_PINS = [9, 10, 11, 12, 13];
 const SENSOR_PINS = [2, 3, 4, 5, 6];
 
@@ -47,7 +46,6 @@ module.exports = function johnnyFiveAdapter() {
       button.on('down', () => {
         led.on();
         this._tickObserver$.next(i);
-        // senseFunctions(i);
       });
 
       button.on('up', () => {
