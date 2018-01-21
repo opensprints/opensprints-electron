@@ -8,11 +8,13 @@ export default class MessagesContainer extends Component {
     audienceMessages: PropTypes.array.isRequired,
     addMessage: PropTypes.func.isRequired,
     editMessage: PropTypes.func.isRequired,
-    style: PropTypes.object
+    style: PropTypes.object,
+    limit: PropTypes.number
   };
 
   static defaultProps = {
-    style: undefined
+    style: undefined,
+    limit: -1
   };
 
   constructor(props, context) {
@@ -46,8 +48,9 @@ export default class MessagesContainer extends Component {
   }
 
   render() {
-    const { audienceMessages, style } = this.props;
+    const { audienceMessages, style, limit } = this.props;
     const { newMessageCreated, newMessageId, newHover } = this.state;
+    const end = limit !== -1 ? limit : audienceMessages.length;
     return (
       <div
         className="col-xs-3"
@@ -66,7 +69,8 @@ export default class MessagesContainer extends Component {
             style={{
               userSelect: 'none',
               padding: '6px 0 6px 6px',
-              backgroundColor: newHover && 'rgba(255,255,255,0.1)'
+              backgroundColor: newHover && 'rgba(255,255,255,0.1)',
+              color: (!newHover && '#666666')
             }}
             tabIndex="0"
             role="button"
@@ -87,7 +91,7 @@ export default class MessagesContainer extends Component {
             </i>
           </div>
         </div>
-        {audienceMessages.map(message => (
+        {audienceMessages.slice(0, end).map(message => (
           <Message
             {...this.props}
             key={`audienceMessage-${message.id}`}

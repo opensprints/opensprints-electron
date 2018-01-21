@@ -3,9 +3,11 @@ import { push } from 'react-router-redux';
 import _ from 'lodash';
 import * as RaceActions from '../actions/race';
 import RaceResults from '../components/race-results';
+import * as AudienceMessageActions from '../actions/audienceMessage';
 
 function mapStateToProps(state, ownProps) {
   return {
+    audienceMessages: state.audienceMessages,
     race: state.races.find(race => race.id === parseInt(ownProps.match.params.raceId, 10)),
     racers: state.racers.present,
     races: state.races,
@@ -18,6 +20,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    ...AudienceMessageActions,
     goToRoster: () => dispatch(push('/roster')),
     goToNextRace: race => dispatch(push(`/race-preview/${race.id}`)),
     onAdHocRaceClick: (bikes) => {

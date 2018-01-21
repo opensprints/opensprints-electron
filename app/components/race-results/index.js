@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import RacerDisplay from './RacerDisplay';
+import MessagesContainer from '../crowd-messaging/messages-container';
 
-export default class RacePreview extends Component {
+export default class RaceResults extends Component {
   static propTypes = {
     race: PropTypes.object.isRequired,
     racers: PropTypes.array.isRequired,
@@ -65,7 +66,8 @@ export default class RacePreview extends Component {
           </div>
         </div>
         <div className="row">
-          <span />
+          <div className="col-xs-9" />
+          <MessagesContainer style={{ background: 'none' }} limit={2} {...this.props} />
         </div>
       </div>
     );
