@@ -3,118 +3,11 @@ import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 import every from 'lodash/every';
 import has from 'lodash/has';
-import styles from './Race.css';
 import Clock from './Clock';
 import RacerStats from './RacerStats';
 import MessagesContainer from '../crowd-messaging/messages-container';
+import OnDeckContainer from '../on-deck/OnDeckContainer';
 import { getTicksToComplete } from '../../selectors';
-
-const BlueMessage = ({ style, children }) => (
-  <div
-    style={style}
-    className={styles['blue-message']}
-  >
-    {children}
-  </div>
-);
-BlueMessage.propTypes = {
-  style: PropTypes.object,
-  children: PropTypes.node.isRequired
-};
-
-BlueMessage.defaultProps = {
-  style: {}
-};
-
-const BasicHR = () => (
-  <hr
-    style={{
-      margin: 0,
-      clear: 'both'
-    }}
-  />
-);
-
-const OnDeckRace = ({ queuePosition, race, racers, style, className, childStyle }) => (
-  <div style={style} className={className}>
-    {Object.keys(race.bikeRacerMap).map((key) => {
-      const modifier = Object.keys(race.bikeRacerMap).length * (queuePosition - 1);
-      const r = racers.find(racer => racer.id === race.bikeRacerMap[key]);
-      return (
-        <BlueMessage style={childStyle}>
-          {parseInt(key, 10) + 1 + modifier}. {r && r.name}
-        </BlueMessage>
-      );
-    })}
-  </div>
-);
-
-OnDeckRace.propTypes = {
-  queuePosition: PropTypes.number.isRequired,
-  race: PropTypes.object.isRequired,
-  racers: PropTypes.array.isRequired,
-  style: PropTypes.object,
-  childStyle: PropTypes.object,
-  className: PropTypes.string
-};
-
-OnDeckRace.defaultProps = {
-  style: undefined,
-  childStyle: undefined,
-  className: ''
-};
-
-
-const OnDeck = ({ currentRace, races, racers }) => {
-  const nextRaces = races.filter(race => (
-    !race.deleted && !race.finished && currentRace.id !== race.id
-  ));
-  const messageGroupStyle = {
-    marginTop: '5px',
-    marginBottom: '20px'
-  };
-  const smallerLineupSize = { fontSize: '16px' };
-
-  return (
-    <div className="col-xs-3">
-      <span
-        style={{
-          textTransform: 'uppercase',
-          display: 'inline-block',
-          maxWidth: '100%',
-          marginBottom: '5px',
-          fontWeight: 'bold'
-        }}
-      >
-        On Deck
-      </span>
-      <BasicHR />
-      {nextRaces.length > 0 ? (
-        <OnDeckRace
-          queuePosition={1}
-          race={nextRaces[0]}
-          racers={racers}
-          style={messageGroupStyle}
-        />
-      ) : ''}
-      {nextRaces.length > 1 ? (
-        <OnDeckRace
-          queuePosition={2}
-          race={nextRaces[1]}
-          racers={racers}
-          style={messageGroupStyle}
-          childStyle={smallerLineupSize}
-        />
-      ) : ''}
-    </div>
-  );
-};
-
-OnDeck.propTypes = {
-  currentRace: PropTypes.object.isRequired,
-  races: PropTypes.array.isRequired,
-  racers: PropTypes.array.isRequired
-};
 
 const initialState = props => ({
   showModal: true,
@@ -135,7 +28,6 @@ export default class Race extends Component {
     restartRace: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,
     finishRace: PropTypes.func.isRequired,
-    incrementRacer: PropTypes.func.isRequired,
     callRace: PropTypes.func.isRequired,
     finishRacer: PropTypes.func.isRequired
   };
@@ -156,15 +48,18 @@ export default class Race extends Component {
         if (tick2complete === next) { this.props.finishRacer(x); }
       });
   }
+
   componentWillUpdate(nextP) {
     // is the race complete?
     if (every(nextP.race.results, x => has(x, 'place'))) {
       nextP.finishRace(nextP.race);
     }
   }
+
   componentWillUnmount() {
     if (this.interval) { clearInterval(this.interval); }
   }
+
   tick() {
     const countDown = this.state.countDown - 1;
     if (countDown === 0) {
@@ -176,16 +71,19 @@ export default class Race extends Component {
       this.setState({ showModal: false });
     } else { this.setState({ countDown, countDownText: this.props.messages[`COUNTDOWN_MESSAGE_${countDown}`] }); }
   }
+
   goBack() {
     clearInterval(this.interval);
     this.props.restartRace(this.props.race.id);
     this.props.goBack();
   }
+
   startCountdown() {
     this.tick();
     this.interval = setInterval(this.tick.bind(this), 1000);
     // this.setState({countDownText = })
   }
+
   restartRace() {
     this.props.restartRace(this.props.race.id);
     this.setState(initialState(this.props.messages));
@@ -196,7 +94,7 @@ export default class Race extends Component {
     return (
       <div className="container">
         <div className="row">
-          <OnDeck currentRace={race} races={races} racers={racers} />
+          <OnDeckContainer currentRace={race} races={races} racers={racers} />
           <div
             style={{ marginBottom: '6px' }}
             className="col-xs-6"
