@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import _ from 'lodash';
 import * as RaceActions from '../actions/race';
@@ -20,7 +21,9 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    ...AudienceMessageActions,
+    ...bindActionCreators({
+      ...AudienceMessageActions
+    }, dispatch),
     goToRoster: () => dispatch(push('/roster')),
     goToNextRace: race => dispatch(push(`/race-preview/${race.id}`)),
     onAdHocRaceClick: (bikes) => {
