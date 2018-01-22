@@ -6,14 +6,21 @@ export default class OnDeckContainer extends Component {
   static propTypes = {
     currentRace: PropTypes.object.isRequired,
     races: PropTypes.array.isRequired,
-    racers: PropTypes.array.isRequired
+    racers: PropTypes.array.isRequired,
+    limit: PropTypes.number
+  };
+
+  static defaultProps = {
+    limit: -1
   };
 
   render() {
-    const { currentRace, races, racers } = this.props;
+    const { currentRace, races, racers, limit } = this.props;
+
     const nextRaces = races.filter(race => (
       !race.deleted && !race.finished && currentRace.id !== race.id
     ));
+    const end = limit !== -1 && limit < nextRaces.length ? limit : nextRaces.length;
     const messageGroupStyle = {
       marginTop: '5px',
       marginBottom: '20px'
@@ -39,23 +46,15 @@ export default class OnDeckContainer extends Component {
             clear: 'both'
           }}
         />
-        {nextRaces.length > 0 ? (
+        {nextRaces.length > 0 ? nextRaces.slice(0, end).map((race, i) => (
           <OnDeckRace
-            queuePosition={1}
-            race={nextRaces[0]}
+            queuePosition={i + 1}
+            race={race}
             racers={racers}
             style={messageGroupStyle}
+            childStyle={i > 0 ? smallerLineupSize : undefined}
           />
-        ) : ''}
-        {nextRaces.length > 1 ? (
-          <OnDeckRace
-            queuePosition={2}
-            race={nextRaces[1]}
-            racers={racers}
-            style={messageGroupStyle}
-            childStyle={smallerLineupSize}
-          />
-      ) : ''}
+        )) : ''}
       </div>
     );
   }

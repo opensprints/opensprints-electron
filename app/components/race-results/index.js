@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import RacerDisplay from './RacerDisplay';
 import MessagesContainer from '../crowd-messaging/messages-container';
+import OnDeckContainer from '../on-deck/OnDeckContainer';
 
 export default class RaceResults extends Component {
   static propTypes = {
     race: PropTypes.object.isRequired,
+    races: PropTypes.array.isRequired,
     racers: PropTypes.array.isRequired,
     bikes: PropTypes.array.isRequired,
     onAdHocRaceClick: PropTypes.func.isRequired,
@@ -21,6 +23,7 @@ export default class RaceResults extends Component {
   render() {
     const {
       race,
+      races,
       racers,
       bikes,
       onAdHocRaceClick,
@@ -66,7 +69,8 @@ export default class RaceResults extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-xs-9" />
+          <OnDeckContainer currentRace={race} races={races} racers={racers} limit={1} />
+          <div className="col-xs-6" />
           <MessagesContainer style={{ background: 'none' }} limit={2} {...this.props} />
         </div>
       </div>
