@@ -81,7 +81,6 @@ export default class Race extends Component {
   startCountdown() {
     this.tick();
     this.interval = setInterval(this.tick.bind(this), 1000);
-    // this.setState({countDownText = })
   }
 
   restartRace() {
@@ -94,7 +93,7 @@ export default class Race extends Component {
     return (
       <div className="container">
         <div className="row">
-          <OnDeckContainer currentRace={race} races={races} racers={racers} />
+          <OnDeckContainer limit={4} currentRace={race} races={races} racers={racers} />
           <div
             style={{ marginBottom: '6px' }}
             className="col-xs-6"
