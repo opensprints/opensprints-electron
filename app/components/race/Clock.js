@@ -1,9 +1,12 @@
+import { remote } from 'electron';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Layer, Stage } from 'react-konva';
 import moment from 'moment';
 import styles from './Clock.css';
 import Indicator from './Indicator';
+
+const wallpaperStore = remote.getGlobal('wallpaperStore');
 
 const renderTimer = (clock) => {
   let minutes = Math.floor(clock.asMinutes()).toFixed(0);
@@ -60,11 +63,13 @@ export default class Clock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      clock: 0
+      clock: 0,
+      wallpaperSrc: null
     };
   }
 
   componentDidMount() {
+    this.clockWallpaper();
     // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({
       clock: this.props.startTime ?
@@ -80,11 +85,31 @@ export default class Clock extends Component {
     clearInterval(this.state.intervalId);
   }
 
+  onWallpaperLoaded(err, wallpaperSrc) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    this.setState({ wallpaperSrc });
+  }
+
+
+  clockWallpaper() {
+    const wallpaperFn = this.onWallpaperLoaded.bind(this);
+    wallpaperStore.getBackground('raceClock', wallpaperFn);
+  }
+
   render() {
     const clock = this.state.clock || 0;
     const { race, bikes, bikeTicks } = this.props;
+    const { wallpaperSrc } = this.state;
     return (
-      <div className={styles['clock-frame']}>
+      <div
+        className={styles['clock-frame']}
+        style={{
+          background: wallpaperSrc ? `url(${wallpaperSrc}) center center / 388px 388px no-repeat` : undefined
+        }}
+      >
         <div className={styles['clock-face']}>
           <div className={`${styles.poleContainer} ${styles.northContainer}`}>
             <span>{race.raceDistance}</span>
