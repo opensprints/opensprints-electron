@@ -43,7 +43,7 @@ class OnDeckRace extends Component {
           const modifier = Object.keys(race.bikeRacerMap).length * (queuePosition - 1);
           const r = racers.find(racer => racer.id === race.bikeRacerMap[key]);
           return (
-            <BlueMessage style={childStyle}>
+            <BlueMessage key={`OnDeckRace-Racer-${race.bikeRacerMap[key]}`} style={childStyle}>
               {parseInt(key, 10) + 1 + modifier}. {r && r.name}
             </BlueMessage>
           );
