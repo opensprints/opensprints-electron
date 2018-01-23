@@ -85,7 +85,7 @@ export default class Race extends Component {
 
   restartRace() {
     this.props.restartRace(this.props.race.id);
-    this.setState(initialState(this.props.messages));
+    this.setState(initialState(this.props));
   }
 
   render() {
