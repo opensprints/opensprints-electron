@@ -48,6 +48,7 @@ export default class OnDeckContainer extends Component {
         />
         {nextRaces.length > 0 ? nextRaces.slice(0, end).map((race, i) => (
           <OnDeckRace
+            key={`OnDeckRace-${race.id}`}
             queuePosition={i + 1}
             race={race}
             racers={racers}
