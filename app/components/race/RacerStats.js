@@ -21,6 +21,7 @@ class RacerStats extends Component {
   static propTypes = {
     bikeIndex: PropTypes.number.isRequired,
 
+    // eslint-disable-next-line react/no-unused-prop-types
     bikeTicks: PropTypes.array.isRequired,
     bike: PropTypes.object.isRequired,
     measurementSystem: PropTypes.string.isRequired,
