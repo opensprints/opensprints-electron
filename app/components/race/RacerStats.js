@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { getRace, getBike, getRacer, getDistance, getRaceDuration, getSpeed } from '../../selectors';
+import { getRace, getBike, getRacer, getRaceDuration, getSpeed, getDistanceSelector } from '../../selectors';
 import racerStyles from '../race-preview/RacerSelect.css';
 
 const renderFinishTime = (clock) => {
@@ -21,6 +21,7 @@ class RacerStats extends Component {
   static propTypes = {
     bikeIndex: PropTypes.number.isRequired,
 
+    bikeTicks: PropTypes.array.isRequired,
     bike: PropTypes.object.isRequired,
     measurementSystem: PropTypes.string.isRequired,
     distance: PropTypes.number.isRequired,
@@ -94,14 +95,18 @@ class RacerStats extends Component {
 }
 
 function mapStateToProps(state, props) {
+  const race = getRace(state, props);
   return {
     ...props,
-    race: getRace(state, props),
+    race,
     bike: getBike(state, props),
     racer: getRacer(state, props),
     measurementSystem: getRace(state, props).measurementSystem,
-    distance: getDistance(state, props),
-    speed: getSpeed(getDistance(state, props), getRaceDuration(state, props))
+    distance: getDistanceSelector(state, props),
+    speed: getSpeed(
+      getDistanceSelector(state, props),
+      getRaceDuration(state, props)
+    )
   };
 }
 

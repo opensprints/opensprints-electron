@@ -5,6 +5,7 @@ import { Layer, Stage } from 'react-konva';
 import moment from 'moment';
 import styles from './Clock.css';
 import Indicator from './Indicator';
+import { getDistance } from '../../selectors';
 
 const wallpaperStore = remote.getGlobal('wallpaperStore');
 
@@ -20,26 +21,6 @@ const renderTimer = (clock) => {
   return `${minutes}:${seconds}`;
 };
 
-// Todo: find a better way to not duplicate this code
-const getDistance = (race, bikeIndex, bike, bikeTicks) => {
-  let coEf = 0;
-  if (bike.rollerDiameter.unit === 'centimeter') {
-    if (race.measurementSystem === 'metric') {
-      coEf = 100000; // 100000 cm === 1 km
-    } else {
-      coEf = 160934; // 160934 cm === 1 mile
-    }
-  } else if (race.measurementSystem === 'imperial') {
-    coEf = 63360; // 63360 in === 1 mile
-  } else {
-    coEf = 39370.1; // 39370.1 in === 1 km
-  }
-  // coefficient turns roller circumferences (computed in inches or centimeters) into
-  // desired output of miles or kilometers
-  return bikeTicks[bikeIndex] > 0 ?
-    (bikeTicks[bikeIndex] * (bike.rollerDiameter.value * Math.PI)) / coEf : 0;
-};
-
 const getRotation = (distance, race) => {
   const rotation = (distance * 360) / (
     race.raceDistance / (race.measurementSystem === 'metric' ? 1000 : 5280)
@@ -51,12 +32,11 @@ export default class Clock extends Component {
   static propTypes = {
     race: PropTypes.object.isRequired,
     bikes: PropTypes.array.isRequired,
-    bikeTicks: PropTypes.number,
+    bikeTicks: PropTypes.array.isRequired,
     startTime: PropTypes.object
   };
 
   static defaultProps = {
-    bikeTicks: 0,
     startTime: undefined
   };
 
@@ -146,7 +126,7 @@ export default class Clock extends Component {
                     key={`Indicator-${bikeIndex}`}
                     color={bikes[bikeIndex].color}
                     rotation={
-                      getRotation(getDistance(race, bikeIndex, bikes[bikeIndex], bikeTicks), race)
+                      getRotation(getDistance(race, bikes[bikeIndex], bikeTicks[bikeIndex]), race)
                     }
                   />
                 ))

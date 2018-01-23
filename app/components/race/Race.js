@@ -90,6 +90,7 @@ export default class Race extends Component {
 
   render() {
     const { race, races, racers, bikes, callRace } = this.props;
+    const { bikeTicks } = this.state;
     return (
       <div className="container">
         <div className="row">
@@ -102,7 +103,7 @@ export default class Race extends Component {
               startTime={race.startTime}
               race={race}
               bikes={bikes}
-              bikeTicks={this.state.bikeTicks}
+              bikeTicks={bikeTicks}
             />
             <div className="col-xs-6">
               <button
@@ -138,6 +139,7 @@ export default class Race extends Component {
             <RacerStats
               key={`RacerStats-${i}`}
               bikeIndex={i}
+              bikeTicks={bikeTicks}
               raceId={race.id}
               {...this.props}
             />

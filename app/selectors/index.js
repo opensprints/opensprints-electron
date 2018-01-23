@@ -18,27 +18,30 @@ export const getRacer = (state, props) =>
 
 export const getBike = (state, props) => state.bikes[props.bikeIndex];
 
-// FIXME: bikeTicks was moved from race object in redux to the race component
-export const getDistance = createSelector(
-  [getRace, getBikeIndex, getBike],
-  (race, bikeIndex, bike) => {
-    let coEf = 0;
-    if (bike.rollerDiameter.unit === 'centimeter') {
-      if (race.measurementSystem === 'metric') {
-        coEf = 100000; // 100000 cm === 1 km
-      } else {
-        coEf = 160934; // 160934 cm === 1 mile
-      }
-    } else if (race.measurementSystem === 'imperial') {
-      coEf = 63360; // 63360 in === 1 mile
+export const getTicks = (state, props) => props.bikeTicks[props.bikeIndex];
+
+export const getDistance = (race, bike, bikeTicks) => {
+  let coEf = 0;
+  if (bike.rollerDiameter.unit === 'centimeter') {
+    if (race.measurementSystem === 'metric') {
+      coEf = 100000; // 100000 cm === 1 km
     } else {
-      coEf = 39370.1; // 39370.1 in === 1 km
+      coEf = 160934; // 160934 cm === 1 mile
     }
-    // coefficient turns roller circumferences (computed in inches or centimeters) into
-    // desired output of miles or kilometers
-    return race.bikeTicks[bikeIndex] > 0 ?
-      (race.bikeTicks[bikeIndex] * (bike.rollerDiameter.value * Math.PI)) / coEf : 0;
+  } else if (race.measurementSystem === 'imperial') {
+    coEf = 63360; // 63360 in === 1 mile
+  } else {
+    coEf = 39370.1; // 39370.1 in === 1 km
   }
+  // coefficient turns roller circumferences (computed in inches or centimeters) into
+  // desired output of miles or kilometers
+  return bikeTicks > 0 ?
+    (bikeTicks * (bike.rollerDiameter.value * Math.PI)) / coEf : 0;
+};
+
+export const getDistanceSelector = createSelector(
+  [getRace, getBike, getTicks],
+  getDistance
 );
 
 export const getCircumference = (race, bike) => {
@@ -65,8 +68,11 @@ export const getTicksToComplete = (race, bike) =>
      (race.measurementSystem === 'metric' ? 1000 : 5280) / getCircumference(race, bike));
 
 export const getRaceDuration = createSelector(
-  [getRace],
-  race => moment.duration(moment().diff(race.startTime, 'milliseconds'))
+  [getRace, getBikeIndex, () => moment()],
+  (race, bikeIndex, now) => moment.duration(
+    (race.results[bikeIndex] ? race.results[bikeIndex].finishTime : now)
+      .diff(race.startTime, 'milliseconds')
+  )
 );
 
 // milliseconds in an hour multiplied by the milliseconds in race
