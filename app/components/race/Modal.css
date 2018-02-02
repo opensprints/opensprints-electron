@@ -2,7 +2,7 @@
   width: 75px;
   height: 75px;
   border-radius: 75%;
-  transition: box-shadow 0.1s cubic-bezier(0.47, 0, 0.75, 0.72);
+  transition: box-shadow 0.01s cubic-bezier(0.47, 0, 0.75, 0.72);
 }
 
 
