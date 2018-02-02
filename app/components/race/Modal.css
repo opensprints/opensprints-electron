@@ -1,0 +1,31 @@
+.countdown-light {
+  width: 75px;
+  height: 75px;
+  border-radius: 75%;
+  transition: box-shadow 0.1s cubic-bezier(0.47, 0, 0.75, 0.72);
+}
+
+
+.red-light {
+  background-color: #FE0000;
+  box-shadow: 0px 0px 20px 3px #FE0000;
+  transition: none;
+}
+
+.yellow-light {
+  background-color: #9A7C00;
+}
+
+.yellow-light-lit {
+  background-color: #FCCC06;
+  box-shadow: 0px 0px 20px 3px #FCCC06;
+}
+
+.green-light {
+  background-color: #008800;
+}
+
+.green-light-lit {
+  background-color: #00BA00;
+  box-shadow: 0px 0px 20px 3px #00BA00;
+}

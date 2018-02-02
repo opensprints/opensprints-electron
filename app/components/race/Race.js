@@ -9,6 +9,7 @@ import MessagesContainer from '../crowd-messaging/messages-container';
 import OnDeckContainer from '../on-deck/OnDeckContainer';
 import { getTicksToComplete } from '../../selectors';
 import RacerDisplayStyle from '../race-results/RacerDisplay.css';
+import ModalStyle from './Modal.css';
 
 const initialState = props => ({
   showModal: true,
@@ -121,7 +122,7 @@ export default class Race extends Component {
 
   render() {
     const { race, races, racers, bikes, callRace, messages } = this.props;
-    const { bikeTicks, countDownText, falseStartBikes } = this.state;
+    const { bikeTicks, countDown, countDownText, falseStartBikes } = this.state;
     return (
       <div className="container">
         <div className="row">
@@ -184,6 +185,39 @@ export default class Race extends Component {
           dialogClassName="countdown-modal"
         >
           <Modal.Body>
+            <div
+              className="row"
+              style={{
+                marginTop: '40px',
+                marginBottom: '40px',
+                display: countDownText === messages.PRE_COUNTDOWN_MESSAGE ? 'none' : undefined
+              }}
+            >
+              <div className="col-xs-offset-2 col-xs-2">
+                <div className={`${ModalStyle['countdown-light']} ${ModalStyle['red-light']}`} />
+              </div>
+              <div className="col-xs-2">
+                <div
+                  className={`${ModalStyle['countdown-light']} ${
+                    countDown < 3 ? ModalStyle['yellow-light-lit'] : ModalStyle['yellow-light']
+                  }`}
+                />
+              </div>
+              <div className="col-xs-2">
+                <div
+                  className={`${ModalStyle['countdown-light']} ${
+                    countDown < 2 ? ModalStyle['yellow-light-lit'] : ModalStyle['yellow-light']
+                  }`}
+                />
+              </div>
+              <div className="col-xs-2">
+                <div
+                  className={`${ModalStyle['countdown-light']} ${
+                    countDown < 1 ? ModalStyle['green-light-lit'] : ModalStyle['green-light']
+                  }`}
+                />
+              </div>
+            </div>
             <h1>{this.state.countDownText}</h1>
             <div
               className="row"
