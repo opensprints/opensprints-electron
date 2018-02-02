@@ -43,7 +43,16 @@ class RacerStats extends Component {
   };
 
   render() {
-    const { bikeIndex, bike, racer, measurementSystem, distance, speed, race, className } = this.props;
+    const {
+      bikeIndex,
+      bike,
+      racer,
+      measurementSystem,
+      distance,
+      speed,
+      race,
+      className
+    } = this.props;
 
     return (
       <div className={`col-xs-3 ${racerStyles['racer-select']} ${className}`}>
