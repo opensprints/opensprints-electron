@@ -41,7 +41,7 @@ export default class RaceResults extends Component {
               bike={bikes[i]}
               racer={racers.find(racer => racer.id === race.bikeRacerMap[i])}
               race={race}
-              classNames={
+              className={
                 Object.keys(race.bikeRacerMap).length < 4 && i === 0 ? 'col-xs-offset-3' : ''}
             />
           ))}

@@ -26,18 +26,18 @@ export default class RacerDisplay extends Component {
     bike: PropTypes.object.isRequired,
     racer: PropTypes.object.isRequired,
     race: PropTypes.object.isRequired,
-    classNames: PropTypes.string
+    className: PropTypes.string
   };
 
   static defaultProps = {
-    classNames: ''
+    className: ''
   };
 
   render() {
-    const { bikeIndex, bike, racer = {}, race, classNames } = this.props;
+    const { bikeIndex, bike, racer = {}, race, className } = this.props;
     const place = styles[placementClass(race.results[bikeIndex].place)];
     return (
-      <div className={`${styles.container} ${place} col-xs-3 ${classNames}`}>
+      <div className={`${styles.container} ${place} col-xs-3 ${className}`}>
         <div
           className={styles.indicator}
           style={{ backgroundColor: bike.color }}

@@ -20,30 +20,33 @@ const renderFinishTime = (clock) => {
 class RacerStats extends Component {
   static propTypes = {
     bikeIndex: PropTypes.number.isRequired,
-
     // eslint-disable-next-line react/no-unused-prop-types
     bikeTicks: PropTypes.array.isRequired,
     bike: PropTypes.object.isRequired,
     measurementSystem: PropTypes.string.isRequired,
     distance: PropTypes.number.isRequired,
     speed: PropTypes.number.isRequired,
-    race: PropTypes.objectOf({
-      results: PropTypes.arrayOf({
-        finishTime: PropTypes.object // import moment-propTypes for proper type checking
-      })
-    }).isRequired,
-    racer: PropTypes.object
+    race: PropTypes.object
+    // ({
+      // results: PropTypes.arrayOf({
+      //   finishTime: PropTypes.object // import moment-propTypes for proper type checking
+      // })
+      // })
+      .isRequired,
+    racer: PropTypes.object,
+    className: PropTypes.string
   };
 
   static defaultProps = {
-    racer: undefined
+    racer: undefined,
+    className: undefined
   };
 
   render() {
-    const { bikeIndex, bike, racer, measurementSystem, distance, speed, race } = this.props;
+    const { bikeIndex, bike, racer, measurementSystem, distance, speed, race, className } = this.props;
 
     return (
-      <div className={`col-xs-3 ${racerStyles['racer-select']}`}>
+      <div className={`col-xs-3 ${racerStyles['racer-select']} ${className}`}>
         <div
           className={racerStyles['bike-indicator']}
           style={{ backgroundColor: bike.color }}
