@@ -8,12 +8,14 @@ import RacerStats from './RacerStats';
 import MessagesContainer from '../crowd-messaging/messages-container';
 import OnDeckContainer from '../on-deck/OnDeckContainer';
 import { getTicksToComplete } from '../../selectors';
+import RacerDisplayStyle from '../race-results/RacerDisplay.css';
 
 const initialState = props => ({
   showModal: true,
   countDownText: props.messages.PRE_COUNTDOWN_MESSAGE,
   countDown: 4,
   bikeTicks: new Array(props.race.results.length).fill(0),
+  falseStartBikes: new Array(props.race.results.length).fill(0),
   ticksToCompleteByBike: props.bikes.map(bike => getTicksToComplete(props.race, bike))
 });
 
@@ -40,6 +42,10 @@ export default class Race extends Component {
   componentDidMount() {
     global.j5$
       .subscribe((x) => {
+        if (!this.props.race.startTime) {
+          this.falseStart(x);
+          return;
+        }
         const tick2complete = this.state.ticksToCompleteByBike[x];
         if (tick2complete < this.state.bikeTicks[x] + 1) { return; }
         const nextBikeTicks = [...this.state.bikeTicks];
@@ -58,6 +64,31 @@ export default class Race extends Component {
 
   componentWillUnmount() {
     if (this.interval) { clearInterval(this.interval); }
+  }
+
+  falseStart(bikeIndex) {
+    const { falseStartBikes } = this.state;
+    falseStartBikes[bikeIndex] = 1;
+    if (this.state.countDown === 4) {
+      this.setState({
+        falseStartBikes
+      });
+      setTimeout(this.resetFalseStartBike.bind(this, bikeIndex), 100);
+      return;
+    }
+    this.setState({
+      showModal: true,
+      countDownText: this.props.messages.FALSE_START_MESSAGE,
+      falseStartBikes
+    });
+    clearInterval(this.interval);
+    this.interval = null;
+  }
+
+  resetFalseStartBike(bikeIndex) {
+    const { falseStartBikes } = this.state;
+    falseStartBikes[bikeIndex] = 0;
+    this.setState({ falseStartBikes });
   }
 
   tick() {
@@ -89,8 +120,8 @@ export default class Race extends Component {
   }
 
   render() {
-    const { race, races, racers, bikes, callRace } = this.props;
-    const { bikeTicks } = this.state;
+    const { race, races, racers, bikes, callRace, messages } = this.props;
+    const { bikeTicks, countDownText, falseStartBikes } = this.state;
     return (
       <div className="container">
         <div className="row">
@@ -141,6 +172,7 @@ export default class Race extends Component {
               bikeIndex={i}
               bikeTicks={bikeTicks}
               raceId={race.id}
+              className={bikes.length < 4 && i === 0 ? 'col-xs-offset-3' : ''}
               {...this.props}
             />
           ))}
@@ -153,16 +185,59 @@ export default class Race extends Component {
         >
           <Modal.Body>
             <h1>{this.state.countDownText}</h1>
+            <div
+              className="row"
+              style={{
+                display: (countDownText === messages.PRE_COUNTDOWN_MESSAGE ||
+                  countDownText === messages.FALSE_START_MESSAGE) ? undefined : 'none'
+              }}
+            >
+              {bikes.map((bike, i) => (
+                <div
+                  key={`bike-indicator-${i}`}
+                  className={`col-xs-3 ${bikes.length < 4 && i === 0 ? 'col-xs-offset-3' : ''}`}
+                >
+                  <div
+                    className={RacerDisplayStyle.indicator}
+                    style={{
+                      position: 'relative',
+                      right: 0,
+                      top: 0,
+                      backgroundColor: bike.color,
+                      filter: `brightness(${falseStartBikes[i] === 1 ? 1 : 0.5})`
+                    }}
+                  >
+                    {i + 1}
+                  </div>
+                </div>
+              ))}
+            </div>
           </Modal.Body>
           <Modal.Footer>
             <button
               className="btn btn-default"
+              style={{
+                display: (countDownText === messages.PRE_COUNTDOWN_MESSAGE ||
+                  countDownText === messages.FALSE_START_MESSAGE) ? undefined : 'none'
+              }}
               onClick={this.goBack.bind(this)}
             >
-              Go Back
+              Go Back to Setup
             </button>
             <button
               className="btn btn-primary"
+              style={{
+                display: `${countDownText === messages.FALSE_START_MESSAGE ? undefined : 'none'}`
+              }}
+              onClick={this.restartRace.bind(this)}
+            >
+              Restart Race
+            </button>
+            <button
+              className="btn btn-primary"
+              style={{
+                display: `${countDownText === messages.PRE_COUNTDOWN_MESSAGE ? undefined : 'none'}`
+              }}
               onClick={this.startCountdown.bind(this)}
             >
               Start The Countdown!
