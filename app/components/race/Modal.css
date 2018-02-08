@@ -5,7 +5,6 @@
   transition: box-shadow 0.01s cubic-bezier(0.47, 0, 0.75, 0.72);
 }
 
-
 .red-light {
   background-color: #FE0000;
   box-shadow: 0px 0px 20px 3px #FE0000;
