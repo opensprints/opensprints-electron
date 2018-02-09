@@ -72,7 +72,14 @@ export default class RaceResults extends Component {
         <div className="row">
           <OnDeckContainer currentRace={race} races={races} racers={racers} limit={1} />
           <div className="col-xs-6" />
-          <MessagesContainer style={{ background: 'none' }} limit={2} {...this.props} />
+          <MessagesContainer
+            {...this.props}
+            style={{
+              background: 'none',
+              height: 'auto'
+            }}
+            limit={2}
+          />
         </div>
       </div>
     );
