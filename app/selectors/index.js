@@ -67,12 +67,14 @@ export const getTicksToComplete = (race, bike) =>
   Math.ceil(race.raceDistance /
      (race.measurementSystem === 'metric' ? 1000 : 5280) / getCircumference(race, bike));
 
+export const raceDuration = (race, bikeIndex, now = moment()) => moment.duration(
+  (race.results[bikeIndex] ? race.results[bikeIndex].finishTime : now)
+    .diff(race.startTime, 'milliseconds')
+);
+
 export const getRaceDuration = createSelector(
   [getRace, getBikeIndex, () => moment()],
-  (race, bikeIndex, now) => moment.duration(
-    (race.results[bikeIndex] ? race.results[bikeIndex].finishTime : now)
-      .diff(race.startTime, 'milliseconds')
-  )
+  raceDuration
 );
 
 // milliseconds in an hour multiplied by the milliseconds in race

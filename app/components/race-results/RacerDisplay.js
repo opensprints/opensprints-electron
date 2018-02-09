@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from './RacerDisplay.css';
 import OrdinalNumber from './OrdinalNumber';
+import { getDistance, raceDuration, getSpeed } from '../../selectors';
 
 const placementClass = (place) => {
   switch (place) {
@@ -34,7 +35,17 @@ export default class RacerDisplay extends Component {
   };
 
   render() {
-    const { bikeIndex, bike, racer = {}, race, className } = this.props;
+    const {
+      bikeIndex,
+      bike,
+      racer = {},
+      race,
+      className
+    } = this.props;
+    const speed = getSpeed(
+      getDistance(race, bike, race.results[bikeIndex].bikeTicks),
+      raceDuration(race, bikeIndex)
+    );
     const place = styles[placementClass(race.results[bikeIndex].place)];
     return (
       <div className={`${styles.container} ${place} col-xs-3 ${className}`}>
@@ -47,6 +58,16 @@ export default class RacerDisplay extends Component {
         <OrdinalNumber place={race.results[bikeIndex].place} />
         <div className={styles.box}>
           <label className={styles.name}>{racer.name}</label>
+          <div
+            style={{
+              marginRight: '20px',
+              fontWeight: 'bold'
+            }}
+            className="pull-right"
+          >
+            {race.measurementSystem === 'metric' ?
+              `${speed.toFixed(1)} KPH` : `${speed.toFixed(1)} MPH`}
+          </div>
         </div>
       </div>
     );

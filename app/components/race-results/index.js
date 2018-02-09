@@ -36,6 +36,7 @@ export default class RaceResults extends Component {
         <div className="row">
           {Object.keys(race.bikeRacerMap).map((_, i) => (
             <RacerDisplay
+              {...this.props}
               key={`RacerDisplay-${i}`}
               bikeIndex={i}
               bike={bikes[i]}

@@ -41,30 +41,38 @@ export default class Race extends Component {
   }
 
   componentDidMount() {
-    global.j5$
-      .subscribe((x) => {
-        if (!this.props.race.startTime) {
-          this.falseStart(x);
-          return;
-        }
-        const tick2complete = this.state.ticksToCompleteByBike[x];
-        if (tick2complete < this.state.bikeTicks[x] + 1) { return; }
-        const nextBikeTicks = [...this.state.bikeTicks];
-        const next = nextBikeTicks[x] += 1;
-        this.setState({ bikeTicks: nextBikeTicks });
-        if (tick2complete === next) { this.props.finishRacer(x); }
-      });
+    // eslint-disable-next-line react/no-did-mount-set-state
+    this.setState({
+      subscriber: global.j5$
+        .subscribe((x) => {
+          if (!this.props.race.startTime) {
+            this.falseStart(x);
+            return;
+          }
+          const tick2complete = this.state.ticksToCompleteByBike[x];
+          if (tick2complete < this.state.bikeTicks[x] + 1) {
+            return;
+          }
+          const nextBikeTicks = [...this.state.bikeTicks];
+          const next = nextBikeTicks[x] += 1;
+          this.setState({ bikeTicks: nextBikeTicks });
+          if (tick2complete === next) {
+            this.props.finishRacer(x, next);
+          }
+        })
+    });
   }
 
   componentWillUpdate(nextP) {
     // is the race complete?
     if (every(nextP.race.results, x => has(x, 'place'))) {
-      nextP.finishRace(nextP.race);
+      nextP.finishRace(nextP.race, this.state.bikeTicks);
     }
   }
 
   componentWillUnmount() {
     if (this.interval) { clearInterval(this.interval); }
+    this.state.subscriber.unsubscribe();
   }
 
   falseStart(bikeIndex) {
@@ -152,7 +160,7 @@ export default class Race extends Component {
             <div className="col-xs-6">
               <button
                 className="btn btn-xs btn-default"
-                onClick={() => callRace(race)}
+                onClick={() => callRace(race, bikeTicks)}
               >
                 Call It
               </button>

@@ -23,12 +23,12 @@ function mapDispatchToProps(dispatch) {
       ...RaceActions,
       goBack
     }, dispatch),
-    finishRace: (race) => {
-      dispatch(RaceActions.finishRace(race));
+    finishRace: (race, bikeTicks) => {
+      dispatch(RaceActions.finishRace(race, bikeTicks));
       dispatch(push(`/race-results/${race.id}`));
     },
-    callRace: (race) => {
-      dispatch(RaceActions.endOngoingRace(race));
+    callRace: (race, bikeTicks) => {
+      dispatch(RaceActions.endOngoingRace(race, bikeTicks));
       dispatch(push(`/race-results/${race.id}`));
     }
   };

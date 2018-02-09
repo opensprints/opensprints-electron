@@ -126,13 +126,16 @@ export default function races(state = [], action) {
             return race;
           }
           const nextRace = { ...race };
-          nextRace.results[action.bikeIndex] = getPlace(nextRace);
-
+          nextRace.results[action.bikeIndex] = {
+            ...getPlace(nextRace),
+            bikeTicks: action.bikeTicks
+          };
           return nextRace;
         }
         return race;
       });
     case FINISH_ONGOING_RACE:
+      // todo add bike ticks and placement for time trial race
       return state.map((race) => {
         if (race.current) {
           return {
@@ -148,9 +151,10 @@ export default function races(state = [], action) {
       return state.map((race) => {
         if (race.id === action.race.id) {
           const results = [...action.race.results];
+          const now = moment();
           results.forEach((_, i) => {
             if (!action.race.results[i]) {
-              results[i] = { place: -1 };
+              results[i] = { place: -1, bikeTicks: action.bikeTicks[i], finishTime: now };
             }
           });
           return {

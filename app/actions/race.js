@@ -62,24 +62,27 @@ export function restartRace(id) {
   };
 }
 
-export function endOngoingRace(race) {
+export function endOngoingRace(race, bikeTicks) {
   return {
     type: END_ONGOING_RACE,
-    race
+    race,
+    bikeTicks
   };
 }
 
-export function finishRace(race) {
+export function finishRace(race, bikeTicks) {
   return {
     type: FINISH_ONGOING_RACE,
-    race
+    race,
+    bikeTicks
   };
 }
 
-export function finishRacer(bikeIndex) {
+export function finishRacer(bikeIndex, bikeTicks) {
   return {
     type: FINISH_RACER,
     bikeIndex,
+    bikeTicks,
     timestamp: moment()
   };
 }
