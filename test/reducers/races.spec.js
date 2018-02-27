@@ -59,20 +59,24 @@ describe('Races Reducer', () => {
         results: [null, { finishTime: moment('2018-01-19T06:08:00.000Z'), place: 1 }]
       }
     ];
-    const action = endOngoingRace(state[0]);
+    const action = endOngoingRace(state[0], [0,0]);
 
     describe('array of result objects', () => {
       const expectedResults = [
-        { place: -1 },
+        { place: -1, bikeTicks: 0, finishTime: moment() },
         { finishTime: moment('2018-01-19T06:08:00.000Z'), place: 1 }
       ];
 
       it('should not erase existing results', () => {
-        expect(races(state, action)[0].results[1].place).to.equal(expectedResults[1].place);
+        const nextState = races(state, action);
+        console.log(nextState);
+        expect(nextState[0].results[1].place).to.equal(expectedResults[1].place);
       });
 
       it('should set anyone who hasn\'t finished to have a place property value of -1', () => {
-        expect(races(state, action)[0].results).to.deep.equal(expectedResults);
+        const nextState = races(state, action);
+        expect(nextState[0].results[0].place).to.equal(expectedResults[0].place);
+        expect(moment.isMoment(nextState[0].results[0].finishTime)).to.equal(true);
       });
     });
 
