@@ -79,7 +79,14 @@ describe('Races Reducer', () => {
       });
     });
 
-    it('should set finishedDate as current moment');
-    it('should set current property to false');
+    it('should set finishedDate as current moment', () => {
+      const nextState = races(state, action);
+      expect(moment.isMoment(nextState[0].finishedDate)).to.equal(true);
+    });
+
+    it('should set current property to false', () => {
+      const nextState = races(state, action);
+      expect(moment.isMoment(nextState[0].current)).to.equal(false);
+    });
   });
 });
