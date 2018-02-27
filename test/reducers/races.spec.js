@@ -69,7 +69,6 @@ describe('Races Reducer', () => {
 
       it('should not erase existing results', () => {
         const nextState = races(state, action);
-        console.log(nextState);
         expect(nextState[0].results[1].place).to.equal(expectedResults[1].place);
       });
 
