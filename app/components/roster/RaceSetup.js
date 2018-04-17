@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { ipcRenderer } from 'electron';
 import Dropdown from './Dropdown';
 import StaticDropdown from './StaticDropdown';
 import RosterRace from './Race';
@@ -40,7 +41,8 @@ export default class RaceSetup extends Component {
     super(props);
     this.state = {
       raceFilter: options[0],
-      gearMenuOpen: false
+      gearMenuOpen: false,
+      savingRaceResults: false
     };
   }
 
@@ -55,7 +57,15 @@ export default class RaceSetup extends Component {
     if (option.value === 'defaultSettings') {
       push('/default-settings');
     } else if (option.value === 'raceResults') {
-      // TODO export race results somehow
+      this.setState({
+        savingRaceResults: true
+      });
+      ipcRenderer.send('showSaveFileDialog', 'data');
+      ipcRenderer.on('saveFinished', () => {
+        this.setState({ savingRaceResults: false });
+
+        // TODO do something
+      });
     }
   }
 

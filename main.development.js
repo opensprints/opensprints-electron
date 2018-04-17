@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, shell } from 'electron';
+import { app, BrowserWindow, Menu, shell, ipcMain } from 'electron';
 import path from 'path';
 import fs from 'fs';
 
@@ -278,6 +278,15 @@ app.on('ready', async () => {
     mainWindow.setMenu(menu);
   }
 });
+
+ipcMain.on('showSaveDialog', (event, data) => {
+  dialog.showSaveDialog(mainWindow, { defaultPath: app.getPath('downloads') }, (path) => {
+    fs.writeFile(path, data, (err) => {
+
+    });
+  });
+});
+
 
 const defaults = {
   raceScreen: '../images/open-sprints-bg.jpg',
