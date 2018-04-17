@@ -59,7 +59,7 @@ const IntermissionScreenSettings = () => (
               color: '#6FDCFF',
               border: '1px solid #0079A1'
             }}
-            defaultValue="We'd like to thank Wal-Mart and the Koch Brothers."
+            defaultValue="We'd like to thank Elon Musk."
           />
         </div>
       </div>
