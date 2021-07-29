@@ -6,8 +6,8 @@ import baseConfig from './webpack.config.base';
 const port = process.env.PORT || 3000;
 
 export default merge(baseConfig, {
-  devtool: 'cheap-module-eval-source-map',
-
+  devtool: 'eval-cheap-module-source-map',
+  mode: 'development',
   entry: [
     `webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr`,
     'babel-polyfill',
@@ -23,17 +23,17 @@ export default merge(baseConfig, {
     rules: [
       {
         test: /\.global\.css$/,
-        loaders: [
-          'style-loader',
-          'css-loader?sourceMap'
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader?sourceMap' }
         ]
       },
 
       {
         test: /^((?!\.global).)*\.css$/,
-        loaders: [
-          'style-loader',
-          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]' }
         ]
       }
     ]

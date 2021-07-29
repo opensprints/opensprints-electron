@@ -1,6 +1,6 @@
-import { app, BrowserWindow, Menu, shell } from 'electron';
-import path from 'path';
-import fs from 'fs';
+const { app, BrowserWindow, Menu, shell } = require('electron');
+const path = require('path');
+const fs = require('fs');
 
 let menu;
 let template;
