@@ -108,7 +108,7 @@
     "konva": "^8.1.1",
     "lodash": "^4.17.21",
     "material-design-icons": "^3.0.1",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "moment": "^2.29.1",
     "node-libs-browser": "^2.2.1",
     "postcss": "^8.3.5",
