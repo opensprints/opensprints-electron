@@ -109,7 +109,7 @@
     "lodash": "^4.17.21",
     "material-design-icons": "^3.0.1",
     "minimist": "^1.2.5",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "node-libs-browser": "^2.2.1",
     "postcss": "^8.3.5",
     "prop-types": "^15.7.2",
