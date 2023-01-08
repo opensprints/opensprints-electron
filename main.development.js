@@ -6,18 +6,21 @@ let menu;
 let template;
 let mainWindow = null;
 
+// Handle creating/removing shortcuts on Windows when installing/uninstalling.
+if (require('electron-squirrel-startup')) {
+  app.quit();
+}
+
 
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
 }
-
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
-
 
 const installExtensions = async () => {
   if (process.env.NODE_ENV === 'development') {
@@ -36,14 +39,14 @@ const installExtensions = async () => {
   }
 };
 
-app.on('ready', async () => {
+const createWindow = async () => {
   await installExtensions();
 
   // TODO: test with multiple monitors
   const initPath = path.join(app.getPath('userData'), 'init.json');
   let data;
   try {
-    data = JSON.parse(fs.readFileSync(initPath, 'utf8'));
+    data = JSON.parse(fs.readFileSync(initPath, {encoding: 'utf8' }));
   } catch (e) {
     // something
   }
@@ -52,7 +55,13 @@ app.on('ready', async () => {
       width: 800,
       height: 600,
       x: 0,
-      y: 0
+      y: 0,
+      webPreferences: {
+        contextIsolation: false,
+        nodeIntegration: true,
+        worldSafeExecuteJavaScript: false,
+
+      }
     };
 
   windowConfig.show = false;
@@ -276,6 +285,26 @@ app.on('ready', async () => {
     }];
     menu = Menu.buildFromTemplate(template);
     mainWindow.setMenu(menu);
+  }
+
+};
+
+app.on('ready', createWindow);
+
+// Quit when all windows are closed, except on macOS. There, it's common
+// for applications and their menu bar to stay active until the user quits
+// explicitly with Cmd + Q.
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', () => {
+  // On OS X it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
   }
 });
 

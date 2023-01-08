@@ -25,10 +25,10 @@ export NVM_DIR="$HOME/.nvm"
 
 Any issues with NVM install can be solved by reading their [README](https://github.com/creationix/nvm).
 
-Install `node` version 8 using `nvm`:
+Install `node` version 16 using `nvm`:
 
 ```bash
-$ nvm install 8
+$ nvm install 16
 ```
 
 ### Install Electron Dependencies

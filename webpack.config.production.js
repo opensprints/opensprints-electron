@@ -1,5 +1,5 @@
 import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+// import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
@@ -19,18 +19,16 @@ const config = merge(baseConfig, {
     rules: [
       {
         test: /\.global\.css$/,
-        loader: ExtractTextPlugin.extract({
-          use: [
+        loader: [
             { loader: 'style-loader' },
             { loader: 'css-loader' }
           ]
-        })
+
       },
 
       {
         test: /^((?!\.global).)*\.css$/,
-        loader: ExtractTextPlugin.extract({
-          use: [
+        loader: [
             {
               loader: 'style-loader'
             },
@@ -38,7 +36,7 @@ const config = merge(baseConfig, {
               loader: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
             }
           ]
-        })
+
       }
     ]
   },
@@ -52,9 +50,9 @@ const config = merge(baseConfig, {
         screw_ie8: true
       }
     }),
-    new ExtractTextPlugin({
-      filename: 'style.css',
-      allChunks: true })
+    // new ExtractTextPlugin({
+    //   filename: 'style.css',
+    //   allChunks: true })
   ],
 
   target: 'electron-renderer'
